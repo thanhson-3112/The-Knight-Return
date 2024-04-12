@@ -22,7 +22,9 @@ public class Enemy : MonoBehaviour
     public virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>(); 
+        anim = GetComponent<Animator>();
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        playerDash = playerObject.GetComponent<PlayerDash>();
     }
 
     public virtual void Update()

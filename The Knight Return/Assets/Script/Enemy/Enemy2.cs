@@ -24,6 +24,8 @@ public class Enemy2 : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        playerDoubleJump = playerObject.GetComponent<PlayerDoubleJump>();
     }
 
     public virtual void Update()
