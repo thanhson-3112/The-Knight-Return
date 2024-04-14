@@ -25,12 +25,14 @@ public class Enemy : MonoBehaviour
         anim = GetComponent<Animator>();
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         playerDash = playerObject.GetComponent<PlayerDash>();
+        playerLife = playerObject.GetComponent<PlayerLife>();
     }
 
     public virtual void Update()
     {
         if(health <= 0)
         {
+            rb.GetComponent<Collider2D>().enabled = false;
             anim.SetTrigger("EnemyDeath");
             Destroy(gameObject, 1.25f);
         }

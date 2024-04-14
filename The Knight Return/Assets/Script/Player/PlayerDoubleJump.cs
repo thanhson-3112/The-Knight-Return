@@ -98,14 +98,14 @@ public class PlayerDoubleJump : MonoBehaviour
     {
         canJump = Physics2D.OverlapCircle(_canJump.position, 0.2f, Ground);
 
-        if ((canJump && !(Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W))))
+        if ((canJump && !Input.GetButton("Jump")))
         {
             doubleJump = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W))
+        if (Input.GetButtonDown("Jump"))
         {
-            if (canJump || doubleJump)
+            if (canJump || doubleJump )
             {
                 JumpSoundEffect.Play();
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);

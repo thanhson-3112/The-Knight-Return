@@ -9,7 +9,6 @@ public class PlayerAttack : MonoBehaviour
     private SpriteRenderer sprite;
 
     // Attack
-    bool attack = false;
     private float timeBetweenAttack = 0.5f;
     private float timeSinceAttack;
     [SerializeField] Transform AttackTransform;
@@ -61,10 +60,9 @@ public class PlayerAttack : MonoBehaviour
 
     protected virtual void Attack()
     {
-        attack = Input.GetMouseButtonDown(0);
         timeSinceAttack += Time.deltaTime;
 
-        if (attack && timeSinceAttack >= timeBetweenAttack)
+        if (Input.GetButtonDown("Attack") && timeSinceAttack >= timeBetweenAttack)
         {
             timeSinceAttack = 0;
             AttackSoundEffect.Play();
@@ -107,7 +105,21 @@ public class PlayerAttack : MonoBehaviour
                 objectsToHit[i].GetComponent<Boss1>().EnemyHit
                     (damage, (transform.position - objectsToHit[i].transform.position).normalized, 100);
             }
-
+            if (objectsToHit[i].GetComponent<Boss2>() != null)
+            {
+                objectsToHit[i].GetComponent<Boss2>().EnemyHit
+                    (damage, (transform.position - objectsToHit[i].transform.position).normalized, 100);
+            }
+            if (objectsToHit[i].GetComponent<Boss3>() != null)
+            {
+                objectsToHit[i].GetComponent<Boss3>().EnemyHit
+                    (damage, (transform.position - objectsToHit[i].transform.position).normalized, 100);
+            }
+            if (objectsToHit[i].GetComponent<Boss4>() != null)
+            {
+                objectsToHit[i].GetComponent<Boss4>().EnemyHit
+                    (damage, (transform.position - objectsToHit[i].transform.position).normalized, 100);
+            }
         }
   
     }

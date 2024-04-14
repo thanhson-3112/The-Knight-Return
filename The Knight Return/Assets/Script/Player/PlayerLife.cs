@@ -19,13 +19,14 @@ public class PlayerLife : MonoBehaviour
     //CHeckPoint
     private Vector2 respawnPoint;
     public GameObject startPoint;
-   
+
     //Sound
     [SerializeField] private AudioSource DamageSoundEffect;
     [SerializeField] private AudioSource DeathSoundEffect;
     [SerializeField] private AudioSource HeathSoundEffect;
     [SerializeField] private AudioSource CheckpointSoundEffect;
 
+  
 
     private void Start()
     {
@@ -38,9 +39,9 @@ public class PlayerLife : MonoBehaviour
     public void Update()
     {
         // Dieu chinh thanh mau
-        for(int i = 0; i < hearts.Length; i++)
+        for (int i = 0; i < hearts.Length; i++)
         {
-            if(i< health)
+            if (i < health)
             {
                 hearts[i].sprite = fullHeart;
             }
@@ -48,7 +49,7 @@ public class PlayerLife : MonoBehaviour
             {
                 hearts[i].sprite = emptyHeart;
             }
-            if(i < maxHealth)
+            if (i < maxHealth)
             {
                 hearts[i].enabled = true;
             }
@@ -58,6 +59,7 @@ public class PlayerLife : MonoBehaviour
             }
         }
     }
+
     public void TakeDamage(int damage)
     {
         health -= damage;
@@ -70,7 +72,7 @@ public class PlayerLife : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Trap"))
+        if (collision.gameObject.CompareTag("Trap"))
         {
             Die();
         }
@@ -98,9 +100,9 @@ public class PlayerLife : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("Blood"))
+        if (collision.gameObject.CompareTag("Blood"))
         {
-            if(health != maxHealth)
+            if (health != maxHealth)
             {
                 HeathSoundEffect.Play();
                 Destroy(collision.gameObject);
@@ -123,13 +125,16 @@ public class PlayerLife : MonoBehaviour
             Debug.Log("Checkpoint" + respawnPoint);
         }
     }
-    
+
+    public void PlayerHealing()
+    {
+        health++;
+    }
+                        
 
     private void RestartLevel()
     {
         transform.position = respawnPoint;
         health = maxHealth;
     }
-
-
 }

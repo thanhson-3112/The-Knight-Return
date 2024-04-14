@@ -11,25 +11,27 @@ public class PlayerDash : MonoBehaviour
     private float move;
     [SerializeField] private float speed = 5f;
 
-    [Header("Dash")]
-    [SerializeField] private float dashForce = 8f;
-    [SerializeField] private float dashDuration = 0.5f;
-    private bool isDashing = false;
-    private bool hasDashed = false;
 
     [Header("Jump")]
-    private bool canJump;
+    private bool isGround;
     [SerializeField] private float jumpForce = 12f;
     public Transform _canJump;
     public LayerMask Ground;
     private bool doubleJump;
+
+    [Header("Dash")]
+    [SerializeField] private float dashSpeed = 8f;
+    [SerializeField] private float dashDuration = 0.1f;
+    [SerializeField] private float dashCooldown = 0.5f;
+    private bool isDashing = false;
+    private bool hasDashed = false;
 
     //Animation
     private enum MovementState { idle, running, jumping, falling }
     private MovementState state = MovementState.idle;
 
 
-    //KnockBack
+    [Header("KB")]
     public float KBForce;
     public float KBCounter;
     public float KBTotalTime;
@@ -39,9 +41,7 @@ public class PlayerDash : MonoBehaviour
     //Sound
     [SerializeField] private AudioSource RunSoundEffect;
     [SerializeField] private AudioSource JumpSoundEffect;
-    [SerializeField] private AudioSource AttackSoundEffect;
     [SerializeField] private AudioSource DashSoundEffect;
-    [SerializeField] private AudioSource HitSoundEffect;
 
 
     void Start()
@@ -54,8 +54,7 @@ public class PlayerDash : MonoBehaviour
 
 
     void Update()
-    { 
-        
+    {
         if (!isDashing)
         {
             Move();
@@ -63,16 +62,88 @@ public class PlayerDash : MonoBehaviour
             UpdateAnimationState();
             KnockBackCouter();
         }
+        
 
-        // Dash input detection
-        if (Input.GetMouseButtonDown(1) && !isDashing && !hasDashed)
+        // Dash input 
+        if (Input.GetButtonDown("Dash") && !isDashing && !hasDashed)
         {
             DashSoundEffect.Play();
-            anim.SetTrigger("dash");
+            RunSoundEffect.Stop();
             StartCoroutine(Dash());
         }
        
     }
+
+    // Di chuyen
+    IEnumerator Dash()
+    {
+        isDashing = true;
+        hasDashed = true;
+
+        Vector2 originalVelocity = rb.velocity;
+
+        rb.velocity = new Vector2(rb.velocity.x + (sprite.flipX ? -dashSpeed : dashSpeed), rb.velocity.y);
+
+        tr.emitting = true;
+        yield return new WaitForSeconds(dashDuration);
+        tr.emitting = false;
+
+
+        rb.velocity = originalVelocity;
+
+        
+        yield return new WaitForSeconds(dashCooldown);
+        isDashing = false;
+    }
+
+
+    protected virtual void Move()
+    {
+        move = Input.GetAxisRaw("Horizontal");
+        if (isGround)
+        {
+            if (move != 0f && !RunSoundEffect.isPlaying)
+            {
+                RunSoundEffect.Play();
+            }
+            else if (move == 0f)
+            {
+                RunSoundEffect.Stop();
+            }
+        }
+        else
+        {
+            RunSoundEffect.Stop();
+        }
+        rb.velocity = new Vector2(move * speed, rb.velocity.y);
+
+        // Reset hasDashed khi cham dat
+        if (isGround)
+        {
+            hasDashed = false;
+        }
+    }
+
+    protected virtual void Jump()
+    {
+        isGround = Physics2D.OverlapCircle(_canJump.position, 0.2f, Ground);
+
+        if ((isGround && !Input.GetButton("Jump")))
+        {
+            doubleJump = false;
+        }
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            if (isGround || (doubleJump && !hasDashed))
+            {
+                JumpSoundEffect.Play();
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                doubleJump = !doubleJump; 
+            }
+        }
+    }
+
 
     public virtual void KnockBackCouter()
     {
@@ -97,69 +168,7 @@ public class PlayerDash : MonoBehaviour
             }
         }
     }
-   
 
-    // Di chuyen
-    IEnumerator Dash()
-    {
-        isDashing = true;
-        hasDashed = true; 
-        
-        Vector2 originalVelocity = rb.velocity;
-        
-        rb.velocity = new Vector2(rb.velocity.x + (sprite.flipX ? -dashForce : dashForce), rb.velocity.y);
-        
-        yield return new WaitForSeconds(dashDuration);
-        
-        rb.velocity = originalVelocity;
-        isDashing = false;
-    }
-
-    protected virtual void Move()
-    {
-        move = Input.GetAxisRaw("Horizontal");
-        if (canJump)
-    {
-            if (move != 0f && !RunSoundEffect.isPlaying)
-            {
-                RunSoundEffect.Play();
-            }
-            else if (move == 0f)
-            {
-                RunSoundEffect.Stop();
-            }
-       }
-       else
-       {
-            RunSoundEffect.Stop();
-        }
-        rb.velocity = new Vector2(move * speed, rb.velocity.y);
-        // Reset hasDashed khi cham dat
-        if (canJump)
-        {
-            hasDashed = false;
-        }
-    }
-
-    protected virtual void Jump()
-    {
-        canJump = Physics2D.OverlapCircle(_canJump.position, 0.2f, Ground);
-
-        if ((canJump && !(Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W))))
-        {
-            doubleJump = false;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W))
-        {
-            if (canJump || (doubleJump && !hasDashed))
-            {
-                JumpSoundEffect.Play();
-                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-                doubleJump = !doubleJump;
-            }
-        }
-    }
 
     protected virtual void UpdateAnimationState()
     {
