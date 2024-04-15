@@ -128,7 +128,10 @@ public class PlayerLife : MonoBehaviour
 
     public void PlayerHealing()
     {
-        health++;
+        if (health < maxHealth) 
+        {
+            health++;
+        }
     }
                         
 

@@ -20,8 +20,8 @@ public class PlayerDash : MonoBehaviour
     private bool doubleJump;
 
     [Header("Dash")]
-    [SerializeField] private float dashSpeed = 8f;
-    [SerializeField] private float dashDuration = 0.1f;
+    [SerializeField] private float dashSpeed = 30f;
+    [SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private float dashCooldown = 0.5f;
     private bool isDashing = false;
     private bool hasDashed = false;
@@ -32,7 +32,7 @@ public class PlayerDash : MonoBehaviour
 
 
     [Header("KB")]
-    public float KBForce;
+    public float KBForce = 10;
     public float KBCounter;
     public float KBTotalTime;
     public bool KnockFromRight;
@@ -85,16 +85,25 @@ public class PlayerDash : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x + (sprite.flipX ? -dashSpeed : dashSpeed), rb.velocity.y);
 
         tr.emitting = true;
+
+        // S? d?ng OverlapCircle
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, dashSpeed * dashDuration, LayerMask.GetMask("Enemy"));
+
+        foreach (Collider2D hit in hits)
+        {
+            // Lo?i b? va ch?m v?i m?i ??i t??ng "enemy"
+            Physics2D.IgnoreCollision(GetComponent<Collider2D>(), hit);
+        }
+
         yield return new WaitForSeconds(dashDuration);
         tr.emitting = false;
 
-
         rb.velocity = originalVelocity;
 
-        
         yield return new WaitForSeconds(dashCooldown);
         isDashing = false;
     }
+
 
 
     protected virtual void Move()
@@ -155,11 +164,11 @@ public class PlayerDash : MonoBehaviour
         {
             if (KnockFromRight == true)
             {
-                rb.velocity = new Vector2(-KBForce, KBForce);
+                rb.velocity = new Vector2(-KBForce, rb.velocity.y);
             }
             if (KnockFromRight == false)
             {
-                rb.velocity = new Vector2(KBForce, KBForce);
+                rb.velocity = new Vector2(KBForce, rb.velocity.y);
             }
             KBCounter -= Time.deltaTime;
             if (KBCounter <= 0)

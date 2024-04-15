@@ -6,9 +6,18 @@ public class PlayerHealing : MonoBehaviour
 {
     private Rigidbody2D rb;
     private Animator anim;
+
+    [Header("Check")]
+    public Transform _canJump;
+    public LayerMask Ground;
+    private bool isGround;
+    private bool isMoving;
+
+
     // Timer
     private float holdATimer;
     private bool isHoldingA;
+    private bool canHeal; // Bi?n ?? ki?m tra xem có th? h?i máu không
 
     public PlayerLife playerLife;
     void Start()
@@ -21,38 +30,41 @@ public class PlayerHealing : MonoBehaviour
 
     void Update()
     {
-        // Check if holding A button
-        if (Input.GetKeyDown(KeyCode.A))
+        // Nguoi choi tha nut A khong hoi mau nua
+        if (Input.GetKeyDown(KeyCode.A) && isGround)
         {
             isHoldingA = true;
             anim.SetBool("healing", true);
+            canHeal = true; // B?t c? cho phép h?i máu
         }
 
-        if (Input.GetKeyUp(KeyCode.A))
+        // Nguoi choi tha nut A khong hoi mau nua
+        if (Input.GetKeyUp(KeyCode.A) || !isGround) 
         {
             isHoldingA = false;
             anim.SetBool("healing", false);
+            canHeal = false; 
+            holdATimer = 0f; // reset thoi gian hoi mau
         }
 
-        if (isHoldingA)
+        if (canHeal)
         {
             holdATimer += Time.deltaTime;
-            if (holdATimer >= 3f)
+            if (holdATimer >= 3f && !isMoving) 
             {
                 playerLife.PlayerHealing();
+                holdATimer = 0f; 
             }
         }
-        else
-        {
-            holdATimer = 0f;
-        }
 
-        // Stop player movement if holding A
         if (isHoldingA)
         {
             // Stop player movement
             rb.velocity = Vector2.zero;
             anim.SetInteger("state", 0);
         }
+
+        isMoving = Mathf.Abs(rb.velocity.x) > 0.1f;
+        isGround = Physics2D.OverlapCircle(_canJump.position, 0.2f, Ground);
     }
 }

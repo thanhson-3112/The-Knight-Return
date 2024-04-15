@@ -78,6 +78,7 @@ GameObject:
   - component: {fileID: 3510989386961743119}
   - component: {fileID: 1126174347926588911}
   - component: {fileID: 1925679273310991000}
+  - component: {fileID: 5186071947490286237}
   - component: {fileID: 6997242008421827954}
   - component: {fileID: 1948323524835212535}
   - component: {fileID: 5683800886351272173}
@@ -307,10 +308,10 @@ MonoBehaviour:
   Ground:
     serializedVersion: 2
     m_Bits: 8
-  dashSpeed: 20
+  dashSpeed: 30
   dashDuration: 0.2
   dashCooldown: 0.5
-  KBForce: 5
+  KBForce: 10
   KBCounter: 0
   KBTotalTime: 0.2
   KnockFromRight: 0
@@ -337,6 +338,23 @@ MonoBehaviour:
   damage: 1
   AttackSoundEffect: {fileID: 1222607539886388409}
   HitSoundEffect: {fileID: 8555156503012226641}
+--- !u!114 &5186071947490286237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7890632744287969374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3232ac68e9de7304ea48fc505e7fc145, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _canJump: {fileID: 6664574097398057885}
+  Ground:
+    serializedVersion: 2
+    m_Bits: 8
+  playerLife: {fileID: 0}
 --- !u!96 &6997242008421827954
 TrailRenderer:
   serializedVersion: 3
