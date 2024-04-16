@@ -8,30 +8,39 @@ public class PlayerHealing : MonoBehaviour
     private Animator anim;
 
     [Header("Check")]
-    public Transform _canJump;
+    public Transform _isGround;
     public LayerMask Ground;
     private bool isGround;
     private bool isMoving;
 
-
     // Timer
     private float holdATimer;
     private bool isHoldingA;
-    private bool canHeal; // Bi?n ?? ki?m tra xem có th? h?i máu không
+    private bool canHeal;
 
+    //Soul
+    [SerializeField] 
+    private float maxSoul = 5;
+    private float soul;
+
+    public SoulUI soulUI;
     public PlayerLife playerLife;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         playerLife = playerObject.GetComponent<PlayerLife>();
+
+        soul = maxSoul;
+        soulUI.SetMaxSoul(maxSoul);
     }
 
     void Update()
     {
         // Nguoi choi tha nut A khong hoi mau nua
-        if (Input.GetKeyDown(KeyCode.A) && isGround)
+        if (Input.GetKeyDown(KeyCode.A) && isGround && soul > 0)
         {
             isHoldingA = true;
             anim.SetBool("healing", true);
@@ -45,6 +54,14 @@ public class PlayerHealing : MonoBehaviour
             anim.SetBool("healing", false);
             canHeal = false; 
             holdATimer = 0f; // reset thoi gian hoi mau
+            anim.SetInteger("state", 0);
+        }
+
+        // neu nguoi choi di chuyen thi khong hoi mau
+        if (isMoving)
+        {
+            anim.SetBool("healing", false);
+            canHeal = false;
         }
 
         if (canHeal)
@@ -52,19 +69,14 @@ public class PlayerHealing : MonoBehaviour
             holdATimer += Time.deltaTime;
             if (holdATimer >= 3f && !isMoving) 
             {
+                soul--;
+                soulUI.SetSoul(soul);
                 playerLife.PlayerHealing();
                 holdATimer = 0f; 
             }
         }
 
-        if (isHoldingA)
-        {
-            // Stop player movement
-            rb.velocity = Vector2.zero;
-            anim.SetInteger("state", 0);
-        }
-
         isMoving = Mathf.Abs(rb.velocity.x) > 0.1f;
-        isGround = Physics2D.OverlapCircle(_canJump.position, 0.2f, Ground);
+        isGround = Physics2D.OverlapCircle(_isGround.position, 0.2f, Ground);
     }
 }
