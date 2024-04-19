@@ -13,15 +13,15 @@ public class PlayerDash : MonoBehaviour
 
 
     [Header("Jump")]
-    private bool isGround;
     [SerializeField] private float jumpForce = 12f;
-    public Transform _canJump;
+    private bool isGround;
+    public Transform _isGround;
     public LayerMask Ground;
     private bool doubleJump;
 
     [Header("Dash")]
     [SerializeField] private float dashSpeed = 30f;
-    [SerializeField] private float dashDuration = 0.2f;
+    [SerializeField] private float dashTime = 0.2f;
     [SerializeField] private float dashCooldown = 0.5f;
     private bool isDashing = false;
     private bool hasDashed = false;
@@ -81,30 +81,21 @@ public class PlayerDash : MonoBehaviour
         hasDashed = true;
 
         Vector2 originalVelocity = rb.velocity;
+        rb.gravityScale = 0;
 
-        rb.velocity = new Vector2(rb.velocity.x + (sprite.flipX ? -dashSpeed : dashSpeed), rb.velocity.y);
+
+        rb.velocity = new Vector2(transform.localScale.x * (sprite.flipX ? -dashSpeed : dashSpeed), 0);
 
         tr.emitting = true;
-
-        // S? d?ng OverlapCircle
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, dashSpeed * dashDuration, LayerMask.GetMask("Enemy"));
-
-        foreach (Collider2D hit in hits)
-        {
-            // Lo?i b? va ch?m v?i m?i ??i t??ng "enemy"
-            Physics2D.IgnoreCollision(GetComponent<Collider2D>(), hit);
-        }
-
-        yield return new WaitForSeconds(dashDuration);
+        yield return new WaitForSeconds(dashTime);
         tr.emitting = false;
 
         rb.velocity = originalVelocity;
+        rb.gravityScale = 2;
 
         yield return new WaitForSeconds(dashCooldown);
         isDashing = false;
     }
-
-
 
     protected virtual void Move()
     {
@@ -135,7 +126,7 @@ public class PlayerDash : MonoBehaviour
 
     protected virtual void Jump()
     {
-        isGround = Physics2D.OverlapCircle(_canJump.position, 0.2f, Ground);
+        isGround = Physics2D.OverlapCircle(_isGround.position, 0.2f, Ground);
 
         if ((isGround && !Input.GetButton("Jump")))
         {

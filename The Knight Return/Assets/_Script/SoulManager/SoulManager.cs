@@ -5,7 +5,7 @@ using UnityEngine;
 public class SoulManager : MonoBehaviour
 {
     //Soul
-    [SerializeField] public int maxSoul = 5;
+    [SerializeField] public int maxSoul = 6;
     [SerializeField] public int currentSoul;
 
     /*public int MaxSoul { get { return maxSoul; } set { maxSoul = value; } }
@@ -45,6 +45,6 @@ public class SoulManager : MonoBehaviour
 
     public void MinusCurrentSoul()
     {
-        currentSoul--;
+        currentSoul -= 2;
     }
 }

@@ -8,17 +8,30 @@ public class PlayerAttack : MonoBehaviour
     private Animator anim;
     private SpriteRenderer sprite;
 
-    // Attack
-    private float timeBetweenAttack = 0.5f;
+    [Header("Attack Settings")]
+    [SerializeField] private float damage;
+    private float timeBetweenAttack = 0.3f;
     private float timeSinceAttack;
-    [SerializeField] Transform AttackTransform;
-    [SerializeField] Vector2 AttackArea = new Vector2(1.88f, 1.48f);
-    [SerializeField] LayerMask attackablelayer;
-    [SerializeField] float damage;
+    [SerializeField] private Transform AttackTransform, UpAttackTransform, DownAttackTransform;
+    [SerializeField] private Vector2 AttackArea = new Vector2(1.88f, 1.48f), 
+        UpAttackArea = new Vector2(1.88f, 2.3f), DownAttackArea = new Vector2(1.88f, 2.3f);
+    [SerializeField] private LayerMask attackablelayer;
 
-    //Sound
+    [SerializeField] private GameObject slashEffect;
+    private bool isUpArrowPressed = false;
+    private bool isDownArrowPressed = false;
+    private float knockbackForce = 700f;
+
+    [Header("Ground Checking")]
+    [SerializeField] public Transform _isGround;
+    private bool isGround;
+    [SerializeField] public LayerMask Ground;
+
+    [Header("Sound Settings")]
     [SerializeField] private AudioSource AttackSoundEffect;
     [SerializeField] private AudioSource HitSoundEffect;
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -56,20 +69,75 @@ public class PlayerAttack : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(AttackTransform.position, AttackArea);
+        Gizmos.DrawWireCube(UpAttackTransform.position, UpAttackArea);
+        Gizmos.DrawWireCube(DownAttackTransform.position, DownAttackArea);
+    }
+
+    private void SlashEffcetAngle(GameObject _slashEffect, int _effcetAngle, Transform _attackTransform)
+    {
+        _slashEffect = Instantiate(_slashEffect, _attackTransform);
+        _slashEffect.transform.eulerAngles = new Vector3(0, 0, _effcetAngle);
+        _slashEffect.transform.localScale = new Vector2(0.76f, 1.56f);
     }
 
     protected virtual void Attack()
     {
         timeSinceAttack += Time.deltaTime;
 
+        isGround = Physics2D.OverlapCircle(_isGround.position, 0.2f, Ground);
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            isUpArrowPressed = true;
+        }
+        if (Input.GetKeyUp(KeyCode.UpArrow))
+        {
+            isUpArrowPressed = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            isDownArrowPressed = true;
+        }
+        if (Input.GetKeyUp(KeyCode.DownArrow))
+        {
+            isDownArrowPressed = false;
+        }
+
         if (Input.GetButtonDown("Attack") && timeSinceAttack >= timeBetweenAttack)
         {
-            timeSinceAttack = 0;
-            AttackSoundEffect.Play();
-            anim.SetTrigger("attack");
-            Hit(AttackTransform, AttackArea);
+            // tan cong tren
+            if (isUpArrowPressed)
+            {
+                timeSinceAttack = 0;
+                AttackSoundEffect.Play();
+                anim.SetTrigger("attack");
+                SlashEffcetAngle(slashEffect, 0, UpAttackTransform);
+                Hit(UpAttackTransform, UpAttackArea);
+            }
+            // tan cong duoi
+            else if (isDownArrowPressed && !isGround)
+            {
+                timeSinceAttack = 0;
+                AttackSoundEffect.Play();
+                anim.SetTrigger("attack");
+                SlashEffcetAngle(slashEffect,180, DownAttackTransform);
+                Hit(DownAttackTransform, DownAttackArea);
+            }
+            // tan cong ngang
+            else
+            {
+                timeSinceAttack = 0;
+                AttackSoundEffect.Play();
+
+                SlashEffcetAngle(slashEffect, sprite.flipX ? 90 : -90, AttackTransform);
+                anim.SetTrigger("attack");
+                Hit(AttackTransform, AttackArea);
+            }
         }
     }
+
+
+
 
     private void Hit(Transform _attackTransform, Vector2 _attackArea)
     {
@@ -78,49 +146,29 @@ public class PlayerAttack : MonoBehaviour
         {
             HitSoundEffect.Play();
             Debug.Log("Hit");
+
+            if (isDownArrowPressed && !isGround)
+            {
+                // L?y h??ng t? ng??i ch?i ??n quái v?t
+                Vector2 direction = (objectsToHit[0].transform.position - transform.position).normalized;
+
+                // Áp d?ng l?c ??y ng??c h??ng direction
+                rb.AddForce(-direction * knockbackForce);
+            }
         }
-        for (int i = 0; i < objectsToHit.Length; i++)
+
+        foreach (var objToHit in objectsToHit)
         {
-            if (objectsToHit[i].GetComponent<Enemy>() != null)
+            var enemy = objToHit.GetComponent<IEnemy>();
+            if (enemy != null)
             {
-                objectsToHit[i].GetComponent<Enemy>().EnemyHit
-                    (damage, (transform.position - objectsToHit[i].transform.position).normalized, 100);
-            }
-
-            if (objectsToHit[i].GetComponent<Enemy1>() != null)
-            {
-                objectsToHit[i].GetComponent<Enemy1>().EnemyHit
-                    (damage, (transform.position - objectsToHit[i].transform.position).normalized, 100);
-            }
-
-            if (objectsToHit[i].GetComponent<Enemy2>() != null)
-            {
-                objectsToHit[i].GetComponent<Enemy2>().EnemyHit
-                    (damage, (transform.position - objectsToHit[i].transform.position).normalized, 100);
-            }
-
-
-            if (objectsToHit[i].GetComponent<Boss1>() != null)
-            {
-                objectsToHit[i].GetComponent<Boss1>().EnemyHit
-                    (damage, (transform.position - objectsToHit[i].transform.position).normalized, 100);
-            }
-            if (objectsToHit[i].GetComponent<Boss2>() != null)
-            {
-                objectsToHit[i].GetComponent<Boss2>().EnemyHit
-                    (damage, (transform.position - objectsToHit[i].transform.position).normalized, 100);
-            }
-            if (objectsToHit[i].GetComponent<Boss3>() != null)
-            {
-                objectsToHit[i].GetComponent<Boss3>().EnemyHit
-                    (damage, (transform.position - objectsToHit[i].transform.position).normalized, 100);
-            }
-            if (objectsToHit[i].GetComponent<Boss4>() != null)
-            {
-                objectsToHit[i].GetComponent<Boss4>().EnemyHit
-                    (damage, (transform.position - objectsToHit[i].transform.position).normalized, 100);
+                enemy.EnemyHit(damage, (transform.position - objToHit.transform.position).normalized, 100);
             }
         }
-  
     }
+}
+
+public interface IEnemy
+{
+    void EnemyHit(float damage, Vector2 hitDirection, float hitForce);
 }

@@ -18,13 +18,16 @@ public class PlayerHealing : MonoBehaviour
     private bool isHoldingA;
     private bool canHeal;
 
-
     private int currentSoul;
     public SoulManager soulManager;
 
     private float health;
     private float maxHealth;
     public PlayerLife playerLife;
+
+    [Header("Sound")]
+    [SerializeField] private AudioSource focusHeallingSound;
+    [SerializeField] private AudioSource healingSound;
 
     public  void Start()
     {
@@ -39,13 +42,15 @@ public class PlayerHealing : MonoBehaviour
     public void Update()
     {
         //Lay du lieu de xet dk heal
-        health = playerLife.health;
         maxHealth = playerLife.maxHealth;
+        health = playerLife.health;
+
         currentSoul = soulManager.currentSoul;
 
         // Nguoi choi tha nut A hoi mau nua
         if (Input.GetKeyDown(KeyCode.A) && isGround && currentSoul > 0 && health < maxHealth)
         {
+            focusHeallingSound.Play();
             isHoldingA = true;
             anim.SetBool("healing", true);
             canHeal = true; 
@@ -54,6 +59,7 @@ public class PlayerHealing : MonoBehaviour
         // Nguoi choi tha nut A khong hoi mau nua
         if (Input.GetKeyUp(KeyCode.A) || !isGround) 
         {
+            focusHeallingSound.Stop();
             isHoldingA = false;
             anim.SetBool("healing", false);
             canHeal = false; 
@@ -64,19 +70,27 @@ public class PlayerHealing : MonoBehaviour
         // neu nguoi choi di chuyen thi khong hoi mau
         if (isMoving)
         {
+            focusHeallingSound.Stop();
             anim.SetBool("healing", false);
             canHeal = false;
         }
 
-        if (canHeal && health < maxHealth)
+        if (canHeal && health < maxHealth && currentSoul > 0)
         {
             holdATimer += Time.deltaTime;
             if (holdATimer >= 2.5f && !isMoving) 
             {
+                healingSound.Play();
                 soulManager.MinusCurrentSoul();
                 playerLife.PlayerHealing();
                 holdATimer = 0f; 
             }
+        }
+
+        if(health >= maxHealth || currentSoul <= 0)
+        {
+            focusHeallingSound.Stop();
+            anim.SetBool("healing", false);
         }
 
         isMoving = Mathf.Abs(rb.velocity.x) > 0.1f;

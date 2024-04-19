@@ -8,6 +8,7 @@ public class SoulItem : MonoBehaviour
     public float moveSpeed = 30f;
     private Transform playerTransform;
     private bool isMoving = false;
+    private bool reachedPlayer = false;
     public int soulAmount;
     public float autoMoveDistance = 5f;
 
@@ -17,20 +18,20 @@ public class SoulItem : MonoBehaviour
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-    protected void Update()
+   /* protected void Update()
     {
         if (!isMoving && Vector3.Distance(transform.position, playerTransform.position) < autoMoveDistance)
         {
             isMoving = true;
         }
 
-        if (isMoving)
+        if (isMoving && !reachedPlayer)
         {
             MoveTowardsPlayer();
         }
-    }
-   
-    private void MoveTowardsPlayer()
+    }*/
+
+/*    private void MoveTowardsPlayer()
     {
         Vector3 direction = playerTransform.position - transform.position;
         direction.Normalize();
@@ -39,11 +40,13 @@ public class SoulItem : MonoBehaviour
 
         if (Vector3.Distance(transform.position, playerTransform.position) < 0.1f)
         {
+            reachedPlayer = true;
             LootManager.Instance.AddSoul(soulAmount);
             Destroy(gameObject);
         }
-    }
+    }*/
 
+    // X? lý va ch?m v?i ng??i ch?i
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
