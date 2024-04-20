@@ -3,22 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Enemy : MonoBehaviour
-{   
-    private Rigidbody2D rb;
-    private Animator anim;
+public class EnemyBase : MonoBehaviour
+{
+    protected Rigidbody2D rb;
+    protected Animator anim;
 
-    [SerializeField] protected float health = 3f;
+    [SerializeField] protected float enemyHealth;
     [SerializeField] protected float recollLength = 0.2f;
-    [SerializeField] protected float recollFactor = 3.5f;
+    [SerializeField] protected float recollFactor = 2.5f;
     [SerializeField] protected bool isRecolling = false;
     protected float recollTimer;
 
-    public int damage = 1;
+    protected int damage;
     public PlayerLife playerLife;
-
     public PlayerDash playerDash;
-    
+
     public virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -32,9 +31,9 @@ public class Enemy : MonoBehaviour
     {
         if (isRecolling)
         {
-            if(recollTimer < recollLength)
+            if (recollTimer < recollLength)
             {
-                recollTimer +=Time.deltaTime;
+                recollTimer += Time.deltaTime;
             }
             else
             {
@@ -44,15 +43,15 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public virtual void EnemyHit(float _damageDone, Vector2 _hitDirection, float _hitForce )
+    public virtual void EnemyHit(float _damageDone, Vector2 _hitDirection, float _hitForce)
     {
-        health -= _damageDone;
+        enemyHealth -= _damageDone;
         if (!isRecolling)
         {
-            rb.AddForce(- _hitForce * recollFactor * _hitDirection);
+            rb.AddForce(-_hitForce * recollFactor * _hitDirection);
         }
 
-        if (health <= 0)
+        if (enemyHealth <= 0)
         {
             EnemyDie();
         }
@@ -66,12 +65,12 @@ public class Enemy : MonoBehaviour
         GetComponent<SoulSpawner>().InstantiateLoot(transform.position);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
             playerDash.KBCounter = playerDash.KBTotalTime;
-            if(collision.transform.position.x <= transform.position.x)
+            if (collision.transform.position.x <= transform.position.x)
             {
                 playerDash.KnockFromRight = true;
             }
@@ -81,7 +80,7 @@ public class Enemy : MonoBehaviour
             }
             playerLife.TakeDamage(damage);
         }
-        if(collision.gameObject.tag == "Trap")
+        if (collision.gameObject.tag == "Trap")
         {
             anim.SetTrigger("EnemyDeath");
             Destroy(gameObject, 1f);

@@ -13,14 +13,17 @@ public class PlayerDash : MonoBehaviour
 
 
     [Header("Jump")]
-    [SerializeField] private float jumpForce = 12f;
+    [SerializeField] private float jumpForce = 8f;
     private bool isGround;
     public Transform _isGround;
     public LayerMask Ground;
     private bool doubleJump;
+    private float jumpTimeCounter;
+    public float jumpTime;
+    private bool isJump;
 
     [Header("Dash")]
-    [SerializeField] private float dashSpeed = 30f;
+    [SerializeField] private float dashSpeed = 15f;
     [SerializeField] private float dashTime = 0.2f;
     [SerializeField] private float dashCooldown = 0.5f;
     private bool isDashing = false;
@@ -34,7 +37,7 @@ public class PlayerDash : MonoBehaviour
     [Header("KB")]
     public float KBForce = 10;
     public float KBCounter;
-    public float KBTotalTime;
+    public float KBTotalTime = 0.2f;
     public bool KnockFromRight;
 
     [Header("Sound")]
@@ -128,21 +131,37 @@ public class PlayerDash : MonoBehaviour
     {
         isGround = Physics2D.OverlapCircle(_isGround.position, 0.2f, Ground);
 
-        if ((isGround && !Input.GetButton("Jump")))
-        {
-            doubleJump = false;
-        }
-
         if (Input.GetButtonDown("Jump"))
         {
             if (isGround || (doubleJump && !hasDashed))
             {
                 JumpSoundEffect.Play();
-                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-                doubleJump = !doubleJump; 
+                isJump = true;
+                jumpTimeCounter = jumpTime;
+                rb.velocity = Vector2.up * jumpForce;
+                doubleJump = !doubleJump;
             }
         }
+
+        if (Input.GetButton("Jump") && isJump)
+        {
+            if (jumpTimeCounter > 0)
+            {
+                rb.velocity = Vector2.up * jumpForce;
+                jumpTimeCounter -= Time.deltaTime;
+            }
+            else
+            {
+                isJump = false;
+            }
+        }
+
+        if (Input.GetButtonUp("Jump"))
+        {
+            isJump = false;
+        }
     }
+
 
 
     public virtual void KnockBackCouter()

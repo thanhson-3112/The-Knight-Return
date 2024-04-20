@@ -13,7 +13,8 @@ public class PlayerAttack : MonoBehaviour
     private float timeBetweenAttack = 0.3f;
     private float timeSinceAttack;
     [SerializeField] private Transform AttackTransform, UpAttackTransform, DownAttackTransform;
-    [SerializeField] private Vector2 AttackArea = new Vector2(1.88f, 1.48f), 
+    [SerializeField]
+    private Vector2 AttackArea = new Vector2(1.88f, 1.48f),
         UpAttackArea = new Vector2(1.88f, 2.3f), DownAttackArea = new Vector2(1.88f, 2.3f);
     [SerializeField] private LayerMask attackablelayer;
 
@@ -77,7 +78,7 @@ public class PlayerAttack : MonoBehaviour
     {
         _slashEffect = Instantiate(_slashEffect, _attackTransform);
         _slashEffect.transform.eulerAngles = new Vector3(0, 0, _effcetAngle);
-        _slashEffect.transform.localScale = new Vector2(0.76f, 1.56f);
+        _slashEffect.transform.localScale = new Vector2(0.76f, 1.8f);
     }
 
     protected virtual void Attack()
@@ -120,7 +121,7 @@ public class PlayerAttack : MonoBehaviour
                 timeSinceAttack = 0;
                 AttackSoundEffect.Play();
                 anim.SetTrigger("attack");
-                SlashEffcetAngle(slashEffect,180, DownAttackTransform);
+                SlashEffcetAngle(slashEffect, 180, DownAttackTransform);
                 Hit(DownAttackTransform, DownAttackArea);
             }
             // tan cong ngang
@@ -147,28 +148,27 @@ public class PlayerAttack : MonoBehaviour
             HitSoundEffect.Play();
             Debug.Log("Hit");
 
+            // tan cong xuong se day len
             if (isDownArrowPressed && !isGround)
             {
-                // L?y h??ng t? ng??i ch?i ??n quái v?t
                 Vector2 direction = (objectsToHit[0].transform.position - transform.position).normalized;
-
-                // Áp d?ng l?c ??y ng??c h??ng direction
                 rb.AddForce(-direction * knockbackForce);
             }
         }
 
-        foreach (var objToHit in objectsToHit)
+        foreach (Collider2D objCollider in objectsToHit)
         {
-            var enemy = objToHit.GetComponent<IEnemy>();
+            EnemyBase enemy = objCollider.GetComponent<EnemyBase>();
+            /*            BossBase boss = objCollider.GetComponent<BossBase>();
+            */
             if (enemy != null)
             {
-                enemy.EnemyHit(damage, (transform.position - objToHit.transform.position).normalized, 100);
+                enemy.EnemyHit(damage, (transform.position - objCollider.transform.position).normalized, 100);
             }
+            /*else if (boss != null)
+            {
+                boss.EnemyHit(damage, (transform.position - objCollider.transform.position).normalized, 100);
+            }*/
         }
     }
-}
-
-public interface IEnemy
-{
-    void EnemyHit(float damage, Vector2 hitDirection, float hitForce);
 }
