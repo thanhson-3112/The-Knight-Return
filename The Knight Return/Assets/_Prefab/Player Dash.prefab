@@ -370,12 +370,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  jumpForce: 12
+  jumpForce: 8
   _isGround: {fileID: 6664574097398057885}
   Ground:
     serializedVersion: 2
     m_Bits: 8
-  dashSpeed: 20
+  jumpTime: 0.35
+  dashSpeed: 15
   dashTime: 0.2
   dashCooldown: 0.5
   KBForce: 10
@@ -397,7 +398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4078d95481c23814bb04590077505b1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  damage: 1
   AttackTransform: {fileID: 3190115244797873035}
   UpAttackTransform: {fileID: 383817501351722692}
   DownAttackTransform: {fileID: 7989182864585623549}
@@ -446,7 +447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fd9d7c4803a5004fa81de7843d9e22b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSoul: 5
+  maxSoul: 6
   currentSoul: 0
   soulUI: {fileID: 0}
 --- !u!96 &6997242008421827954

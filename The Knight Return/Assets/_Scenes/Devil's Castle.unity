@@ -1876,7 +1876,7 @@ Transform:
   m_GameObject: {fileID: 237817203}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -136.16, y: -6.61, z: -0.01865068}
+  m_LocalPosition: {x: -136.16, y: -5.93, z: -0.01865068}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3075,7 +3075,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 395299524}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -66887,7 +66887,7 @@ MonoBehaviour:
   isRecolling: 0
   playerLife: {fileID: 0}
   playerDash: {fileID: 0}
-  batHealth: 5
+  batHealth: 1
   enemyDamage: 1
 --- !u!114 &1772775458
 MonoBehaviour:
@@ -68175,11 +68175,11 @@ GameObject:
   - component: {fileID: 1941536171}
   m_Layer: 6
   m_Name: FloorTile01
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!61 &1941536171
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -68266,7 +68266,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: -3957099063395814597, guid: 8cdd847ab4f914d4cb3d23e9eb98958d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -68288,7 +68288,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -16.16, y: -1.47, z: 0}
-  m_LocalScale: {x: 2.7, y: 1, z: 1}
+  m_LocalScale: {x: 2.8371093, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -68547,22 +68547,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 587570194}
     m_Modifications:
-    - target: {fileID: 1126174347926588911, guid: 4be63275f835fd848bb8daf14e88cd51, type: 3}
-      propertyPath: dashTime
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1126174347926588911, guid: 4be63275f835fd848bb8daf14e88cd51, type: 3}
-      propertyPath: jumpTime
-      value: 0.35
-      objectReference: {fileID: 0}
-    - target: {fileID: 1126174347926588911, guid: 4be63275f835fd848bb8daf14e88cd51, type: 3}
-      propertyPath: dashSpeed
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1126174347926588911, guid: 4be63275f835fd848bb8daf14e88cd51, type: 3}
-      propertyPath: jumpForce
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 1168719606222353367, guid: 4be63275f835fd848bb8daf14e88cd51, type: 3}
       propertyPath: m_LocalPosition.x
       value: -156.47
@@ -68602,10 +68586,6 @@ PrefabInstance:
     - target: {fileID: 1168719606222353367, guid: 4be63275f835fd848bb8daf14e88cd51, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1925679273310991000, guid: 4be63275f835fd848bb8daf14e88cd51, type: 3}
-      propertyPath: damage
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3510989386961743119, guid: 4be63275f835fd848bb8daf14e88cd51, type: 3}
       propertyPath: startPoint
@@ -68647,10 +68627,6 @@ PrefabInstance:
       propertyPath: soulUI
       value: 
       objectReference: {fileID: 318389960}
-    - target: {fileID: 7923703251854798278, guid: 4be63275f835fd848bb8daf14e88cd51, type: 3}
-      propertyPath: maxSoul
-      value: 6
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -70784,8 +70760,8 @@ SceneRoots:
   m_Roots:
   - {fileID: 1143857845}
   - {fileID: 71690661}
-  - {fileID: 2140453530}
   - {fileID: 1469961326}
+  - {fileID: 2140453530}
   - {fileID: 1200518567}
   - {fileID: 2097237397}
   - {fileID: 411448932}

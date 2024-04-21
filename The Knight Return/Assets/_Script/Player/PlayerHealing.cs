@@ -15,7 +15,6 @@ public class PlayerHealing : MonoBehaviour
 
     // Timer
     private float holdATimer;
-    private bool isHoldingA;
     private bool canHeal;
 
     private int currentSoul;
@@ -51,7 +50,6 @@ public class PlayerHealing : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A) && isGround && currentSoul > 0 && health < maxHealth)
         {
             focusHeallingSound.Play();
-            isHoldingA = true;
             anim.SetBool("healing", true);
             canHeal = true; 
         }
@@ -60,7 +58,6 @@ public class PlayerHealing : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.A) || !isGround) 
         {
             focusHeallingSound.Stop();
-            isHoldingA = false;
             anim.SetBool("healing", false);
             canHeal = false; 
             holdATimer = 0f; // reset thoi gian hoi mau

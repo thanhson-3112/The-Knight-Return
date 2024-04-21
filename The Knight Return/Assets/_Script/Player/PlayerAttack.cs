@@ -86,23 +86,8 @@ public class PlayerAttack : MonoBehaviour
         timeSinceAttack += Time.deltaTime;
 
         isGround = Physics2D.OverlapCircle(_isGround.position, 0.2f, Ground);
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            isUpArrowPressed = true;
-        }
-        if (Input.GetKeyUp(KeyCode.UpArrow))
-        {
-            isUpArrowPressed = false;
-        }
-
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            isDownArrowPressed = true;
-        }
-        if (Input.GetKeyUp(KeyCode.DownArrow))
-        {
-            isDownArrowPressed = false;
-        }
+        isUpArrowPressed = Input.GetKey(KeyCode.UpArrow);
+        isDownArrowPressed = Input.GetKey(KeyCode.DownArrow);
 
         if (Input.GetButtonDown("Attack") && timeSinceAttack >= timeBetweenAttack)
         {
@@ -129,7 +114,6 @@ public class PlayerAttack : MonoBehaviour
             {
                 timeSinceAttack = 0;
                 AttackSoundEffect.Play();
-
                 SlashEffcetAngle(slashEffect, sprite.flipX ? 90 : -90, AttackTransform);
                 anim.SetTrigger("attack");
                 Hit(AttackTransform, AttackArea);

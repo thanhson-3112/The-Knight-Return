@@ -9,16 +9,16 @@ public class SoulManager : MonoBehaviour
     [SerializeField] public int currentSoul;
 
     /*public int MaxSoul { get { return maxSoul; } set { maxSoul = value; } }
-    public int CurrentSoul { get { return currentSoul;} set { currentSoul = value;} }*/
+    public int CurrentSoul { get { return currentSoul; } set { currentSoul = value; } }*/
 
     public SoulUI soulUI;
 
-    public virtual void Start()
+    public void Start()
     {
         currentSoul = maxSoul;
     }
 
-    public virtual void Update()
+    public void Update()
     {
         soulUI.SetMaxSoul(maxSoul);
         soulUI.SetSoul(currentSoul);
@@ -35,11 +35,12 @@ public class SoulManager : MonoBehaviour
     }
 
 
-    protected virtual void HandleSoul(int newSoul)
+    private void HandleSoul(int newSoul)
     {
         if(currentSoul < maxSoul)
         {
-            currentSoul++;
+            currentSoul += newSoul;
+            Debug.Log("soul duoc cong " + currentSoul);
         }
     }
 

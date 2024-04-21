@@ -5,33 +5,34 @@ using UnityEngine;
 
 public class SoulItem : MonoBehaviour
 {
+    private Rigidbody2D rb;
     public float moveSpeed = 30f;
     private Transform playerTransform;
     private bool isMoving = false;
-    private bool reachedPlayer = false;
     public int soulAmount;
     public float autoMoveDistance = 5f;
 
     private void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
         Destroy(gameObject, 40f);
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-   /* protected void Update()
+    protected void Update()
     {
         if (!isMoving && Vector3.Distance(transform.position, playerTransform.position) < autoMoveDistance)
         {
             isMoving = true;
         }
 
-        if (isMoving && !reachedPlayer)
+        if (isMoving)
         {
             MoveTowardsPlayer();
         }
-    }*/
+    }
 
-/*    private void MoveTowardsPlayer()
+    private void MoveTowardsPlayer()
     {
         Vector3 direction = playerTransform.position - transform.position;
         direction.Normalize();
@@ -40,19 +41,19 @@ public class SoulItem : MonoBehaviour
 
         if (Vector3.Distance(transform.position, playerTransform.position) < 0.1f)
         {
-            reachedPlayer = true;
             LootManager.Instance.AddSoul(soulAmount);
+            Debug.Log("Nhan dc soul" + soulAmount);
             Destroy(gameObject);
         }
-    }*/
+    }
 
-    // X? lý va ch?m v?i ng??i ch?i
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        // Ki?m tra n?u va ch?m v?i v?t th? có tag "Ground"
+        if (other.CompareTag("Ground"))
         {
-            LootManager.Instance.AddSoul(soulAmount);
-            Destroy(gameObject);
+            isMoving = false;
+            rb.gravityScale = 0f;
         }
     }
 }

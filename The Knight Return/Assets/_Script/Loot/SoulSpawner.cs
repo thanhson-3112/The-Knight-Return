@@ -7,7 +7,7 @@ public class SoulSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject droppedItemPrefab;
     [SerializeField] private List<SoulSO> lootList = new List<SoulSO>();
-    /*[SerializeField] */private int soulAmount;
+
 
     protected virtual void Update()
     {
@@ -44,7 +44,8 @@ public class SoulSpawner : MonoBehaviour
             //truyen hinh anh cho item
             lootGameObject.GetComponent<SpriteRenderer>().sprite = droppedItem.soulSprite;
             // truyen gia tri cho item
-            lootGameObject.GetComponent<SoulItem>().soulAmount = droppedItem.soulAmount;
+/*            lootGameObject.GetComponent<SoulItem>().soulAmount = droppedItem.soulAmount;
+*/            
 
             float dropForce = 10f;
             Vector2 dropDir = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
