@@ -23,10 +23,13 @@ public class PlayerAttack : MonoBehaviour
     private bool isDownArrowPressed = false;
     private float knockbackForce = 700f;
 
-    [Header("Ground Checking")]
+    [Header("Ground,Wall Checking")]
     [SerializeField] public Transform _isGround;
     private bool isGround;
     [SerializeField] public LayerMask Ground;
+    [SerializeField] public Transform _isWall;
+    public LayerMask wallLayer;
+    private bool isWall;
 
     [Header("Sound Settings")]
     [SerializeField] private AudioSource AttackSoundEffect;
@@ -67,10 +70,11 @@ public class PlayerAttack : MonoBehaviour
         timeSinceAttack += Time.deltaTime;
 
         isGround = Physics2D.OverlapCircle(_isGround.position, 0.2f, Ground);
+        isWall = Physics2D.OverlapCircle(_isWall.position, 0.2f, wallLayer);
         isUpArrowPressed = Input.GetKey(KeyCode.UpArrow);
         isDownArrowPressed = Input.GetKey(KeyCode.DownArrow);
 
-        if (Input.GetButtonDown("Attack") && timeSinceAttack >= timeBetweenAttack)
+        if (Input.GetButtonDown("Attack") && timeSinceAttack >= timeBetweenAttack && !isWall)
         {
             // tan cong tren
             if (isUpArrowPressed)
@@ -95,7 +99,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 timeSinceAttack = 0;
                 AttackSoundEffect.Play();
-                SlashEffcetAngle(slashEffect, sprite.flipX ? 90 : -90, AttackTransform);
+                SlashEffcetAngle(slashEffect, transform.localScale.x > 0 ? -90 : 90, AttackTransform);
                 anim.SetTrigger("attack");
                 Hit(AttackTransform, AttackArea);
             }

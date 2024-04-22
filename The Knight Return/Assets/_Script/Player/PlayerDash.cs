@@ -107,7 +107,7 @@ public class PlayerDash : MonoBehaviour
         rb.gravityScale = 0;
 
 
-        rb.velocity = new Vector2(transform.localScale.x * (sprite.flipX ? -dashSpeed : dashSpeed), 0);
+        rb.velocity = new Vector2(transform.localScale.x *dashSpeed, 0);
 
         tr.emitting = true;
         yield return new WaitForSeconds(dashTime);
@@ -141,7 +141,7 @@ public class PlayerDash : MonoBehaviour
         rb.velocity = new Vector2(move * speed, rb.velocity.y);
 
         // Reset hasDashed khi cham dat
-        if (isGround)
+        if (isGround || isWall)
         {
             hasDashed = false;
         }
@@ -190,6 +190,7 @@ public class PlayerDash : MonoBehaviour
         {
             isWallSliding = true;
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed,float.MaxValue));
+            anim.SetTrigger("Hanging");
         }
         else
         {
@@ -214,6 +215,7 @@ public class PlayerDash : MonoBehaviour
 
         if(Input.GetButtonDown("Jump") && wallJumpingCounter > 0f)
         {
+            
             isWallJumping = true;
             rb.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
             wallJumpingCounter = 0f;
@@ -282,7 +284,7 @@ public class PlayerDash : MonoBehaviour
         {
             state = MovementState.jumping;
         }
-        else if (rb.velocity.y < -.1f)
+        else if (rb.velocity.y < -.1f && !isWallSliding)
         {
             state = MovementState.falling;
             
