@@ -40,7 +40,7 @@ public class SoulManager : MonoBehaviour
         if(currentSoul < maxSoul)
         {
             currentSoul += newSoul;
-            Debug.Log("soul duoc cong " + currentSoul);
+            Debug.Log("soul hien tai " + currentSoul);
         }
     }
 

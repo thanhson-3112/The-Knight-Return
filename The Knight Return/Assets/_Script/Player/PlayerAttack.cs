@@ -44,25 +44,6 @@ public class PlayerAttack : MonoBehaviour
     void Update()
     {
         Attack();
-        UpdateAttackTransform();
-    }
-
-    // Thay doi AttackTransform theo huong nhan vat
-    public void UpdateAttackTransform()
-    {
-        Vector3 attackTransformPosition = AttackTransform.position;
-
-        Vector3 characterDirection = sprite.flipX ? Vector3.left : Vector3.right;
-
-        Vector3 newAttackTransformPosition = transform.position + characterDirection * 2f;
-
-        AttackTransform.position = new Vector3(newAttackTransformPosition.x, attackTransformPosition.y, attackTransformPosition.z);
-
-        float characterRotation = sprite.flipX ? 180f : 0f;
-
-        float attackRotation = sprite.flipX ? 180f : 0f;
-
-        AttackTransform.rotation = Quaternion.Euler(0f, 0f, characterRotation + attackRotation);
     }
 
     // Attack

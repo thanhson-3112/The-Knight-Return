@@ -10,7 +10,7 @@ public class PlayerDash : MonoBehaviour
     private TrailRenderer tr;
     private float move;
     [SerializeField] private float speed = 5f;
-
+    private bool isFacingRight = true;
 
     [Header("Jump")]
     [SerializeField] private float jumpForce = 8f;
@@ -28,6 +28,21 @@ public class PlayerDash : MonoBehaviour
     [SerializeField] private float dashCooldown = 0.5f;
     private bool isDashing = false;
     private bool hasDashed = false;
+
+    [Header("Wall jump")]
+    [SerializeField] public Transform _isWall;
+    public LayerMask wallLayer;
+    private bool isWall;
+    private bool isWallSliding;
+    private float wallSlidingSpeed = 2f;
+
+    private bool isWallJumping;
+    private float wallJumpingDirection;
+    [SerializeField] private float wallJumpingTime = 0.2f;
+    private float wallJumpingCounter;
+    [SerializeField] private float wallJumpingDuration = 0.4f;
+    private Vector2 wallJumpingPower = new Vector2(8f, 16f); 
+
 
     //Animation
     private enum MovementState { idle, running, jumping, falling }
@@ -64,9 +79,14 @@ public class PlayerDash : MonoBehaviour
             Jump();
             UpdateAnimationState();
             KnockBackCouter();
+            WallSide();
+            WallJump();
+        }
+        if (!isWallJumping)
+        {
+            Flip();
         }
         
-
         // Dash input 
         if (Input.GetButtonDown("Dash") && !isDashing && !hasDashed)
         {
@@ -162,6 +182,57 @@ public class PlayerDash : MonoBehaviour
         }
     }
 
+    protected virtual void WallSide()
+    {
+        isWall = Physics2D.OverlapCircle(_isWall.position, 0.2f, wallLayer);
+
+        if(isWall && !isGround && move != 0)
+        {
+            isWallSliding = true;
+            rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed,float.MaxValue));
+        }
+        else
+        {
+            isWallSliding = false;
+        }
+    }
+
+    private void WallJump()
+    {
+        if (isWallSliding)
+        {
+            isWallJumping = false;
+            wallJumpingDirection = -transform.localScale.x;
+            wallJumpingCounter = wallJumpingTime;
+
+            CancelInvoke(nameof(StopWallJumping));
+        }
+        else
+        {
+            wallJumpingCounter -= Time.deltaTime;
+        }
+
+        if(Input.GetButtonDown("Jump") && wallJumpingCounter > 0f)
+        {
+            isWallJumping = true;
+            rb.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
+            wallJumpingCounter = 0f;
+
+            if(transform.localScale.x != wallJumpingDirection)
+            {
+                isFacingRight = !isFacingRight;
+                Vector3 localScale = transform.localScale;
+                localScale.x *= -1f;
+                transform.localScale = localScale;
+            }
+            Invoke(nameof(StopWallJumping), wallJumpingDuration);
+        }
+    }
+
+    private void StopWallJumping()
+    {
+        isWallJumping = false;
+    }
 
 
     public virtual void KnockBackCouter()
@@ -196,13 +267,11 @@ public class PlayerDash : MonoBehaviour
         if (move > 0f)
         {
             state = MovementState.running;
-            sprite.flipX = false;
         
         }
         else if (move < 0f)
         {
             state = MovementState.running;
-            sprite.flipX = true;
         }
         else
         {
@@ -219,5 +288,16 @@ public class PlayerDash : MonoBehaviour
             
         }
         anim.SetInteger("state", (int)state);
+    }
+
+    private void Flip()
+    {
+        if(isFacingRight && move < 0f || !isFacingRight && move > 0f)
+        {
+            isFacingRight = !isFacingRight;
+            Vector3 localScale = transform.localScale;
+            localScale.x *= -1f;
+            transform.localScale = localScale;
+        }
     }
 }
