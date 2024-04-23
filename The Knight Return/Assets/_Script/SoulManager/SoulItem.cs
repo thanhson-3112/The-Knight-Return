@@ -47,13 +47,14 @@ public class SoulItem : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Ki?m tra n?u va ch?m v?i v?t th? có tag "Ground"
-        if (other.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            isMoving = false;
-            rb.gravityScale = 0f;
+            LootManager.Instance.AddSoul(soulAmount);
+            Debug.Log("Nhan dc soul" + soulAmount);
+            Destroy(gameObject);
         }
     }
 }

@@ -65,14 +65,14 @@ public class PlayerHealing : MonoBehaviour
         }
 
         // neu nguoi choi di chuyen thi khong hoi mau
-        if (isMoving)
+/*        if (isMoving)
         {
             focusHeallingSound.Stop();
             anim.SetBool("healing", false);
             canHeal = false;
-        }
+        }*/
 
-        if (canHeal && health < maxHealth && currentSoul > 0)
+        if (canHeal && health < maxHealth && currentSoul >= 2)
         {
             holdATimer += Time.deltaTime;
             if (holdATimer >= 2.5f && !isMoving) 
@@ -84,10 +84,11 @@ public class PlayerHealing : MonoBehaviour
             }
         }
 
-        if(health >= maxHealth || currentSoul <= 0)
+        if(health >= maxHealth || currentSoul < 2 || isMoving)
         {
             focusHeallingSound.Stop();
             anim.SetBool("healing", false);
+            canHeal = false;
         }
 
         isMoving = Mathf.Abs(rb.velocity.x) > 0.1f;

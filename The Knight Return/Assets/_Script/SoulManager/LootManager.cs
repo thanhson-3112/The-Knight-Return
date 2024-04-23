@@ -9,6 +9,9 @@ public class LootManager : MonoBehaviour
     public delegate void SoulChangeHandler(int amount);
     public event SoulChangeHandler OnSoulChange;
 
+    public delegate void GoldChangeHandler(int goldamount);
+    public event GoldChangeHandler OnGoldChange;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -26,4 +29,8 @@ public class LootManager : MonoBehaviour
         OnSoulChange?.Invoke(amount);
     }
 
+    public void AddGold(int goldamount)
+    {
+        OnGoldChange?.Invoke(goldamount);
+    }
 }

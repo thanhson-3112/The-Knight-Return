@@ -190,11 +190,12 @@ public class PlayerDash : MonoBehaviour
         {
             isWallSliding = true;
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed,float.MaxValue));
-            anim.SetTrigger("Hanging");
+            anim.SetBool("Hanging", true);
         }
         else
         {
             isWallSliding = false;
+            anim.SetBool("Hanging", false);
         }
     }
 

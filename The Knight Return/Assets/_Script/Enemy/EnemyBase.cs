@@ -63,6 +63,7 @@ public class EnemyBase : MonoBehaviour
         anim.SetTrigger("EnemyDeath");
         Destroy(gameObject, 1.25f);
         GetComponent<SoulSpawner>().InstantiateLoot(transform.position);
+        GetComponent<GoldSpawner>().InstantiateLoot(transform.position);
     }
 
     protected virtual void OnCollisionEnter2D(Collision2D collision)

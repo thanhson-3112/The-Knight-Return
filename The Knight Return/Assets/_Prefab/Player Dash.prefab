@@ -149,7 +149,7 @@ Transform:
   m_GameObject: {fileID: 6169117506015032110}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.443, y: -0.041, z: 0}
+  m_LocalPosition: {x: 0.309, y: -0.041, z: 0}
   m_LocalScale: {x: 1.6808938, y: 1.5140876, z: 1.0265}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -173,6 +173,7 @@ GameObject:
   - component: {fileID: 1925679273310991000}
   - component: {fileID: 5186071947490286237}
   - component: {fileID: 7923703251854798278}
+  - component: {fileID: 4011611372247016863}
   - component: {fileID: 6997242008421827954}
   - component: {fileID: 1948323524835212535}
   - component: {fileID: 5683800886351272173}
@@ -299,7 +300,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.10534489, y: 0.013899863}
+  m_Offset: {x: 0.03236094, y: 0.013899863}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -309,7 +310,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.7470486, y: 1.5132688}
+  m_Size: {x: 0.6010807, y: 1.5132688}
   m_EdgeRadius: 0
 --- !u!50 &146955947400699647
 Rigidbody2D:
@@ -382,8 +383,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  fullHeart: {fileID: 3309988946822472428, guid: d31a059e6360a3745abc6e9d5114bfa4, type: 3}
-  emptyHeart: {fileID: -4082201736437149018, guid: d3ec052f3e1dff540a009096e20ce872, type: 3}
+  fullHeart: {fileID: 1139555072589563269, guid: 373461b455c32634d8226e4e2c69c068, type: 3}
+  emptyHeart: {fileID: 641196090994033098, guid: 373461b455c32634d8226e4e2c69c068, type: 3}
   startPoint: {fileID: 0}
   DamageSoundEffect: {fileID: 5180621368866877218}
   DeathSoundEffect: {fileID: 8154680128077649429}
@@ -414,7 +415,9 @@ MonoBehaviour:
   _isWall: {fileID: 1965756633185061847}
   wallLayer:
     serializedVersion: 2
-    m_Bits: 264
+    m_Bits: 256
+  wallJumpingTime: 0.2
+  wallJumpingDuration: 0.4
   KBForce: 10
   KBCounter: 0
   KBTotalTime: 0.2
@@ -449,6 +452,10 @@ MonoBehaviour:
   Ground:
     serializedVersion: 2
     m_Bits: 8
+  _isWall: {fileID: 1965756633185061847}
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 256
   AttackSoundEffect: {fileID: 1222607539886388409}
   HitSoundEffect: {fileID: 8555156503012226641}
 --- !u!114 &5186071947490286237
@@ -486,6 +493,20 @@ MonoBehaviour:
   maxSoul: 6
   currentSoul: 0
   soulUI: {fileID: 0}
+--- !u!114 &4011611372247016863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7890632744287969374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d19aa1dad1a082d4da9e495c2027cd74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goldTotal: 0
+  goldText: {fileID: 0}
 --- !u!96 &6997242008421827954
 TrailRenderer:
   serializedVersion: 3
