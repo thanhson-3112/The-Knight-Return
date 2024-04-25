@@ -12,9 +12,7 @@ public class PlayerLife : MonoBehaviour
     [SerializeField] public int maxHealth = 5;
     [SerializeField] public int health;
 
-    [SerializeField] public Image[] hearts;
-    public Sprite fullHeart;
-    public Sprite emptyHeart;
+    public HealthUI healthUI;
 
     //CHeckPoint
     private Vector2 respawnPoint;
@@ -33,36 +31,19 @@ public class PlayerLife : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         health = maxHealth;
+        healthUI.SetMaxHealth(maxHealth);
         respawnPoint = startPoint.transform.position;
     }
 
     public void Update()
     {
-        // Dieu chinh thanh mau
-        for (int i = 0; i < hearts.Length; i++)
-        {
-            if (i < health)
-            {
-                hearts[i].sprite = fullHeart;
-            }
-            else
-            {
-                hearts[i].sprite = emptyHeart;
-            }
-            if (i < maxHealth)
-            {
-                hearts[i].enabled = true;
-            }
-            else
-            {
-                hearts[i].enabled = false;
-            }
-        }
+        healthUI.SetHealth(health);
     }
 
     public void TakeDamage(int damage)
     {
         health -= damage;
+        healthUI.SetHealth(health);
         DamageSoundEffect.Play();
         if (health <= 0)
         {

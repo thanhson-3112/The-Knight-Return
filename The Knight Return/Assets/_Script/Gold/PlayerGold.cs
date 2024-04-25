@@ -1,53 +1,67 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
-using UnityEngine.SceneManagement;
+using UnityEngine;
 
 public class PlayerGold : MonoBehaviour
 {
-    /*public static PlayerGold instance;*/
+    [SerializeField] private int goldTotal;
+    public int goldAdd;
 
-    [SerializeField] public int goldTotal;
-    public TextMeshProUGUI goldText;
+    public TextMeshProUGUI goldTotalText;
+    public TextMeshProUGUI goldAddText;
 
-    private void Awake()
+    private Coroutine goldAddCoroutine;
+    private float timeSinceLastGoldAdded = 0f;
+
+    private void Start()
     {
-        /*if (PlayerGold.instance != null) Debug.LogError("Only 1 ScoreManager allow");
-        PlayerGold.instance = this;*/
+        goldTotalText.text = "Gold: " + goldTotal.ToString();
+        goldAddText.gameObject.SetActive(false);
     }
 
-    protected virtual void Start()
-    {
-        goldText.text = "Gold: " + goldTotal.ToString();
-    }
-
-    protected virtual void OnEnable()
+    private void OnEnable()
     {
         LootManager.Instance.OnGoldChange += HandleGold;
     }
 
-    protected virtual void OnDisable()
+    private void OnDisable()
     {
         LootManager.Instance.OnGoldChange -= HandleGold;
     }
 
-    protected virtual void HandleGold(int newGold)
+    public void HandleGold(int newGold)
     {
         goldTotal += newGold;
-        goldText.text = "Gold: " + goldTotal.ToString();
+        goldTotalText.text = "Gold: " + goldTotal.ToString();
+
+        if (goldAddCoroutine != null)
+        {
+            StopCoroutine(goldAddCoroutine);
+        }
+
+        goldAddText.gameObject.SetActive(true);
+        goldAdd += newGold;
+        goldAddText.text = "+" + goldAdd.ToString();
+
+        goldAddCoroutine = StartCoroutine(HideGoldAddText());
     }
 
-    // save game
-   /* public virtual void FromJson(string jsonString)
+    private IEnumerator HideGoldAddText()
     {
-        GoldData obj = JsonUtility.FromJson<GoldData>(jsonString);
-        if (obj == null) return;
-        this.goldTotal = obj.goldTotal;
-    }*/
-}
+        yield return new WaitForSeconds(3f); 
 
-/*public class GoldData
-{
-    public int goldTotal;
-}*/
+        while (goldAdd >= 0)
+        {
+            if (timeSinceLastGoldAdded >= 0.2f)
+            {
+                goldAdd--;
+                goldAddText.text = "+" + goldAdd.ToString();
+                timeSinceLastGoldAdded = 0f;
+            }
+            yield return null;
+            timeSinceLastGoldAdded += Time.deltaTime;
+        }
+
+        goldAddText.gameObject.SetActive(false); 
+    }
+}

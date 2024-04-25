@@ -61,7 +61,22 @@ public class EnemyBase : MonoBehaviour
     {
         damage = 0;
         anim.SetTrigger("EnemyDeath");
+
+        Rigidbody2D enemyRigidbody = GetComponent<Rigidbody2D>();
+        if (enemyRigidbody != null)
+        {
+            enemyRigidbody.velocity = Vector2.zero; // D?ng quái v?t di chuy?n
+            enemyRigidbody.isKinematic = true; // T?t v?n ??ng v?t lý
+        }
+
+        Collider2D collider = GetComponent<Collider2D>();
+        if (collider != null)
+        {
+            collider.enabled = false;
+        }
+
         Destroy(gameObject, 1.25f);
+
         GetComponent<SoulSpawner>().InstantiateLoot(transform.position);
         GetComponent<GoldSpawner>().InstantiateLoot(transform.position);
     }
