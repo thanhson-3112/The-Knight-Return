@@ -44,10 +44,10 @@ GameObject:
   - component: {fileID: 6967858324737354967}
   - component: {fileID: 2340431244349371984}
   - component: {fileID: 8799658606989647905}
-  - component: {fileID: 1283720867173256399}
   - component: {fileID: 5285184580464233725}
   - component: {fileID: 2791996308434711029}
   - component: {fileID: 8001725069210887845}
+  - component: {fileID: 3423030743845907698}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
@@ -217,26 +217,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1283720867173256399
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 998735565580842013}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bd4271b993e79e48b11d9cdc39c84b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movePoint:
-  - {fileID: 8745185459705776464}
-  - {fileID: 3248444727344902591}
-  moveSpeed: 2
-  moveDestination: 1
-  playerTransform: {fileID: 0}
-  isChasing: 0
-  chaseDistance: 5
 --- !u!114 &5285184580464233725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,6 +267,27 @@ MonoBehaviour:
   droppedItemPrefab: {fileID: 8089137497524718166, guid: c35d0675f99ffef41ac2f05aa3af558b, type: 3}
   lootList:
   - {fileID: 11400000, guid: 975bfb430f726094e9ea1759b75388c5, type: 2}
+--- !u!114 &3423030743845907698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 998735565580842013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c1becb9caea6c944991e9e5940c432b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movePoint: []
+  moveSpeed: 2
+  moveDestination: 0
+  playerTransform: {fileID: 0}
+  isChasing: 0
+  chaseDistance: 5
+  enemyScaleX: 9
+  enemyScaleY: 9
+  enemyScaleZ: 9
 --- !u!1 &2187912291774838577
 GameObject:
   m_ObjectHideFlags: 0

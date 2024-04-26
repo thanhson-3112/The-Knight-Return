@@ -7,16 +7,7 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/_Scenes/Start Menu.unity
-    guid: f0390ffb0ec7f4a4d90ab6e167ae8077
-  - enabled: 1
-    path: Assets/_Scenes/Dark Forest.unity
-    guid: 697b4504380e64d47be12fa007821092
-  - enabled: 1
-    path: Assets/_Scenes/Dead Village.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
-    path: Assets/_Scenes/Under The Castle.unity
-    guid: 3a706e5251df8ba4393dd2ea6f8116c4
+    guid: 48b6c595464e51f4ba4c3afa4a750bc1
   - enabled: 1
     path: Assets/_Scenes/Devil's Castle.unity
     guid: 8e580d6347ee09d4899612089882f091

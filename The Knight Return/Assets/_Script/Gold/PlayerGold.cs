@@ -50,7 +50,7 @@ public class PlayerGold : MonoBehaviour
     {
         yield return new WaitForSeconds(3f); 
 
-        while (goldAdd >= 0)
+        while (goldAdd > 0)
         {
             if (timeSinceLastGoldAdded >= 0.2f)
             {
