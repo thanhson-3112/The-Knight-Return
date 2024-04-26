@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BatMove : EnemyMovementBase
+public class JumpEnemyMove : EnemyMovementBase
 {
-    // Các bi?n ?? xác ??nh vi?c nh?y
+    
     public float jumpForce = 10f;
     public float jumpCooldown = 1f;
     private bool isJumping = false;
@@ -17,11 +17,6 @@ public class BatMove : EnemyMovementBase
     protected override void Update()
     {
         base.Update();
-
-        if (isChasing && !isJumping)
-        {
-            StartCoroutine(JumpAndAttack());
-        }
     }
 
     protected override void EnemyChasing()
@@ -32,15 +27,26 @@ public class BatMove : EnemyMovementBase
         }
         else
         {
+            anim.SetBool("SlimeChasing", true);
             if (transform.position.x > playerTransform.position.x)
             {
+                anim.SetBool("SlimeChasing", false);
                 transform.localScale = new Vector3(-enemyScaleX, enemyScaleY, enemyScaleZ);
-                transform.position += Vector3.left * moveSpeed * 2f * Time.deltaTime;
+                transform.position += Vector3.left * moveSpeed  * Time.deltaTime;
+                if (isChasing && !isJumping)
+                {
+                    StartCoroutine(JumpAndAttack());
+                }
             }
             if (transform.position.x < playerTransform.position.x)
             {
+                anim.SetBool("SlimeChasing", false);
                 transform.localScale = new Vector3(enemyScaleX, enemyScaleY, enemyScaleZ);
-                transform.position += Vector3.right * moveSpeed * 2f * Time.deltaTime;
+                transform.position += Vector3.right * moveSpeed * Time.deltaTime;
+                if (isChasing && !isJumping)
+                {
+                    StartCoroutine(JumpAndAttack());
+                }
             }
         }
     }
@@ -49,11 +55,12 @@ public class BatMove : EnemyMovementBase
     {
         isJumping = true;
 
+        anim.SetTrigger("SlimeJump");
         GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         // thoi gian dap xuong
         yield return new WaitForSeconds(jumpCooldown);
 
-        // ?áp xu?ng
+        anim.SetTrigger("SlimeFall");
         GetComponent<Rigidbody2D>().AddForce(Vector2.down * jumpForce, ForceMode2D.Impulse);
         yield return new WaitForSeconds(1f);
 

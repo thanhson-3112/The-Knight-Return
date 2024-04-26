@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyMovementBase : MonoBehaviour
 {
+    public Animator anim;
+
     public Transform[] movePoint;
     public float moveSpeed = 2;
     public int moveDestination;
@@ -23,6 +25,7 @@ public class EnemyMovementBase : MonoBehaviour
     {
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         playerTransform = playerObject.GetComponent<Transform>();
+        anim = GetComponent<Animator>();
     }
 
     protected virtual void Update()
@@ -55,6 +58,7 @@ public class EnemyMovementBase : MonoBehaviour
         }
         if (moveDestination == 0)
         {
+            anim.SetTrigger("EnemyRun");
             transform.position = Vector2.MoveTowards(transform.position, movePoint[0].position, moveSpeed * Time.deltaTime);
             if (Vector2.Distance(transform.position, movePoint[0].position) < .2f)
             {
@@ -64,6 +68,7 @@ public class EnemyMovementBase : MonoBehaviour
         }
         if (moveDestination == 1)
         {
+            anim.SetTrigger("EnemyRun");
             transform.position = Vector2.MoveTowards(transform.position, movePoint[1].position, moveSpeed * Time.deltaTime);
             if (Vector2.Distance(transform.position, movePoint[1].position) < .2f)
             {
