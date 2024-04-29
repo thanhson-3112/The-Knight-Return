@@ -152,7 +152,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      karina-jilid-healthbar_0: 8521822178868604887
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -24,7 +25,7 @@ public class PlayerLife : MonoBehaviour
     [SerializeField] private AudioSource HeathSoundEffect;
     [SerializeField] private AudioSource CheckpointSoundEffect;
 
-  
+    public bool invincible = false;
 
     private void Start()
     {
@@ -42,12 +43,22 @@ public class PlayerLife : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        health -= damage;
-        healthUI.SetHealth(health);
-        DamageSoundEffect.Play();
-        if (health <= 0)
+        if (!invincible)
         {
-            Die();
+            health -= damage;
+
+            healthUI.SetHealth(health);
+            DamageSoundEffect.Play();
+
+            if (health <= 0)
+            {
+                Die();
+            }
+            else
+            {
+                StartCoroutine(MakeInvincible(1f));
+            }
+
         }
     }
 
@@ -57,6 +68,13 @@ public class PlayerLife : MonoBehaviour
         {
             Die();
         }
+    }
+
+    IEnumerator MakeInvincible(float time)
+    {
+        invincible = true;
+        yield return new WaitForSeconds(time);
+        invincible = false;
     }
 
     private void Die()

@@ -64,14 +64,6 @@ public class PlayerHealing : MonoBehaviour
             anim.SetInteger("state", 0);
         }
 
-        // neu nguoi choi di chuyen thi khong hoi mau
-/*        if (isMoving)
-        {
-            focusHeallingSound.Stop();
-            anim.SetBool("healing", false);
-            canHeal = false;
-        }*/
-
         if (canHeal && health < maxHealth && currentSoul >= 2)
         {
             holdATimer += Time.deltaTime;
@@ -84,6 +76,7 @@ public class PlayerHealing : MonoBehaviour
             }
         }
 
+        // xet dk ko dc hoi mau
         if(health >= maxHealth || currentSoul < 2 || isMoving)
         {
             focusHeallingSound.Stop();

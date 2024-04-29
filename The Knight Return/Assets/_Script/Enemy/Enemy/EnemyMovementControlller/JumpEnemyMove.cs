@@ -30,9 +30,8 @@ public class JumpEnemyMove : EnemyMovementBase
             anim.SetBool("SlimeChasing", true);
             if (transform.position.x > playerTransform.position.x)
             {
-                anim.SetBool("SlimeChasing", false);
                 transform.localScale = new Vector3(-enemyScaleX, enemyScaleY, enemyScaleZ);
-                transform.position += Vector3.left * moveSpeed  * Time.deltaTime;
+                transform.position += Vector3.left * moveSpeed * 1f  * Time.deltaTime;
                 if (isChasing && !isJumping)
                 {
                     StartCoroutine(JumpAndAttack());
@@ -40,9 +39,8 @@ public class JumpEnemyMove : EnemyMovementBase
             }
             if (transform.position.x < playerTransform.position.x)
             {
-                anim.SetBool("SlimeChasing", false);
                 transform.localScale = new Vector3(enemyScaleX, enemyScaleY, enemyScaleZ);
-                transform.position += Vector3.right * moveSpeed * Time.deltaTime;
+                transform.position += Vector3.right * moveSpeed * 1f * Time.deltaTime;
                 if (isChasing && !isJumping)
                 {
                     StartCoroutine(JumpAndAttack());
@@ -53,17 +51,19 @@ public class JumpEnemyMove : EnemyMovementBase
 
     IEnumerator JumpAndAttack()
     {
+        anim.SetBool("SlimeChasing", false);
         isJumping = true;
 
-        anim.SetTrigger("SlimeJump");
+        anim.SetBool("SlimeJump", true);
         GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         // thoi gian dap xuong
         yield return new WaitForSeconds(jumpCooldown);
+        anim.SetBool("SlimeJump", false);
 
-        anim.SetTrigger("SlimeFall");
+        anim.SetBool("SlimeFall", true);
         GetComponent<Rigidbody2D>().AddForce(Vector2.down * jumpForce, ForceMode2D.Impulse);
         yield return new WaitForSeconds(1f);
-
+        anim.SetBool("SlimeFall", false);
         isJumping = false;
     }
 }
