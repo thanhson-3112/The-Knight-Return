@@ -2707,7 +2707,6 @@ GameObject:
   m_Component:
   - component: {fileID: 395299525}
   - component: {fileID: 395299526}
-  - component: {fileID: 395299527}
   m_Layer: 0
   m_Name: LootManager
   m_TagString: Untagged
@@ -2731,18 +2730,6 @@ Transform:
   m_Father: {fileID: 2140453530}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &395299526
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 395299524}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b72272e9ab4e2f14b92bec34070dfddf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &395299527
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -64250,6 +64237,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 587570194}
     m_Modifications:
+    - target: {fileID: 1126174347926588911, guid: 4be63275f835fd848bb8daf14e88cd51, type: 3}
+      propertyPath: dashSpeed
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 1168719606222353367, guid: 4be63275f835fd848bb8daf14e88cd51, type: 3}
       propertyPath: m_LocalPosition.x
       value: -156.47
