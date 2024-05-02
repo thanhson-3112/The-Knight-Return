@@ -26,6 +26,7 @@ public class PlayerLife : MonoBehaviour
     [SerializeField] private AudioSource CheckpointSoundEffect;
 
     public bool invincible = false;
+    public CameraManager cameraManager;
 
     private void Start()
     {
@@ -46,7 +47,7 @@ public class PlayerLife : MonoBehaviour
         if (!invincible)
         {
             health -= damage;
-
+            cameraManager.ShakeCamera();
             healthUI.SetHealth(health);
             DamageSoundEffect.Play();
 

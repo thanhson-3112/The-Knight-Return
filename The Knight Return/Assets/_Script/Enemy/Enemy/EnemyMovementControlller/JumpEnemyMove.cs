@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using TreeEditor;
 using UnityEngine;
 
 public class JumpEnemyMove : EnemyMovementBase
 {
-    
     public float jumpForce = 10f;
     public float jumpCooldown = 1f;
     private bool isJumping = false;
@@ -49,7 +49,7 @@ public class JumpEnemyMove : EnemyMovementBase
         }
     }
 
-    IEnumerator JumpAndAttack()
+    /*IEnumerator JumpAndAttack()
     {
         anim.SetBool("SlimeChasing", false);
         isJumping = true;
@@ -65,5 +65,22 @@ public class JumpEnemyMove : EnemyMovementBase
         yield return new WaitForSeconds(1f);
         anim.SetBool("SlimeFall", false);
         isJumping = false;
+    }*/
+
+    IEnumerator JumpAndAttack()
+    {
+        // T?m d?ng m?t th?i gian tr??c khi nh?y
+        yield return new WaitForSeconds(1f);
+
+        // Tính toán h??ng và kho?ng cách t? quái ??n nhân v?t
+        Vector3 directionToPlayer = (playerTransform.position - transform.position).normalized;
+        float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+
+        // Tính l?c nh?y d?a trên h??ng và kho?ng cách ??n nhân v?t
+        Vector2 jumpForceVector = directionToPlayer * jumpForce;
+
+        // Áp d?ng l?c nh?y cho Rigidbody2D c?a quái
+        GetComponent<Rigidbody2D>().AddForce(jumpForceVector, ForceMode2D.Impulse);
     }
+
 }

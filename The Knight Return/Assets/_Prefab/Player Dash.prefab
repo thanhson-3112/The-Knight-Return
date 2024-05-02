@@ -372,6 +372,7 @@ MonoBehaviour:
   DeathSoundEffect: {fileID: 8154680128077649429}
   HeathSoundEffect: {fileID: 591535641150993490}
   CheckpointSoundEffect: {fileID: 4844101545094894141}
+  invincible: 0
 --- !u!114 &1126174347926588911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -391,15 +392,17 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   jumpTime: 0.35
-  dashSpeed: 15
-  dashTime: 0.2
-  dashCooldown: 0.5
+  dashSpeed: 20
+  dashTime: 0.1
+  dashCooldown: 1
+  canDash: 1
   _isWall: {fileID: 1965756633185061847}
   wallLayer:
     serializedVersion: 2
     m_Bits: 256
   wallJumpingTime: 0.2
   wallJumpingDuration: 0.4
+  wallJumpingPower: {x: 30, y: 10}
   KBForce: 10
   KBCounter: 0
   KBTotalTime: 0.2
@@ -458,6 +461,7 @@ MonoBehaviour:
     m_Bits: 8
   soulManager: {fileID: 7923703251854798278}
   playerLife: {fileID: 0}
+  cameraManager: {fileID: 0}
   focusHeallingSound: {fileID: 7839722812209259862}
   healingSound: {fileID: 2151207976687966998}
 --- !u!114 &7923703251854798278
@@ -488,7 +492,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goldTotal: 0
-  goldText: {fileID: 0}
+  goldAdd: 0
+  goldTotalText: {fileID: 0}
+  goldAddText: {fileID: 0}
 --- !u!96 &6997242008421827954
 TrailRenderer:
   serializedVersion: 3

@@ -24,10 +24,10 @@ public class PlayerDash : MonoBehaviour
 
     [Header("Dash")]
     [SerializeField] private float dashSpeed = 15f;
-    [SerializeField] private float dashTime = 0.2f;
+    [SerializeField] private float dashTime = 0.1f;
     [SerializeField] private float dashCooldown = 0.5f;
     private bool isDashing = false;
-    private bool canDash = true;
+    public bool canDash = true;
 
     [Header("Wall jump")]
     [SerializeField] public Transform _isWall;
@@ -41,7 +41,7 @@ public class PlayerDash : MonoBehaviour
     [SerializeField] private float wallJumpingTime = 0.2f;
     private float wallJumpingCounter;
     [SerializeField] private float wallJumpingDuration = 0.4f;
-    private Vector2 wallJumpingPower = new Vector2(20f, 10f); 
+    public Vector2 wallJumpingPower = new Vector2(25f, 10f); 
 
 
     //Animation
@@ -88,16 +88,24 @@ public class PlayerDash : MonoBehaviour
         {
             Flip();
         }
-        
+
         // Dash input 
-        if (Input.GetButtonDown("Dash") && !isDashing && !canDash)
+        if (Input.GetButtonDown("Dash") && !isDashing && canDash)
         {
+            if (isWallSliding && isDashing)
+            {
+                canDash = false; 
+            }
             DashSoundEffect.Play();
             RunSoundEffect.Stop();
             StartCoroutine(Dash());
         }
-        
-       
+
+        // Reset canDashed khi cham dat
+        /*if (isGround || isWall)
+        {
+            canDash = true;
+        }*/
     }
 
     // Di chuyen
@@ -109,8 +117,11 @@ public class PlayerDash : MonoBehaviour
         if (isWallSliding)
         {
             rb.velocity = new Vector2(-transform.localScale.x * dashSpeed, 0);
-            Flip();
-
+            isFacingRight = !isFacingRight;
+            Vector3 localScale = transform.localScale;
+            localScale.x *= -1f;
+            transform.localScale = localScale;
+            canDash = false;
         }
         else
         {
@@ -119,17 +130,12 @@ public class PlayerDash : MonoBehaviour
         }
 
         tr.emitting = true;
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(dashTime);
         tr.emitting = false;
-
         isDashing = false;
-        yield return new WaitForSeconds(0.5f);
+
+        yield return new WaitForSeconds(dashCooldown);
         canDash = true;
-
-        if (isWallSliding)
-        {
-
-        }
     }
 
     protected virtual void Move()
@@ -151,12 +157,6 @@ public class PlayerDash : MonoBehaviour
             RunSoundEffect.Stop();
         }
         rb.velocity = new Vector2(move * speed, rb.velocity.y);
-
-        // Reset hasDashed khi cham dat
-        if (isGround || isWall)
-        {
-            canDash = false;
-        }
     }
 
     protected virtual void Jump()
@@ -165,7 +165,7 @@ public class PlayerDash : MonoBehaviour
 
         if (Input.GetButtonDown("Jump"))
         {
-            if (isGround || (doubleJump && !canDash))
+            if (isGround || (doubleJump && canDash))
             {
                 JumpSoundEffect.Play();
                 isJump = true;
@@ -199,7 +199,7 @@ public class PlayerDash : MonoBehaviour
     {
         isWall = Physics2D.OverlapCircle(_isWall.position, 0.2f, wallLayer);
 
-        if(isWall && !isGround )
+        if(isWall && !isGround)
         {
             isWallSliding = true;
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed,float.MaxValue));
@@ -229,7 +229,8 @@ public class PlayerDash : MonoBehaviour
 
         if(Input.GetButtonDown("Jump") && wallJumpingCounter > 0f)
         {
-            
+
+            JumpSoundEffect.Play();
             isWallJumping = true;
             anim.SetBool("Hanging", false);
             rb.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
@@ -309,14 +310,7 @@ public class PlayerDash : MonoBehaviour
 
     private void Flip()
     {
-        if(isFacingRight && move < 0f || !isFacingRight && move > 0f)
-        {
-            isFacingRight = !isFacingRight;
-            Vector3 localScale = transform.localScale;
-            localScale.x *= -1f;
-            transform.localScale = localScale;
-        }
-        if(isFacingRight && isWallSliding && isDashing || !isFacingRight && isWallSliding && isDashing)
+        if (isFacingRight && move < 0f || !isFacingRight && move > 0f )
         {
             isFacingRight = !isFacingRight;
             Vector3 localScale = transform.localScale;

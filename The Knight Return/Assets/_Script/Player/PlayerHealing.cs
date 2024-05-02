@@ -24,9 +24,12 @@ public class PlayerHealing : MonoBehaviour
     private float maxHealth;
     public PlayerLife playerLife;
 
+    public CameraManager cameraManager;
+
     [Header("Sound")]
     [SerializeField] private AudioSource focusHeallingSound;
     [SerializeField] private AudioSource healingSound;
+
 
     public  void Start()
     {
@@ -46,12 +49,13 @@ public class PlayerHealing : MonoBehaviour
 
         currentSoul = soulManager.currentSoul;
 
-        // Nguoi choi tha nut A hoi mau nua
+        // Nguoi choi an nut A hoi mau 
         if (Input.GetKeyDown(KeyCode.A) && isGround && currentSoul > 0 && health < maxHealth)
         {
             focusHeallingSound.Play();
             anim.SetBool("healing", true);
-            canHeal = true; 
+            canHeal = true;
+            cameraManager.StartShrinkCamera(0.1f, 30f);
         }
 
         // Nguoi choi tha nut A khong hoi mau nua
@@ -62,17 +66,19 @@ public class PlayerHealing : MonoBehaviour
             canHeal = false; 
             holdATimer = 0f; // reset thoi gian hoi mau
             anim.SetInteger("state", 0);
+            cameraManager.StopShrinkCamera(); 
         }
 
         if (canHeal && health < maxHealth && currentSoul >= 2)
         {
             holdATimer += Time.deltaTime;
-            if (holdATimer >= 2.5f && !isMoving) 
+            if (holdATimer >= 2f && !isMoving) 
             {
                 healingSound.Play();
                 soulManager.MinusCurrentSoul();
                 playerLife.PlayerHealing();
-                holdATimer = 0f; 
+                holdATimer = 0f;
+                cameraManager.StopShrinkCamera();
             }
         }
 
@@ -82,6 +88,7 @@ public class PlayerHealing : MonoBehaviour
             focusHeallingSound.Stop();
             anim.SetBool("healing", false);
             canHeal = false;
+            cameraManager.StopShrinkCamera();
         }
 
         isMoving = Mathf.Abs(rb.velocity.x) > 0.1f;

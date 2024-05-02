@@ -2,39 +2,54 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RunEnemyMove : EnemyMovementBase
+public class RunEnemyMove : MonoBehaviour
 {
+    private Rigidbody2D rb;
+    public float speed = 10f;
 
-    protected override void Start()
+    [Header("Check")]
+    public Transform _isGround;
+    private bool isGround;
+    public LayerMask Ground;
+    private bool isWall;
+    public Transform _isWall;
+    public LayerMask Wall;
+    private bool isFacingRight;
+
+    // Follow player
+    /*public Transform playerTransform;
+    public bool isChasing;
+    public float chaseDistance = 3;*/
+
+
+    private void Start()
     {
-        base.Start();
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    protected override void Update()
+    private void Update()
     {
-        base.Update();
+        isGround = Physics2D.OverlapCircle(_isGround.position, 0.2f, Ground);
+        isWall = Physics2D.OverlapCircle(_isWall.position, 0.2f, Wall);
 
-        
+        Vector2 moveVelocity = new Vector2(speed, rb.velocity.y);
+        rb.velocity = moveVelocity;
+
+        if (!isGround && isFacingRight || isWall && isFacingRight)
+        {
+            Flip();
+        }
+        else if (!isGround && !isFacingRight || isWall && !isFacingRight)
+        {
+            Flip();
+
+        }
     }
 
-    protected override void EnemyChasing()
+    private void Flip()
     {
-        if (Vector2.Distance(transform.position, playerTransform.position) > chaseDistance)
-        {
-            isChasing = false;
-        }
-        else
-        {
-            if (transform.position.x > playerTransform.position.x)
-            {
-                transform.localScale = new Vector3(-enemyScaleX, enemyScaleY, enemyScaleZ);
-                transform.position += Vector3.left * moveSpeed * Time.deltaTime;
-            }
-            if (transform.position.x < playerTransform.position.x)
-            {
-                transform.localScale = new Vector3(enemyScaleX, enemyScaleY, enemyScaleZ);
-                transform.position += Vector3.right * moveSpeed * Time.deltaTime;
-            }
-        }
+        isFacingRight = !isFacingRight;
+        transform.Rotate(new Vector3(0, 180, 0));
+        speed = -speed;
     }
 }
