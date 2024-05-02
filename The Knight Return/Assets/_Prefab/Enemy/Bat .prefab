@@ -41,14 +41,13 @@ GameObject:
   m_Component:
   - component: {fileID: 3397420713366708227}
   - component: {fileID: 1779889111650954976}
-  - component: {fileID: 3294718597319810634}
   - component: {fileID: 2340431244349371984}
   - component: {fileID: 8799658606989647905}
+  - component: {fileID: 2854684969362455929}
   - component: {fileID: 5285184580464233725}
   - component: {fileID: 2791996308434711029}
   - component: {fileID: 8001725069210887845}
-  - component: {fileID: 3423030743845907698}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,43 +121,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!70 &3294718597319810634
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 998735565580842013}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.64, y: 0.64}
-  m_Direction: 0
 --- !u!50 &2340431244349371984
 Rigidbody2D:
   serializedVersion: 4
@@ -208,6 +170,52 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!61 &2854684969362455929
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 998735565580842013}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.0022390187, y: 0.0067169815}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.64, y: 0.64}
+    newSize: {x: 0.64, y: 0.64}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.20563349, y: 0.12502936}
+  m_EdgeRadius: 0
 --- !u!114 &5285184580464233725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,7 +234,7 @@ MonoBehaviour:
   isRecolling: 0
   playerLife: {fileID: 0}
   playerDash: {fileID: 0}
-  batHealth: 1
+  batHealth: 6
   enemyDamage: 1
 --- !u!114 &2791996308434711029
 MonoBehaviour:
@@ -258,27 +266,6 @@ MonoBehaviour:
   droppedItemPrefab: {fileID: 8089137497524718166, guid: c35d0675f99ffef41ac2f05aa3af558b, type: 3}
   lootList:
   - {fileID: 11400000, guid: 975bfb430f726094e9ea1759b75388c5, type: 2}
---- !u!114 &3423030743845907698
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 998735565580842013}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c1becb9caea6c944991e9e5940c432b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movePoint: []
-  moveSpeed: 2
-  moveDestination: 0
-  playerTransform: {fileID: 0}
-  isChasing: 0
-  chaseDistance: 5
-  enemyScaleX: 9
-  enemyScaleY: 9
-  enemyScaleZ: 9
 --- !u!1 &2187912291774838577
 GameObject:
   m_ObjectHideFlags: 0

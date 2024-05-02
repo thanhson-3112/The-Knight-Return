@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RunEnemyMove : MonoBehaviour
+public class WalkEnemyMove : MonoBehaviour
 {
     private Rigidbody2D rb;
     public float speed = 10f;
@@ -16,12 +16,6 @@ public class RunEnemyMove : MonoBehaviour
     public LayerMask Wall;
     private bool isFacingRight;
 
-    // Follow player
-    /*public Transform playerTransform;
-    public bool isChasing;
-    public float chaseDistance = 3;*/
-
-
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -32,8 +26,7 @@ public class RunEnemyMove : MonoBehaviour
         isGround = Physics2D.OverlapCircle(_isGround.position, 0.2f, Ground);
         isWall = Physics2D.OverlapCircle(_isWall.position, 0.2f, Wall);
 
-        Vector2 moveVelocity = new Vector2(speed, rb.velocity.y);
-        rb.velocity = moveVelocity;
+        transform.position += Vector3.right * speed * Time.deltaTime;
 
         if (!isGround && isFacingRight || isWall && isFacingRight)
         {

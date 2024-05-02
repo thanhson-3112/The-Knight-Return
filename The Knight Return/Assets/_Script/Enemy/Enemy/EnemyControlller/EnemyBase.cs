@@ -46,6 +46,7 @@ public class EnemyBase : MonoBehaviour
     public virtual void EnemyHit(float _damageDone, Vector2 _hitDirection, float _hitForce)
     {
         enemyHealth -= _damageDone;
+
         if (!isRecolling)
         {
             rb.AddForce(-_hitForce * recollFactor * _hitDirection);
@@ -65,8 +66,8 @@ public class EnemyBase : MonoBehaviour
         Rigidbody2D enemyRigidbody = GetComponent<Rigidbody2D>();
         if (enemyRigidbody != null)
         {
-            enemyRigidbody.velocity = Vector2.zero; // D?ng quái v?t di chuy?n
-            enemyRigidbody.isKinematic = true; // T?t v?n ??ng v?t lý
+            enemyRigidbody.velocity = Vector2.zero; 
+            enemyRigidbody.isKinematic = true;
         }
 
         Collider2D collider = GetComponent<Collider2D>();

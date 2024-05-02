@@ -58,6 +58,7 @@ public class PlayerAttack : MonoBehaviour
         Gizmos.DrawWireCube(DownAttackTransform.position, DownAttackArea);
     }
 
+    // hieu ung chem
     private void SlashEffcetAngle(GameObject _slashEffect, int _effcetAngle, Transform _attackTransform)
     {
         _slashEffect = Instantiate(_slashEffect, _attackTransform);
