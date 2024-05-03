@@ -1,86 +1,112 @@
 using System.Collections;
-using System.Collections.Generic;
-using TreeEditor;
 using UnityEngine;
 
-public class JumpEnemyMove : EnemyMovementBase
+public class JumpEnemyMove : MonoBehaviour
 {
-    public float jumpForce = 10f;
-    public float jumpCooldown = 1f;
+    [Header("For Patrolling")]
+    [SerializeField] float speed = 5f;
+    private bool isFacingRight = true;
+    [SerializeField] Transform groundCheckPoint;
+    [SerializeField] Transform wallCheckPoint;
+    [SerializeField] LayerMask groundLayer;
+    private bool isGround;
+    private bool isWall;
+
+    [Header("For Jump Attacking")]
+    [SerializeField] float jumpHeight = 10f;
+    [SerializeField] Transform playerTransform;
+    [SerializeField] Transform groundCheck;
+    private bool isGrounded;
+
+    [Header("Other")]
+    private Animator anim;
+    private Rigidbody2D rb;
+
+    public bool isChasing;
+    public float chaseDistance = 5;
+
     private bool isJumping = false;
 
-    protected override void Start()
+    void Start()
     {
-        base.Start();
+        rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
-    protected override void Update()
-    {
-        base.Update();
-    }
 
-    protected override void EnemyChasing()
+    void Update()
     {
-        if (Vector2.Distance(transform.position, playerTransform.position) > chaseDistance)
+        isGround = Physics2D.OverlapCircle(groundCheckPoint.position, 0.2f, groundLayer);
+        isWall = Physics2D.OverlapCircle(wallCheckPoint.position, 0.2f, groundLayer);
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+
+        if (isChasing)
         {
-            isChasing = false;
+            if (Vector2.Distance(transform.position, playerTransform.position) > chaseDistance)
+            {
+                isChasing = false;
+            }
+            else
+            {
+                anim.SetTrigger("SlimeChasing");
+                if (playerTransform.position.x - transform.position.x < 0 && !isFacingRight && isGrounded)
+                {
+                    Flip();
+                }
+                else if (playerTransform.position.x - transform.position.x > 0 && isFacingRight && isGrounded)
+                {
+                    Flip();
+                }
+
+                StartCoroutine(JumpAttack());
+            }
         }
         else
         {
-            anim.SetBool("SlimeChasing", true);
-            if (transform.position.x > playerTransform.position.x)
+            if (Vector2.Distance(transform.position, playerTransform.position) < chaseDistance)
             {
-                transform.localScale = new Vector3(-enemyScaleX, enemyScaleY, enemyScaleZ);
-                transform.position += Vector3.left * moveSpeed * 1f  * Time.deltaTime;
-                if (isChasing && !isJumping)
-                {
-                    StartCoroutine(JumpAndAttack());
-                }
+                isChasing = true;
             }
-            if (transform.position.x < playerTransform.position.x)
+            anim.SetTrigger("EnemyRun");
+            transform.position += Vector3.right * speed * Time.deltaTime;
+            if (!isGround && isFacingRight && isGrounded || isWall && isFacingRight && isGrounded)
             {
-                transform.localScale = new Vector3(enemyScaleX, enemyScaleY, enemyScaleZ);
-                transform.position += Vector3.right * moveSpeed * 1f * Time.deltaTime;
-                if (isChasing && !isJumping)
-                {
-                    StartCoroutine(JumpAndAttack());
-                }
+                Flip();
+            }
+            else if (!isGround && !isFacingRight && isGrounded || isWall && !isFacingRight && isGrounded)
+            {
+                Flip();
             }
         }
     }
 
-    /*IEnumerator JumpAndAttack()
+    IEnumerator JumpAttack()
     {
-        anim.SetBool("SlimeChasing", false);
-        isJumping = true;
+        // Ch? ch?y coroutine n?u nó ch?a ???c g?i và ?ang có tr?ng thái isGrounded và isChasing
+        if (!isJumping && isGrounded && isChasing)
+        {
+            isJumping = true; 
 
-        anim.SetBool("SlimeJump", true);
-        GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-        // thoi gian dap xuong
-        yield return new WaitForSeconds(jumpCooldown);
-        anim.SetBool("SlimeJump", false);
+            yield return new WaitForSeconds(1f);
 
-        anim.SetBool("SlimeFall", true);
-        GetComponent<Rigidbody2D>().AddForce(Vector2.down * jumpForce, ForceMode2D.Impulse);
-        yield return new WaitForSeconds(1f);
-        anim.SetBool("SlimeFall", false);
-        isJumping = false;
-    }*/
+            anim.SetTrigger("SlimeJump");
+            Vector2 direction = (playerTransform.position - transform.position).normalized;
+            float jumpForceX = direction.x * jumpHeight;
+            float jumpForceY = jumpHeight;
+            rb.velocity = new Vector2(jumpForceX, jumpForceY);
 
-    IEnumerator JumpAndAttack()
-    {
-        // T?m d?ng m?t th?i gian tr??c khi nh?y
-        yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.5f);
 
-        // Tính toán h??ng và kho?ng cách t? quái ??n nhân v?t
-        Vector3 directionToPlayer = (playerTransform.position - transform.position).normalized;
-        float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+            anim.SetTrigger("SlimeFall");
 
-        // Tính l?c nh?y d?a trên h??ng và kho?ng cách ??n nhân v?t
-        Vector2 jumpForceVector = directionToPlayer * jumpForce;
-
-        // Áp d?ng l?c nh?y cho Rigidbody2D c?a quái
-        GetComponent<Rigidbody2D>().AddForce(jumpForceVector, ForceMode2D.Impulse);
+            isJumping = false;
+        }
     }
 
+    private void Flip()
+    {
+        isFacingRight = !isFacingRight;
+        transform.Rotate(new Vector3(0, 180, 0));
+        speed = -speed;
+    }
 }

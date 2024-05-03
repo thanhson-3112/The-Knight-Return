@@ -6,15 +6,10 @@ public class AroundEnemyMove : MonoBehaviour
 {
     private Rigidbody2D rb;
     public float speed = 10f;
+    public GameObject[] wayPoints;
 
-    [Header("Check")]
-    public Transform _isGround;
-    private bool isGround;
-    public LayerMask Ground;
-    /*private bool isWall;
-    public Transform _isWall;*/
-    /*public LayerMask Wall;*/
-    private bool isFacingRight;
+    int nextWayPoint = 1;
+    private float distToPoint;
 
     private void Start()
     {
@@ -23,19 +18,35 @@ public class AroundEnemyMove : MonoBehaviour
 
     private void Update()
     {
-        isGround = Physics2D.OverlapCircle(_isGround.position, 0.2f, Ground);
-        /*isWall = Physics2D.OverlapCircle(_isWall.position, 0.2f, Wall);*/
+        Move();
+    }
 
-        transform.position += Vector3.right * speed * Time.deltaTime;
+    private void Move()
+    {
+        distToPoint = Vector2.Distance(transform.position, wayPoints[nextWayPoint].transform.position);
 
-        if (!isGround)
+        transform.position = Vector2.MoveTowards(transform.position, wayPoints[nextWayPoint].transform.position, speed * Time.deltaTime);
+
+        if(distToPoint < 0.2f)
         {
-            Around();
+            TakeTurn();
         }
     }
 
-    private void Around()
+    private void TakeTurn()
     {
-        transform.Rotate(new Vector3(0, 0, 90));
+        Vector3 currRot = transform.eulerAngles;
+        currRot.z += wayPoints[nextWayPoint].transform.eulerAngles.z;
+        transform.eulerAngles = currRot;
+        ChooseNextWaypoint();
+    }
+
+    private void ChooseNextWaypoint()
+    {
+        nextWayPoint++;
+        if(nextWayPoint == wayPoints.Length)
+        {
+            nextWayPoint = 0;
+        }
     }
 }
