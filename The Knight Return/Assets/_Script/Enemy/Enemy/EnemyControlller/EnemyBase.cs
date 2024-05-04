@@ -50,6 +50,7 @@ public class EnemyBase : MonoBehaviour
         if (!isRecolling)
         {
             rb.AddForce(-_hitForce * recollFactor * _hitDirection);
+            isRecolling = true;
         }
 
         if (enemyHealth <= 0)
@@ -70,6 +71,7 @@ public class EnemyBase : MonoBehaviour
             enemyRigidbody.isKinematic = true;
         }
 
+        StartCoroutine(RotateOverTime(transform, Vector3.forward * 180, 1.0f));
         Collider2D collider = GetComponent<Collider2D>();
         if (collider != null)
         {
@@ -78,9 +80,28 @@ public class EnemyBase : MonoBehaviour
 
         Destroy(gameObject, 1.25f);
 
+
+        // roi soul va gold
         GetComponent<SoulSpawner>().InstantiateLoot(transform.position);
         GetComponent<GoldSpawner>().InstantiateLoot(transform.position);
     }
+
+    IEnumerator RotateOverTime(Transform objectToRotate, Vector3 rotationAmount, float duration)
+    {
+        Quaternion startRotation = objectToRotate.rotation;
+        Quaternion endRotation = objectToRotate.rotation * Quaternion.Euler(rotationAmount);
+        float timeElapsed = 0;
+
+        while (timeElapsed < duration)
+        {
+            objectToRotate.rotation = Quaternion.Lerp(startRotation, endRotation, timeElapsed / duration);
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        objectToRotate.rotation = endRotation; 
+    }
+
 
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {

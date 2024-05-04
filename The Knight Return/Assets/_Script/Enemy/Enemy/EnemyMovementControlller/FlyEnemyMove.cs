@@ -4,15 +4,78 @@ using UnityEngine;
 
 public class FlyEnemyMove : MonoBehaviour
 {
-    // Start is called before the first frame update
+    protected Rigidbody2D rb;
+    protected Animator anim;
+
+    public Transform playerTransform;
+
+    [SerializeField] private float enemySpeed = 5f;
+
+    public bool isChasing;
+    public float chaseDistance = 10;
+
+    private Vector2 initialPosition;
+
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        playerTransform = playerObject.GetComponent<Transform>();
+
+        initialPosition = transform.position;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (!playerTransform)
+        {
+            GetTarget();
+        }
+        else
+        {
+            RotateTowardsTarget();
+        }
+    }
+
+    private void RotateTowardsTarget()
+    {
+        if (isChasing)
+        {
+            if (Vector2.Distance(transform.position, playerTransform.position) > chaseDistance)
+            {
+                isChasing = false;
+            }
+            else
+            {
+                Vector3 targetDirection = playerTransform.position - transform.position;
+                if (targetDirection.x > 0)
+                {
+                    transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+                }
+                else
+                {
+                    transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+                }
+                transform.position = Vector2.MoveTowards(transform.position, playerTransform.position, enemySpeed * Time.deltaTime);
+            }
+        }
+        else
+        {
+            transform.position = Vector2.MoveTowards(transform.position, initialPosition, enemySpeed * Time.deltaTime);
+
+            if (Vector2.Distance(transform.position, initialPosition) < 0.1f)
+            {
+                isChasing = true;
+            }
+        }
+    }
+
+    private void GetTarget()
+    {
+        if (GameObject.FindGameObjectWithTag("Player"))
+        {
+            playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        }
     }
 }

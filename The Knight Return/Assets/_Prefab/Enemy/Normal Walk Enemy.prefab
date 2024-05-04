@@ -161,7 +161,7 @@ GameObject:
   - component: {fileID: 5872576836437780907}
   - component: {fileID: 5723118497360281727}
   m_Layer: 7
-  m_Name: Character (21)
+  m_Name: Normal Walk Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -268,7 +268,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.17308784, y: 0.91981196}
+  m_Offset: {x: 0.16257888, y: 0.08986771}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -278,7 +278,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 3.653986, y: 3.0177236}
+  m_Size: {x: 3.8347325, y: 2.8849328}
   m_EdgeRadius: 0
 --- !u!114 &5872576836437780907
 MonoBehaviour:

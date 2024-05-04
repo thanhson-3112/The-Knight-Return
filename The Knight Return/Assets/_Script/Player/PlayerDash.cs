@@ -9,15 +9,15 @@ public class PlayerDash : MonoBehaviour
     private SpriteRenderer sprite;
     private TrailRenderer tr;
     private float move;
-    [SerializeField] private float speed = 5f;
+    [SerializeField] private float speed = 7f;
     private bool isFacingRight = true;
 
     [Header("Jump")]
-    [SerializeField] private float jumpForce = 8f;
+    [SerializeField] private float jumpForce = 10f;
     private bool isGround;
     public Transform _isGround;
     public LayerMask Ground;
-    private bool doubleJump;
+    private bool canDoubleJump;
     private float jumpTimeCounter;
     public float jumpTime;
     private bool isJump;
@@ -41,8 +41,12 @@ public class PlayerDash : MonoBehaviour
     [SerializeField] private float wallJumpingTime = 0.2f;
     private float wallJumpingCounter;
     [SerializeField] private float wallJumpingDuration = 0.4f;
-    public Vector2 wallJumpingPower = new Vector2(25f, 10f); 
+    public Vector2 wallJumpingPower = new Vector2(25f, 10f);
 
+
+    [SerializeField] private bool lockDash = true;
+    [SerializeField] private bool lockDoubleJump = true;
+    [SerializeField] private bool lockSlideWall = true;
 
     //Animation
     private enum MovementState { idle, running, jumping, falling }
@@ -90,7 +94,7 @@ public class PlayerDash : MonoBehaviour
         }
 
         // Dash input 
-        if (Input.GetButtonDown("Dash") && !isDashing && canDash)
+        if (!lockDash && Input.GetButtonDown("Dash") && !isDashing && canDash)
         {
             if (isWallSliding && isDashing)
             {
@@ -100,12 +104,6 @@ public class PlayerDash : MonoBehaviour
             RunSoundEffect.Stop();
             StartCoroutine(Dash());
         }
-
-        // Reset canDashed khi cham dat
-        /*if (isGround || isWall)
-        {
-            canDash = true;
-        }*/
     }
 
     // Di chuyen
@@ -165,13 +163,13 @@ public class PlayerDash : MonoBehaviour
 
         if (Input.GetButtonDown("Jump"))
         {
-            if (isGround || (doubleJump && canDash))
+            if (isGround || (!lockDoubleJump && canDoubleJump && canDash))
             {
                 JumpSoundEffect.Play();
                 isJump = true;
                 jumpTimeCounter = jumpTime;
                 rb.velocity = Vector2.up * jumpForce;
-                doubleJump = !doubleJump;
+                canDoubleJump = !canDoubleJump;
             }
         }
 
@@ -199,7 +197,7 @@ public class PlayerDash : MonoBehaviour
     {
         isWall = Physics2D.OverlapCircle(_isWall.position, 0.2f, wallLayer);
 
-        if(isWall && !isGround)
+        if(!lockSlideWall && isWall && !isGround)
         {
             isWallSliding = true;
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed,float.MaxValue));
@@ -317,5 +315,20 @@ public class PlayerDash : MonoBehaviour
             localScale.x *= -1f;
             transform.localScale = localScale;
         }
+    }
+
+    public void UnlockDash()
+    {
+        lockDash = false;
+    }
+
+    public void UnlockDoubleJump()
+    {
+        lockDoubleJump = false;
+    }
+
+    public void UnlockSlideWall()
+    {
+        lockSlideWall = false;
     }
 }
