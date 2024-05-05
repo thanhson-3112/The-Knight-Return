@@ -34,11 +34,12 @@ public class FlyEnemyMove : MonoBehaviour
         }
         else
         {
-            RotateTowardsTarget();
+            MoveTowardsTarget();
         }
+
     }
 
-    private void RotateTowardsTarget()
+    private void MoveTowardsTarget()
     {
         if (isChasing)
         {
@@ -51,11 +52,11 @@ public class FlyEnemyMove : MonoBehaviour
                 Vector3 targetDirection = playerTransform.position - transform.position;
                 if (targetDirection.x > 0)
                 {
-                    transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+                    transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
                 }
                 else
                 {
-                    transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+                    transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
                 }
                 transform.position = Vector2.MoveTowards(transform.position, playerTransform.position, enemySpeed * Time.deltaTime);
             }
