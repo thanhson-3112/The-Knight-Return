@@ -16,14 +16,14 @@ public class EnemyBase : MonoBehaviour
 
     protected int damage;
     public PlayerLife playerLife;
-    public PlayerDash playerDash;
+    public PlayerMovement playerDash;
 
     public virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
-        playerDash = playerObject.GetComponent<PlayerDash>();
+        playerDash = playerObject.GetComponent<PlayerMovement>();
         playerLife = playerObject.GetComponent<PlayerLife>();
     }
 

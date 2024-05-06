@@ -18,7 +18,7 @@ public class Boss3 : MonoBehaviour
     public int damage = 1;
     public PlayerLife playerLife;
 
-    public PlayerDash playerDash;
+    public PlayerMovement playerDash;
 
     public float activationDistance = 4f;
     private Transform playerTransform;

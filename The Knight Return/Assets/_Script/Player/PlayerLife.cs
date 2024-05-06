@@ -17,6 +17,7 @@ public class PlayerLife : MonoBehaviour
 
     //CHeckPoint
     private Vector2 respawnPoint;
+    private Vector2 trapRespawnPoint;
     public GameObject startPoint;
 
     //Sound
@@ -63,19 +64,36 @@ public class PlayerLife : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Trap"))
-        {
-            Die();
-        }
-    }
-
     IEnumerator MakeInvincible(float time)
     {
         invincible = true;
         yield return new WaitForSeconds(time);
         invincible = false;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Trap"))
+        {
+            health--;
+            DeathSoundEffect.Play();
+            anim.SetTrigger("death");
+
+            rb.bodyType = RigidbodyType2D.Static;
+
+            if (health <= 0)
+            {
+                Die();
+            }
+
+            Invoke("TrapRespawn", 1f);
+        }
+    }
+
+    private void TrapRespawn()
+    {
+        rb.bodyType = RigidbodyType2D.Dynamic;
+        transform.position = trapRespawnPoint;
     }
 
     private void Die()
@@ -86,6 +104,7 @@ public class PlayerLife : MonoBehaviour
         }
 
         rb.bodyType = RigidbodyType2D.Static;
+
         anim.SetTrigger("death");
 
         Invoke("Respawn", 1.7f);
@@ -100,7 +119,7 @@ public class PlayerLife : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Blood"))
+        /*if (collision.gameObject.CompareTag("Blood"))
         {
             if (health != maxHealth)
             {
@@ -116,13 +135,19 @@ public class PlayerLife : MonoBehaviour
             Destroy(collision.gameObject);
             maxHealth++;
             health = maxHealth;
-        }
+        }*/
 
         if (collision.CompareTag("CheckPoint"))
         {
             CheckpointSoundEffect.Play();
             respawnPoint = collision.transform.position;
             Debug.Log("Checkpoint" + respawnPoint);
+        }
+        
+        if (collision.CompareTag("TrapCheckPoint"))
+        {
+            trapRespawnPoint = collision.transform.position;
+            Debug.Log("Checkpoint" + trapRespawnPoint);
         }
     }
 
@@ -133,11 +158,5 @@ public class PlayerLife : MonoBehaviour
             health++;
         }
     }
-                        
 
-    private void RestartLevel()
-    {
-        transform.position = respawnPoint;
-        health = maxHealth;
-    }
 }

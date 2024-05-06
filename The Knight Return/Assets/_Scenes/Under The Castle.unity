@@ -203,13 +203,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7d3ba01491de694bb2883602918b91a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
+  enemyHealth: 0
   recollLength: 0.2
   recollFactor: 2.5
   isRecolling: 0
-  damage: 1
   playerLife: {fileID: 3510989387169474194}
   playerDash: {fileID: 1126174348796757618}
+  batHealth: 5
+  enemyDamage: 1
 --- !u!114 &4297941
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,14 +223,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bd4271b993e79e48b11d9cdc39c84b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movePoint:
-  - {fileID: 2042399678}
-  - {fileID: 1765414980}
-  moveSpeed: 2
-  moveDestination: 1
-  playerTransform: {fileID: 1168719606014589002}
-  isChasing: 0
-  chaseDistance: 5
 --- !u!95 &4297942
 Animator:
   serializedVersion: 7
@@ -27063,7 +27056,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2773bb9418553b48854b55c23e91e26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  afterImagePrefab: {fileID: 0}
 --- !u!4 &273426931
 Transform:
   m_ObjectHideFlags: 0
@@ -28969,13 +28961,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7d3ba01491de694bb2883602918b91a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
+  enemyHealth: 0
   recollLength: 0.2
   recollFactor: 2.5
   isRecolling: 0
-  damage: 1
   playerLife: {fileID: 3510989387169474194}
   playerDash: {fileID: 1126174348796757618}
+  batHealth: 5
+  enemyDamage: 1
 --- !u!95 &553290899
 Animator:
   serializedVersion: 7
@@ -29010,14 +29003,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bd4271b993e79e48b11d9cdc39c84b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movePoint:
-  - {fileID: 1075972557}
-  - {fileID: 310157686}
-  moveSpeed: 2
-  moveDestination: 1
-  playerTransform: {fileID: 1168719606014589002}
-  isChasing: 0
-  chaseDistance: 5
 --- !u!50 &553290901
 Rigidbody2D:
   serializedVersion: 4
@@ -30642,8 +30627,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1824c64c0afd01142aa2ad7f3a89f733, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseMenu: {fileID: 1650887116}
-  playerController: {fileID: 1126174348796757618}
 --- !u!114 &783851318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31979,13 +31962,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7d3ba01491de694bb2883602918b91a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
+  enemyHealth: 0
   recollLength: 0.2
   recollFactor: 2.5
   isRecolling: 0
-  damage: 1
   playerLife: {fileID: 3510989387169474194}
   playerDash: {fileID: 1126174348796757618}
+  batHealth: 5
+  enemyDamage: 1
 --- !u!95 &1039449757
 Animator:
   serializedVersion: 7
@@ -32020,14 +32004,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bd4271b993e79e48b11d9cdc39c84b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movePoint:
-  - {fileID: 1432473569}
-  - {fileID: 418451304}
-  moveSpeed: 2
-  moveDestination: 1
-  playerTransform: {fileID: 1168719606014589002}
-  isChasing: 0
-  chaseDistance: 5
 --- !u!50 &1039449759
 Rigidbody2D:
   serializedVersion: 4
@@ -32202,13 +32178,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7d3ba01491de694bb2883602918b91a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
+  enemyHealth: 0
   recollLength: 0.2
   recollFactor: 2.5
   isRecolling: 0
-  damage: 1
   playerLife: {fileID: 3510989387169474194}
   playerDash: {fileID: 1126174348796757618}
+  batHealth: 5
+  enemyDamage: 1
 --- !u!95 &1054639620
 Animator:
   serializedVersion: 7
@@ -32243,14 +32220,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bd4271b993e79e48b11d9cdc39c84b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movePoint:
-  - {fileID: 1253449164}
-  - {fileID: 436865840}
-  moveSpeed: 2
-  moveDestination: 1
-  playerTransform: {fileID: 1168719606014589002}
-  isChasing: 0
-  chaseDistance: 5
 --- !u!50 &1054639622
 Rigidbody2D:
   serializedVersion: 4
@@ -104017,13 +103986,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7d3ba01491de694bb2883602918b91a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
+  enemyHealth: 0
   recollLength: 0.2
   recollFactor: 2.5
   isRecolling: 0
-  damage: 1
   playerLife: {fileID: 3510989387169474194}
   playerDash: {fileID: 1126174348796757618}
+  batHealth: 5
+  enemyDamage: 1
 --- !u!95 &1515671040
 Animator:
   serializedVersion: 7
@@ -104058,14 +104028,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bd4271b993e79e48b11d9cdc39c84b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movePoint:
-  - {fileID: 666809921}
-  - {fileID: 1521514672}
-  moveSpeed: 2
-  moveDestination: 1
-  playerTransform: {fileID: 1168719606014589002}
-  isChasing: 0
-  chaseDistance: 5
 --- !u!50 &1515671042
 Rigidbody2D:
   serializedVersion: 4
@@ -104904,13 +104866,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7d3ba01491de694bb2883602918b91a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
+  enemyHealth: 0
   recollLength: 0.2
   recollFactor: 2.5
   isRecolling: 0
-  damage: 1
   playerLife: {fileID: 3510989387169474194}
   playerDash: {fileID: 1126174348796757618}
+  batHealth: 5
+  enemyDamage: 1
 --- !u!95 &1789027551
 Animator:
   serializedVersion: 7
@@ -104945,14 +104908,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bd4271b993e79e48b11d9cdc39c84b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movePoint:
-  - {fileID: 806617170}
-  - {fileID: 1253442698}
-  moveSpeed: 2
-  moveDestination: 1
-  playerTransform: {fileID: 1168719606014589002}
-  isChasing: 0
-  chaseDistance: 5
 --- !u!50 &1789027553
 Rigidbody2D:
   serializedVersion: 4
@@ -110791,7 +110746,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f5ad061b98786244a350b43d5c117c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1168719606014589002}
+  FollowSpeed: 2
+  Target: {fileID: 1168719606014589002}
+  shakeDuration: 0
+  shakeAmount: 0.1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

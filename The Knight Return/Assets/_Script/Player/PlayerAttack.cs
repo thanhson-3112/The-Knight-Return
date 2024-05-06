@@ -128,7 +128,7 @@ public class PlayerAttack : MonoBehaviour
             // tan cong xuong se day len
             if (isDownArrowPressed && !isGround)
             {
-                Vector2 knockbackDirection = Vector2.up; // H??ng knockback là lên trên
+                Vector2 knockbackDirection = Vector2.up; 
                 rb.AddForce(knockbackDirection * knockbackForce);
             }
         }

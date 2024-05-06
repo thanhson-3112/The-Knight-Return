@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
-    public float FollowSpeed = 2f;
+    public float FollowSpeed = 2.5f;
     public Transform Target;
 
     private Transform camTransform;
