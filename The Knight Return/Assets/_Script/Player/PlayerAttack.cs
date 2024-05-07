@@ -6,14 +6,13 @@ public class PlayerAttack : MonoBehaviour
 {
     private Rigidbody2D rb;
     private Animator anim;
-    private SpriteRenderer sprite;
 
     [Header("Attack Settings")]
     [SerializeField] private float damage;
     private float timeBetweenAttack = 0.3f;
     private float timeSinceAttack;
     [SerializeField] private Transform AttackTransform, UpAttackTransform, DownAttackTransform;
-    [SerializeField] private Vector2 AttackArea = new Vector2(1.88f, 1.48f),
+    [SerializeField] private Vector2 AttackArea = new Vector2(3f, 1.48f),
         UpAttackArea = new Vector2(1.88f, 2.3f), DownAttackArea = new Vector2(1.88f, 2.3f);
     [SerializeField] private LayerMask attackablelayer;
 
@@ -41,7 +40,6 @@ public class PlayerAttack : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        sprite = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -64,7 +62,7 @@ public class PlayerAttack : MonoBehaviour
     {
         _slashEffect = Instantiate(_slashEffect, _attackTransform);
         _slashEffect.transform.eulerAngles = new Vector3(0, 0, _effcetAngle);
-        _slashEffect.transform.localScale = new Vector2(0.1480313f, 0.3242316f);
+        _slashEffect.transform.localScale = new Vector2(0.14f, 0.24f);
     }
 
     protected virtual void Attack()
@@ -116,7 +114,6 @@ public class PlayerAttack : MonoBehaviour
         Collider2D[] objectsToHit = Physics2D.OverlapBoxAll(_attackTransform.position, _attackArea, 0, attackablelayer);
         foreach (Collider2D objCollider in objectsToHit)
         {
-            // Instantiate the hit effect at the position of the hit enemy
             Instantiate(slashHitEffect, objCollider.transform.position, Quaternion.identity);
         }
 
@@ -138,10 +135,19 @@ public class PlayerAttack : MonoBehaviour
             EnemyBase enemy = objCollider.GetComponent<EnemyBase>();
             /*            BossBase boss = objCollider.GetComponent<BossBase>();
             */
+
+            Org org = objCollider.GetComponent<Org>();
+
             if (enemy != null)
             {
                 enemy.EnemyHit(damage, (transform.position - objCollider.transform.position).normalized, 100);
             }
+
+            if (org != null)
+            {
+                org.OrgHit(damage, (transform.position - objCollider.transform.position).normalized, 100);
+            }
+
             /*else if (boss != null)
             {
                 boss.EnemyHit(damage, (transform.position - objCollider.transform.position).normalized, 100);
