@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 6908214077309141179}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.22, y: -0.33, z: 0.035225436}
+  m_LocalPosition: {x: -2.22, y: -1.14, z: 0.035225436}
   m_LocalScale: {x: -1.66667, y: 1.66667, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -56,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 7761552076057501480}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.23, y: 0.72000015, z: 0.035225436}
+  m_LocalPosition: {x: -2.23, y: 0.17, z: 0.035225436}
   m_LocalScale: {x: -1.66667, y: 1.66667, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -160,6 +160,8 @@ GameObject:
   - component: {fileID: 3290943231524462976}
   - component: {fileID: 5872576836437780907}
   - component: {fileID: -4852771352760318562}
+  - component: {fileID: 2279517903321758195}
+  - component: {fileID: -9010213036204445624}
   m_Layer: 7
   m_Name: Worm
   m_TagString: Untagged
@@ -175,7 +177,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8544535164128839584}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.7875, y: 0.6125, z: 1}
   m_ConstrainProportionsScale: 0
@@ -184,7 +186,7 @@ Transform:
   - {fileID: 3879254603635637311}
   - {fileID: 385449985761231336}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!95 &8756396860214391591
 Animator:
   serializedVersion: 7
@@ -321,3 +323,33 @@ MonoBehaviour:
   playerDash: {fileID: 0}
   wormHealth: 2
   enemyDamage: 1
+--- !u!114 &2279517903321758195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8544535164128839584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c397b73ad6132d74bb05ce8e01704b7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  droppedItemPrefab: {fileID: 8089137497524718166, guid: c35d0675f99ffef41ac2f05aa3af558b, type: 3}
+  lootList:
+  - {fileID: 11400000, guid: 975bfb430f726094e9ea1759b75388c5, type: 2}
+--- !u!114 &-9010213036204445624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8544535164128839584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f8429ae861b04468c89f6485f9a02d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  droppedItemPrefab: {fileID: 7952945152742447162, guid: 454ad9e56824e0543977e62bb3c710fe, type: 3}
+  lootList:
+  - {fileID: 11400000, guid: 1fd0531c9c2d41a4a9d9efe145576236, type: 2}

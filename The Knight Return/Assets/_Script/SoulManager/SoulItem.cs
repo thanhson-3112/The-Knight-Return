@@ -9,7 +9,7 @@ public class SoulItem : MonoBehaviour
     public float moveSpeed = 30f;
     private Transform playerTransform;
     private bool isMoving = false;
-    public int soulAmount;
+    public float soulAmount;
     public float autoMoveDistance = 5f;
 
     private void Start()

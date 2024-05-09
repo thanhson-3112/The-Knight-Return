@@ -6,7 +6,7 @@ public class LootManager : MonoBehaviour
 {
     public static LootManager Instance;
 
-    public delegate void SoulChangeHandler(int amount);
+    public delegate void SoulChangeHandler(float amount);
     public event SoulChangeHandler OnSoulChange;
 
     public delegate void GoldChangeHandler(int goldamount);
@@ -24,7 +24,7 @@ public class LootManager : MonoBehaviour
         }
     }
 
-    public void AddSoul(int amount)
+    public void AddSoul(float amount)
     {
         OnSoulChange?.Invoke(amount);
     }

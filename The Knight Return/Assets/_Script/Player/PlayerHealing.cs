@@ -17,7 +17,7 @@ public class PlayerHealing : MonoBehaviour
     private float holdATimer;
     private bool canHeal;
 
-    private int currentSoul;
+    private float currentSoul;
     public SoulManager soulManager;
 
     private float health;
@@ -75,6 +75,7 @@ public class PlayerHealing : MonoBehaviour
             if (holdATimer >= 2f && !isMoving) 
             {
                 healingSound.Play();
+
                 soulManager.MinusCurrentSoul();
                 playerLife.PlayerHealing();
                 holdATimer = 0f;

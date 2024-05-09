@@ -173,5 +173,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 30
-  soulAmount: 1
+  soulAmount: 0.5
   autoMoveDistance: 5

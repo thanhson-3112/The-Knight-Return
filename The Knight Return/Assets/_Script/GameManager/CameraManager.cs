@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
-    public float FollowSpeed = 2.5f;
-    public Transform Target;
+    public float FollowSpeed = 4f;
+    public GameObject player;
 
     private Transform camTransform;
     private Camera cam;
@@ -16,6 +16,11 @@ public class CameraManager : MonoBehaviour
     private float originalSize;
     private Coroutine shrinkCoroutine;
 
+    [Header("Check")]
+    public Transform _isCamGround;
+    private bool isCamGround;
+    public LayerMask Ground;
+
     void Awake()
     {
         cam = GetComponent<Camera>();
@@ -23,6 +28,9 @@ public class CameraManager : MonoBehaviour
         {
             camTransform = cam.transform;
         }
+
+        player = GameObject.FindGameObjectWithTag("Player");
+
     }
 
     void OnEnable()
@@ -33,11 +41,22 @@ public class CameraManager : MonoBehaviour
 
     private void Update()
     {
-        Vector3 targetPosition = Target.position;
+        isCamGround = Physics2D.OverlapCircle(_isCamGround.position, 0.2f, Ground);
+        Vector3 targetPosition = player.transform.position;
         targetPosition.z = -10;
         Vector3 currentPosition = transform.position;
 
-        Vector3 newPosition = new Vector3(targetPosition.x, targetPosition.y + 2f, currentPosition.z);
+        Vector3 newPosition;
+        if (!isCamGround)
+        {
+             newPosition = new Vector3(targetPosition.x, targetPosition.y, currentPosition.z);
+
+        }
+        else
+        {
+             newPosition = new Vector3(targetPosition.x, targetPosition.y + 3f, currentPosition.z);
+
+        }
 
         transform.position = Vector3.Lerp(currentPosition, newPosition, FollowSpeed * Time.deltaTime);
 
@@ -55,7 +74,7 @@ public class CameraManager : MonoBehaviour
         shakeDuration = 0.5f;
     }
 
-    // Thu nh? camera
+    // Thu nho camera
     public void StartShrinkCamera(float shrinkSize, float duration)
     {
         if (shrinkCoroutine != null)

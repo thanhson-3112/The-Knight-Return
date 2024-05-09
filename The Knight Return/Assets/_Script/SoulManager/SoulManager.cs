@@ -5,14 +5,14 @@ using UnityEngine;
 public class SoulManager : MonoBehaviour
 {
     //Soul
-    [SerializeField] public int maxSoul = 6;
-    [SerializeField] public int currentSoul;
+    [SerializeField] public float maxSoul = 6;
+    [SerializeField] public float currentSoul;
 
     /*public int MaxSoul { get { return maxSoul; } set { maxSoul = value; } }
     public int CurrentSoul { get { return currentSoul; } set { currentSoul = value; } }*/
 
     public SoulUI soulUI;
-
+    private float timeCounter = 0f;
     public void Start()
     {
         currentSoul = maxSoul;
@@ -35,7 +35,7 @@ public class SoulManager : MonoBehaviour
     }
 
 
-    private void HandleSoul(int newSoul)
+    private void HandleSoul(float newSoul)
     {
         if(currentSoul < maxSoul)
         {
