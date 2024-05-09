@@ -14,7 +14,7 @@ public class JumpEnemyMove : MonoBehaviour
 
     [Header("For Jump Attacking")]
     [SerializeField] float jumpHeight = 10f;
-    [SerializeField] Transform playerTransform;
+    [SerializeField] GameObject playerTransform;
     [SerializeField] Transform groundCheck;
     private bool isGrounded;
 
@@ -31,6 +31,7 @@ public class JumpEnemyMove : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        playerTransform = GameObject.FindGameObjectWithTag("Player");
     }
 
 
@@ -42,18 +43,18 @@ public class JumpEnemyMove : MonoBehaviour
 
         if (isChasing)
         {
-            if (Vector2.Distance(transform.position, playerTransform.position) > chaseDistance)
+            if (Vector2.Distance(transform.position, playerTransform.transform.position) > chaseDistance)
             {
                 isChasing = false;
             }
             else
             {
                 anim.SetTrigger("SlimeChasing");
-                if (playerTransform.position.x - transform.position.x < 0 && !isFacingRight && isGrounded)
+                if (playerTransform.transform.position.x - transform.position.x < 0 && !isFacingRight && isGrounded)
                 {
                     Flip();
                 }
-                else if (playerTransform.position.x - transform.position.x > 0 && isFacingRight && isGrounded)
+                else if (playerTransform.transform.position.x - transform.position.x > 0 && isFacingRight && isGrounded)
                 {
                     Flip();
                 }
@@ -63,7 +64,7 @@ public class JumpEnemyMove : MonoBehaviour
         }
         else
         {
-            if (Vector2.Distance(transform.position, playerTransform.position) < chaseDistance)
+            if (Vector2.Distance(transform.position, playerTransform.transform.position) < chaseDistance)
             {
                 isChasing = true;
             }
@@ -90,7 +91,7 @@ public class JumpEnemyMove : MonoBehaviour
             yield return new WaitForSeconds(1f);
 
             anim.SetTrigger("SlimeJump");
-            Vector2 direction = (playerTransform.position - transform.position).normalized;
+            Vector2 direction = (playerTransform.transform.position - transform.position).normalized;
             float jumpForceX = direction.x * jumpHeight;
             float jumpForceY = jumpHeight;
             rb.velocity = new Vector2(jumpForceX, jumpForceY);

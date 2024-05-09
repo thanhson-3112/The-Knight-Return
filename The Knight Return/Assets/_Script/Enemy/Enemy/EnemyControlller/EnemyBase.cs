@@ -83,7 +83,12 @@ public class EnemyBase : MonoBehaviour
 
         // roi soul va gold
         GetComponent<SoulSpawner>().InstantiateLoot(transform.position);
-        GetComponent<GoldSpawner>().InstantiateLoot(transform.position);
+
+        for(int i = 0; i <= 4; i++)
+        {
+            GetComponent<GoldSpawner>().InstantiateLoot(transform.position);
+        }
+        
     }
 
     IEnumerator RotateOverTime(Transform objectToRotate, Vector3 rotationAmount, float duration)
