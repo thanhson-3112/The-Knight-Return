@@ -28,7 +28,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float dashCooldown = 0.5f;
     private bool isDashing = false;
     public bool canDash = true;
-    private bool hasDashedAfterJump = false;
 
     [Header("Wall jump")]
     [SerializeField] public Transform _isWall;
@@ -130,7 +129,6 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
 
-        hasDashedAfterJump = true;
     }
 
     protected virtual void Move()
@@ -167,7 +165,6 @@ public class PlayerMovement : MonoBehaviour
                 jumpTimeCounter = jumpTime;
                 rb.velocity = Vector2.up * jumpForce;
                 canDoubleJump = !canDoubleJump;
-                hasDashedAfterJump = false;
             }
         }
 

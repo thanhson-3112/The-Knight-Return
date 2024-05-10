@@ -16,14 +16,14 @@ public class EnemyBase : MonoBehaviour
 
     protected int damage;
     public PlayerLife playerLife;
-    public PlayerMovement playerDash;
+    public PlayerMovement player;
 
     public virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
-        playerDash = playerObject.GetComponent<PlayerMovement>();
+        player = playerObject.GetComponent<PlayerMovement>();
         playerLife = playerObject.GetComponent<PlayerLife>();
     }
 
@@ -112,14 +112,14 @@ public class EnemyBase : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            playerDash.KBCounter = playerDash.KBTotalTime;
+            player.KBCounter = player.KBTotalTime;
             if (collision.transform.position.x <= transform.position.x)
             {
-                playerDash.KnockFromRight = true;
+                player.KnockFromRight = true;
             }
             if (collision.transform.position.x > transform.position.x)
             {
-                playerDash.KnockFromRight = false;
+                player.KnockFromRight = false;
             }
             playerLife.TakeDamage(damage);
         }

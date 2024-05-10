@@ -12,7 +12,7 @@ public class SoulManager : MonoBehaviour
     public int CurrentSoul { get { return currentSoul; } set { currentSoul = value; } }*/
 
     public SoulUI soulUI;
-    private float timeCounter = 0f;
+
     public void Start()
     {
         currentSoul = maxSoul;
