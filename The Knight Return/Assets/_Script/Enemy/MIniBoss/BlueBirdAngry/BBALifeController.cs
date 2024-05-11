@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BBALifeController : MonoBehaviour
+public class BBALifeController : BossLifeBase
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private float BBAHealth = 5f;
+    [SerializeField] private int enemyDamage = 1;
 
-    // Update is called once per frame
-    void Update()
+    public override void Start()
     {
-        
+        bossHealth = BBAHealth;
+        damage = enemyDamage;
+
+        base.Start();
     }
 }

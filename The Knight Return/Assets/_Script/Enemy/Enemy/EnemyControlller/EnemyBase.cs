@@ -61,7 +61,6 @@ public class EnemyBase : MonoBehaviour
 
     public void EnemyDie()
     {
-        damage = 0;
         anim.SetTrigger("EnemyDeath");
 
         Rigidbody2D enemyRigidbody = GetComponent<Rigidbody2D>();
@@ -122,11 +121,6 @@ public class EnemyBase : MonoBehaviour
                 player.KnockFromRight = false;
             }
             playerLife.TakeDamage(damage);
-        }
-        if (collision.gameObject.tag == "Trap")
-        {
-            anim.SetTrigger("EnemyDeath");
-            Destroy(gameObject, 1f);
         }
     }
 }

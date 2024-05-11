@@ -12,8 +12,8 @@ public class PlayerAttack : MonoBehaviour
     private float timeBetweenAttack = 0.3f;
     private float timeSinceAttack;
     [SerializeField] private Transform AttackTransform, UpAttackTransform, DownAttackTransform;
-    [SerializeField] private Vector2 AttackArea = new Vector2(3f, 1.48f),
-        UpAttackArea = new Vector2(1.88f, 2.3f), DownAttackArea = new Vector2(1.88f, 2.3f);
+    [SerializeField] private Vector2 AttackArea = new Vector2(3f, 2.4f),
+        UpAttackArea = new Vector2(2f, 2.3f), DownAttackArea = new Vector2(2f, 2.3f);
     [SerializeField] private LayerMask attackablelayer;
 
     
@@ -133,8 +133,8 @@ public class PlayerAttack : MonoBehaviour
         foreach (Collider2D objCollider in objectsToHit)
         {
             EnemyBase enemy = objCollider.GetComponent<EnemyBase>();
-            /*            BossBase boss = objCollider.GetComponent<BossBase>();
-            */
+            BossLifeBase bossLifeBasess = objCollider.GetComponent<BossLifeBase>();
+
 
             Org org = objCollider.GetComponent<Org>();
 
@@ -148,10 +148,10 @@ public class PlayerAttack : MonoBehaviour
                 org.OrgHit(damage, (transform.position - objCollider.transform.position).normalized, 100);
             }
 
-            /*else if (boss != null)
+            else if (bossLifeBasess != null)
             {
-                boss.EnemyHit(damage, (transform.position - objCollider.transform.position).normalized, 100);
-            }*/
+                bossLifeBasess.EnemyHit(damage);
+            }
         }
     }
 }

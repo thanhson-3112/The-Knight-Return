@@ -1,28 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class BBAAttackState : BaseState
 {
     private BBAStateMachine SM;
     private Animator anim;
-    private bool hasAttacked;
-    private bool isAttacking;
+    private Rigidbody2D rb;
 
-    public BBAAttackState(BBAStateMachine stateMachine, Animator animator) : base("Attack", stateMachine)
+
+    public BBAAttackState(BBAStateMachine stateMachine, Animator animator, Rigidbody2D rib) : base("Attack", stateMachine)
     {
         SM = stateMachine;
         anim = animator;
+        rb = rib;
     }
 
     public override void Enter()
     {
         base.Enter();
-        /*anim.SetTrigger("BoDAttack");*/
-        hasAttacked = false;
-        isAttacking = false;
-        Debug.Log("Enter state: BoDAttackState");
-        SM.NextState();
+        SM.StartCoroutine(EndState());
     }
 
     public override void UpdateLogic()
@@ -30,24 +28,38 @@ public class BBAAttackState : BaseState
         base.UpdateLogic();
         SM.GetTarget();
 
-        if (!hasAttacked)
+        if (SM.player != null)
         {
-            hasAttacked = true;
-            isAttacking = true;
+            Vector2 playerPosition = SM.player.position;
+            Vector2 directionToPlayer = (playerPosition - (Vector2)SM.transform.position).normalized;
+
+            SM.FlipTowardsPlayer();
+
+            // D?ng trong kho?ng th?i gian 0.3 giây
+            SM.StartCoroutine(AttackAfterDelay(directionToPlayer, playerPosition, 1f));
         }
-
-/*        if (isAttacking && !anim.GetCurrentAnimatorStateInfo(0).IsName("BoDAttack"))
+        else
         {
-            isAttacking = false;
-            anim.SetTrigger("BoDRun");
-
-        }*/
+            rb.velocity = Vector2.zero;
+        }
     }
+
+    IEnumerator AttackAfterDelay(Vector2 directionToPlayer, Vector2 playerPosition, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Vector2 attackDirection = (playerPosition - (Vector2)SM.transform.position).normalized;
+        rb.velocity = attackDirection * SM.attackPlayerSpeed;
+    }
+
 
     public override void Exit()
     {
         base.Exit();
-        hasAttacked = false;
-        Debug.Log("Exit state: BoDAttackState");
+    }
+
+    IEnumerator EndState()
+    {
+        yield return new WaitForSeconds(2f);
+        SM.NextState();
     }
 }

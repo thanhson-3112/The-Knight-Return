@@ -6,57 +6,58 @@ using UnityEngine.EventSystems;
 public class BBADashState : BaseState
 {
     private BBAStateMachine SM;
-    public int DashNumber = 3;
     private Animator anim;
+    private Rigidbody2D rb;
 
-    public BBADashState(BBAStateMachine stateMachine, Animator animator, int dashNumber = 3) : base("Dash", stateMachine)
+    private bool facingLeft = true;
+
+    public BBADashState(BBAStateMachine stateMachine, Animator animator, Rigidbody2D rib) : base("Dash", stateMachine)
     {
-        DashNumber = dashNumber;
         SM = stateMachine;
         anim = animator;
+        rb= rib;
     }
 
     public override void Enter()
     {
         base.Enter();
-        SM.StartCoroutine(Dash());
+        SM.StartCoroutine(EndState());
     }
-
-    IEnumerator Dash()
-    {
-        for (int i = 0; i < DashNumber; i++)
-        {
-            Vector3 targetDirection = (SM.target.position - SM.transform.position).normalized;
-            if (targetDirection.x > 0)
-            {
-                SM.transform.localScale = new Vector3(-Mathf.Abs(SM.transform.localScale.x), SM.transform.localScale.y, SM.transform.localScale.z);
-            }
-            else
-            {
-                SM.transform.localScale = new Vector3(Mathf.Abs(SM.transform.localScale.x), SM.transform.localScale.y, SM.transform.localScale.z);
-            }
-            SM.GetTarget();
-            SM.gameObject.GetComponent<Rigidbody2D>().velocity = targetDirection * SM.dashSpeed;
-
-            yield return new WaitForSeconds(2f);
-        }
-        SM.NextState();
-    }
-
-    public override void UpdateLogic()
-        {
-            base.UpdateLogic();
-            SM.GetTarget();
-        }
 
     public override void UpdatePhysics()
     {
-        base.UpdatePhysics();
+        if (SM.isTouchingUp && SM.goingUp)
+        {
+            SM.ChangeDirection();
+        }
+        else if (SM.isTouchingDown && !SM.goingUp)
+        {
+            SM.ChangeDirection();
+        }
+
+        if (SM.isTouchingWall)
+        {
+            if (facingLeft)
+            {
+                SM.Flip();
+            }
+            else if (!facingLeft)
+            {
+                SM.Flip();
+            }
+        }
+        rb.velocity = SM.attackMovementSpeed * SM.attackMovementDirection;
     }
 
     public override void Exit()
     {
         base.Exit();
         SM.gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+    }
+
+    IEnumerator EndState()
+    {
+        yield return new WaitForSeconds(5f);
+        SM.NextState();
     }
 }

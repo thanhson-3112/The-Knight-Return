@@ -9,19 +9,19 @@ public class BBAMovingState : BaseState
     public Transform target;
     private Animator anim;
 
-    public float activationDistance = 10f;
-    /*private bool isAttacking = false;*/
+    private bool facingLeft = true;
+    private Rigidbody2D rb;
 
-    public BBAMovingState(BBAStateMachine stateMachine, Animator animator) : base("Move", stateMachine)
+    public BBAMovingState(BBAStateMachine stateMachine, Animator animator, Rigidbody2D rib) : base("Move", stateMachine)
     {
         SM = stateMachine;
         anim = animator;
+        rb = rib;
     }
 
     public override void Enter()
     {
         base.Enter();
-        
         SM.StartCoroutine(EndState());
 
     }
@@ -34,17 +34,29 @@ public class BBAMovingState : BaseState
 
     public override void UpdatePhysics()
     {
-        Vector3 targetDirection = SM.target.position - SM.transform.position;
-        if (targetDirection.x > 0)
+        if (SM.isTouchingUp && SM.goingUp)
         {
-            SM.transform.localScale = new Vector3(-Mathf.Abs(SM.transform.localScale.x), SM.transform.localScale.y, SM.transform.localScale.z);
+            SM.ChangeDirection();
         }
-        else
+        else if (SM.isTouchingDown && !SM.goingUp)
         {
-            SM.transform.localScale = new Vector3(Mathf.Abs(SM.transform.localScale.x), SM.transform.localScale.y, SM.transform.localScale.z);
+            SM.ChangeDirection();
         }
-        SM.transform.position = Vector2.MoveTowards(SM.transform.position, SM.target.position, SM.moveSpeed * Time.deltaTime);
+
+        if (SM.isTouchingWall)
+        {
+            if (facingLeft)
+            {
+                SM.Flip();
+            }
+            else if (!facingLeft)
+            {
+                SM.Flip();
+            }
+        }
+        rb.velocity = SM.idelMovementSpeed * SM.idelMovementDirection;
     }
+
 
     public override void Exit()
     {
