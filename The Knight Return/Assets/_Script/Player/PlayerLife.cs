@@ -58,7 +58,7 @@ public class PlayerLife : MonoBehaviour
             }
             else
             {
-                StartCoroutine(MakeInvincible(1f));
+                StartCoroutine(MakeInvincible(1.5f));
             }
 
         }
@@ -67,7 +67,9 @@ public class PlayerLife : MonoBehaviour
     IEnumerator MakeInvincible(float time)
     {
         invincible = true;
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), true);
         yield return new WaitForSeconds(time);
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), false);
         invincible = false;
     }
 

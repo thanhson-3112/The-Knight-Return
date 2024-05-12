@@ -15,8 +15,8 @@ public class BBAStateMachine : StateMachine
     BaseState LastTwoState;
 
     [Header("Idel")]
-    public float idelMovementSpeed = 10f;
-    public Vector2 idelMovementDirection = new Vector2(-1, 2);
+    public float idelMovementSpeed = 2f;
+    public Vector2 idelMovementDirection = new Vector2(-5, 2);
 
     [Header("AttackUpNDown")]
     public float attackMovementSpeed = 20f;

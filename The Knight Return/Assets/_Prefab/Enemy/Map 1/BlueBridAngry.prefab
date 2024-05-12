@@ -297,8 +297,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3daa23106ae5352439985ef9b56b0738, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idelMovementSpeed: 5
-  idelMovementDirection: {x: -3, y: 2}
+  idelMovementSpeed: 2
+  idelMovementDirection: {x: -5, y: 2}
   attackMovementSpeed: 10
   attackMovementDirection: {x: -1, y: 2}
   attackPlayerSpeed: 25

@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class CameraManager : MonoBehaviour
@@ -21,6 +22,9 @@ public class CameraManager : MonoBehaviour
     private bool isCamGround;
     public LayerMask Ground;
 
+    private bool bossRoom = false;
+    public GameObject camBossRoomPos;
+
     void Awake()
     {
         cam = GetComponent<Camera>();
@@ -41,24 +45,29 @@ public class CameraManager : MonoBehaviour
 
     private void Update()
     {
-        isCamGround = Physics2D.OverlapCircle(_isCamGround.position, 0.2f, Ground);
-        Vector3 targetPosition = player.transform.position;
-        targetPosition.z = -10;
-        Vector3 currentPosition = transform.position;
-
-        Vector3 newPosition;
-        if (!isCamGround)
+        if (!bossRoom)
         {
-             newPosition = new Vector3(targetPosition.x, targetPosition.y, currentPosition.z);
+            isCamGround = Physics2D.OverlapCircle(_isCamGround.position, 0.2f, Ground);
+            Vector3 targetPosition = player.transform.position;
+            targetPosition.z = -10;
+            Vector3 currentPosition = transform.position;
 
+            Vector3 newPosition;
+            if (!isCamGround)
+            {
+                newPosition = new Vector3(targetPosition.x, targetPosition.y, currentPosition.z);
+            }
+            else
+            {
+                newPosition = new Vector3(targetPosition.x, targetPosition.y + 3f, currentPosition.z);
+            }
+
+            transform.position = Vector3.Lerp(currentPosition, newPosition, FollowSpeed * Time.deltaTime);
         }
         else
         {
-             newPosition = new Vector3(targetPosition.x, targetPosition.y + 3f, currentPosition.z);
-
+            transform.position = camBossRoomPos.transform.position;
         }
-
-        transform.position = Vector3.Lerp(currentPosition, newPosition, FollowSpeed * Time.deltaTime);
 
         if (shakeDuration > 0)
         {
@@ -66,6 +75,7 @@ public class CameraManager : MonoBehaviour
             shakeDuration -= Time.deltaTime;
         }
     }
+
 
     // rung camera
     public void ShakeCamera()
@@ -105,5 +115,18 @@ public class CameraManager : MonoBehaviour
             StopCoroutine(shrinkCoroutine);
 
         cam.orthographicSize = originalSize;
+    }
+
+    public void CamBossRoom()
+    {
+        bossRoom = true;
+    }
+
+    public void BossDie()
+    {
+        if (bossRoom)
+        {
+            bossRoom = false;
+        }
     }
 }
