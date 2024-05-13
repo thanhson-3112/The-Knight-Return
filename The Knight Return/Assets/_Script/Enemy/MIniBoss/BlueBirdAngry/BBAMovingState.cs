@@ -23,7 +23,7 @@ public class BBAMovingState : BaseState
     {
         base.Enter();
         SM.StartCoroutine(EndState());
-
+        anim.SetBool("isMoving", false);
     }
 
     public override void UpdateLogic()

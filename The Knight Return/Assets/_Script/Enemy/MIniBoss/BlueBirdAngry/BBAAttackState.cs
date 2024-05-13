@@ -20,6 +20,7 @@ public class BBAAttackState : BaseState
     public override void Enter()
     {
         base.Enter();
+        anim.SetTrigger("attack");
         SM.StartCoroutine(EndState());
     }
 

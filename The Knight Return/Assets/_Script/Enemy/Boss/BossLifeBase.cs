@@ -96,4 +96,5 @@ public class BossLifeBase : MonoBehaviour
             playerLife.TakeDamage(damage);
         }
     }
+
 }

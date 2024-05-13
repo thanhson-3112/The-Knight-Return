@@ -22,6 +22,7 @@ public class BBADashState : BaseState
     {
         base.Enter();
         SM.StartCoroutine(EndState());
+        anim.SetBool("isMoving", true);
     }
 
     public override void UpdatePhysics()

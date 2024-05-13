@@ -11,6 +11,7 @@ TagManager:
   - Heart
   - Enemy
   - TrapCheckPoint
+  - MiniBoss
   layers:
   - Default
   - TransparentFX
