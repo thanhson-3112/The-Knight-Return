@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class BBADashState : BaseState
 {
@@ -13,53 +11,52 @@ public class BBADashState : BaseState
     {
         SM = stateMachine;
         anim = animator;
-        rb= rib;
+        rb = rib;
     }
 
     public override void Enter()
     {
         base.Enter();
         anim.SetTrigger("attack");
-        SM.StartCoroutine(EndState());
+        SM.StartCoroutine(DashAttack());
+        
     }
 
     public override void UpdateLogic()
     {
         base.UpdateLogic();
-        SM.GetTarget();
+    }
 
+    IEnumerator DashAttack()
+    {
+        rb.velocity = new Vector2(0, SM.attackMovementSpeed);
+        yield return new WaitForSeconds(1); 
+
+        rb.velocity = Vector2.zero;
+        SM.FlipTowardsPlayer();
+        yield return new WaitForSeconds(0.5f);  
+
+        SM.GetTarget();
         if (SM.player != null)
         {
-            Vector2 playerPosition = SM.player.position;
-            Vector2 directionToPlayer = (playerPosition - (Vector2)SM.transform.position).normalized;
-
+            Vector3 targetPosition = SM.player.position + new Vector3(0, -1, 0); 
+            Vector3 targetDirection = (targetPosition - SM.transform.position).normalized;
             SM.FlipTowardsPlayer();
-
-            // D?ng trong kho?ng th?i gian 0.3 giây
-            SM.StartCoroutine(AttackAfterDelay(directionToPlayer, playerPosition, 1f));
+            rb.velocity = targetDirection * SM.attackPlayerSpeed;
         }
         else
         {
             rb.velocity = Vector2.zero;
         }
-    }
 
-    IEnumerator AttackAfterDelay(Vector2 directionToPlayer, Vector2 playerPosition, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        Vector2 attackDirection = (playerPosition - (Vector2)SM.transform.position).normalized;
-        rb.velocity = attackDirection * SM.attackPlayerSpeed;
+        yield return new WaitForSeconds(1f);
+        SM.ShakeCam();
+        SM.NextState();
     }
-
 
     public override void Exit()
     {
         base.Exit();
-    }
-
-    IEnumerator EndState()
-    {
-        yield return new WaitForSeconds(2f);
-        SM.NextState();
+        rb.velocity = Vector2.zero;
     }
 }

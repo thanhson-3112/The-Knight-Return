@@ -39,6 +39,8 @@ public class BBAStateMachine : StateMachine
     public bool isTouchingDown;
     public bool isTouchingWall;
 
+    public CameraManager cam;
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -56,6 +58,8 @@ public class BBAStateMachine : StateMachine
         base.Start();
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         player = playerObject.GetComponent<Transform>();
+        GameObject camObject = GameObject.FindGameObjectWithTag("MainCamera");
+        cam = camObject.GetComponent<CameraManager>();
     }
 
     new public void Update()
@@ -133,5 +137,10 @@ public class BBAStateMachine : StateMachine
         Gizmos.DrawWireSphere(goundCheckUp.position, 0.2f);
         Gizmos.DrawWireSphere(goundCheckDown.position, 0.2f);
         Gizmos.DrawWireSphere(goundCheckWall.position, 0.2f);
+    }
+
+    public void ShakeCam()
+    {
+        cam.ShakeCamera();
     }
 }

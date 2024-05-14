@@ -30,10 +30,12 @@ public class BBAAttackState : BaseState
         if (SM.isTouchingUp && SM.goingUp)
         {
             SM.ChangeDirection();
+            SM.ShakeCam();
         }
         else if (SM.isTouchingDown && !SM.goingUp)
         {
             SM.ChangeDirection();
+            SM.ShakeCam();
         }
 
         if (SM.isTouchingWall)
