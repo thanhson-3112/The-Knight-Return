@@ -9,6 +9,7 @@ public class BBAAttackState : BaseState
     private Animator anim;
     private Rigidbody2D rb;
 
+    private bool facingLeft = true;
 
     public BBAAttackState(BBAStateMachine stateMachine, Animator animator, Rigidbody2D rib) : base("Attack", stateMachine)
     {
@@ -20,47 +21,44 @@ public class BBAAttackState : BaseState
     public override void Enter()
     {
         base.Enter();
-        anim.SetTrigger("attack");
         SM.StartCoroutine(EndState());
+        anim.SetBool("isMoving", true);
     }
 
-    public override void UpdateLogic()
+    public override void UpdatePhysics()
     {
-        base.UpdateLogic();
-        SM.GetTarget();
-
-        if (SM.player != null)
+        if (SM.isTouchingUp && SM.goingUp)
         {
-            Vector2 playerPosition = SM.player.position;
-            Vector2 directionToPlayer = (playerPosition - (Vector2)SM.transform.position).normalized;
-
-            SM.FlipTowardsPlayer();
-
-            // D?ng trong kho?ng th?i gian 0.3 giây
-            SM.StartCoroutine(AttackAfterDelay(directionToPlayer, playerPosition, 1f));
+            SM.ChangeDirection();
         }
-        else
+        else if (SM.isTouchingDown && !SM.goingUp)
         {
-            rb.velocity = Vector2.zero;
+            SM.ChangeDirection();
         }
-    }
 
-    IEnumerator AttackAfterDelay(Vector2 directionToPlayer, Vector2 playerPosition, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        Vector2 attackDirection = (playerPosition - (Vector2)SM.transform.position).normalized;
-        rb.velocity = attackDirection * SM.attackPlayerSpeed;
+        if (SM.isTouchingWall)
+        {
+            if (facingLeft)
+            {
+                SM.Flip();
+            }
+            else if (!facingLeft)
+            {
+                SM.Flip();
+            }
+        }
+        rb.velocity = SM.attackMovementSpeed * SM.attackMovementDirection;
     }
-
 
     public override void Exit()
     {
         base.Exit();
+        SM.gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
     }
 
     IEnumerator EndState()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(5f);
         SM.NextState();
     }
 }
