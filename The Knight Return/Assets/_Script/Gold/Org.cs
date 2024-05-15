@@ -20,7 +20,7 @@ public class Org : MonoBehaviour
 
     }
 
-    public virtual void OrgHit(float _damageDone, Vector2 _hitDirection, float _hitForce)
+    public virtual void OrgHit(float _damageDone)
     {
         org -= _damageDone;
 

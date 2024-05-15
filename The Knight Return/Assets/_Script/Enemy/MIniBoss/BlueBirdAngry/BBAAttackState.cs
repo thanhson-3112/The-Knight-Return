@@ -11,7 +11,7 @@ public class BBAAttackState : BaseState
 
     private bool facingLeft = true;
 
-    public BBAAttackState(BBAStateMachine stateMachine, Animator animator, Rigidbody2D rib) : base("Attack", stateMachine)
+    public BBAAttackState(BBAStateMachine stateMachine, Animator animator, Rigidbody2D rib) : base(stateMachine)
     {
         SM = stateMachine;
         anim = animator;

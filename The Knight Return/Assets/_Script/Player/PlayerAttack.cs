@@ -106,9 +106,6 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-
-
-
     private void Hit(Transform _attackTransform, Vector2 _attackArea)
     {
         Collider2D[] objectsToHit = Physics2D.OverlapBoxAll(_attackTransform.position, _attackArea, 0, attackablelayer);
@@ -135,7 +132,6 @@ public class PlayerAttack : MonoBehaviour
             EnemyBase enemy = objCollider.GetComponent<EnemyBase>();
             BossLifeBase bossLifeBasess = objCollider.GetComponent<BossLifeBase>();
 
-
             Org org = objCollider.GetComponent<Org>();
 
             if (enemy != null)
@@ -145,7 +141,7 @@ public class PlayerAttack : MonoBehaviour
 
             if (org != null)
             {
-                org.OrgHit(damage, (transform.position - objCollider.transform.position).normalized, 100);
+                org.OrgHit(damage);
             }
 
             else if (bossLifeBasess != null)

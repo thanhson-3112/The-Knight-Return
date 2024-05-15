@@ -56,7 +56,7 @@ public class BossLifeBase : MonoBehaviour
 
 
         // roi gold
-        for (int i = 0; i <= 4; i++)
+        for (int i = 0; i <= 30; i++)
         {
             GetComponent<GoldSpawner>().InstantiateLoot(transform.position);
         }

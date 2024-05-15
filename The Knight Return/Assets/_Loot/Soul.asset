@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 215a6be7a8673db4ea3665d4512fc81a, type: 3}
   m_Name: Soul
   m_EditorClassIdentifier: 
-  soulSprite: {fileID: 21300000, guid: 73e898272c76bf4449b91251fda79c6e, type: 3}
+  soulSprite: {fileID: 0}
   soulName: 
   soulChance: 100
   soulAmount: 1

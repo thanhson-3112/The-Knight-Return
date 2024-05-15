@@ -7,7 +7,7 @@ public class BBADashState : BaseState
     private Animator anim;
     private Rigidbody2D rb;
 
-    public BBADashState(BBAStateMachine stateMachine, Animator animator, Rigidbody2D rib) : base("Dash", stateMachine)
+    public BBADashState(BBAStateMachine stateMachine, Animator animator, Rigidbody2D rib) : base(stateMachine)
     {
         SM = stateMachine;
         anim = animator;

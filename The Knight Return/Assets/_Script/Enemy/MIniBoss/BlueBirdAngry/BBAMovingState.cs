@@ -12,7 +12,7 @@ public class BBAMovingState : BaseState
     private bool facingLeft = true;
     private Rigidbody2D rb;
 
-    public BBAMovingState(BBAStateMachine stateMachine, Animator animator, Rigidbody2D rib) : base("Move", stateMachine)
+    public BBAMovingState(BBAStateMachine stateMachine, Animator animator, Rigidbody2D rib) : base(stateMachine)
     {
         SM = stateMachine;
         anim = animator;

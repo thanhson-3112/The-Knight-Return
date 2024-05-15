@@ -8,10 +8,16 @@ public class IntoBossRoom : MonoBehaviour
     public GameObject bossPrefab;
     public List<BossDoor> doors;
     public Transform bossSpawnPoint;
+    public Transform bossCamPoint;
     public GameObject boss;
 
     private bool isTrigger = true;
-    private bool bossDead = false; 
+    private bool bossDead = false;
+
+    public void Start()
+    {
+        boss = GameObject.FindGameObjectWithTag("MiniBoss");
+    }
 
     public void Update()
     {
@@ -66,7 +72,7 @@ public class IntoBossRoom : MonoBehaviour
             if (boss != null)
             {
                 Destroy(boss);
-                bossDead = false; //khi boss bien mat khi ng??i choi chet
+                bossDead = false; //khi boss bien mat khi nguoi choi chet
                 isTrigger = true;
             }
         }

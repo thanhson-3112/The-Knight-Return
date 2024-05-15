@@ -23,8 +23,7 @@ public class CameraManager : MonoBehaviour
     public LayerMask Ground;
 
     private bool bossRoom = false;
-    public GameObject camBossRoomPos;
-
+    public IntoBossRoom BossRoom;
     void Awake()
     {
         cam = GetComponent<Camera>();
@@ -34,7 +33,6 @@ public class CameraManager : MonoBehaviour
         }
 
         player = GameObject.FindGameObjectWithTag("Player");
-
     }
 
     void OnEnable()
@@ -66,7 +64,7 @@ public class CameraManager : MonoBehaviour
         }
         else
         {
-            transform.position = camBossRoomPos.transform.position;
+            transform.position = BossRoom.bossCamPoint.transform.position;
         }
 
         if (shakeDuration > 0)

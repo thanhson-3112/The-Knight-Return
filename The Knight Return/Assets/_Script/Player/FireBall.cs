@@ -33,6 +33,7 @@ public class FireBall : MonoBehaviour
         EnemyBase enemy = objCollider.GetComponent<EnemyBase>();
         BossLifeBase bossLifeBase = objCollider.GetComponent<BossLifeBase>();
         Org org = objCollider.GetComponent<Org>();
+        IronBall ironBall = objCollider.GetComponent<IronBall>();
 
         if (enemy != null)
         {
@@ -40,18 +41,23 @@ public class FireBall : MonoBehaviour
         }
         else if (org != null)
         {
-            org.OrgHit(fireBallDamage, (transform.position - objCollider.transform.position).normalized, 100);
+            org.OrgHit(fireBallDamage);
         }
         else if (bossLifeBase != null)
         {
             bossLifeBase.EnemyHit(fireBallDamage);
         }
 
-        // Instantiate the explosion effect
-/*        if (explosionPrefab != null)
+        else if (ironBall != null)
         {
-            Instantiate(explosionPrefab, transform.position, transform.rotation);
-        }*/
+            ironBall.IronBallHit(fireBallDamage);
+        }
+
+        // Instantiate the explosion effect
+        /*        if (explosionPrefab != null)
+                {
+                    Instantiate(explosionPrefab, transform.position, transform.rotation);
+                }*/
 
     }
 }

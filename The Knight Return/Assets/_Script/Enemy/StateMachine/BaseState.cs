@@ -9,9 +9,8 @@ public class BaseState
 
     protected float stateDuration = 3f;
 
-    public BaseState(string name, StateMachine stateMachine)
+    public BaseState(StateMachine stateMachine)
     {
-        this.name = name;
         this.stateMachine = stateMachine;
     }
 
