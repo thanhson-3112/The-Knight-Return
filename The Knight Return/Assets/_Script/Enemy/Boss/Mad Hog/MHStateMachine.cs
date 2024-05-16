@@ -7,6 +7,7 @@ public class MHStateMachine : StateMachine
     public MHJumpState jumpState;
     public MHMovingState movingState;
     public MHAttackState attackState;
+    public MHWaveAttack waveAttack;
 
     List<BaseState> randomStates;
     private Animator anim;
@@ -14,17 +15,18 @@ public class MHStateMachine : StateMachine
     BaseState LastState;
     BaseState LastTwoState;
 
-    [Header("Idel")]
-    public float idelMovementSpeed = 2f;
-    public Vector2 idelMovementDirection = new Vector2(-5, 2);
-
-    [Header("DashAttack")]
-    public float dashSpeed = 10f;
-    public Vector2 attackMovementDirection = new Vector2(-1, 2);
-
     [Header("Jump")]
     public float jumpForce = 15f;
     public Transform player;
+
+    [Header("DashAttack")]
+    public float dashSpeed = 10f;
+    public GameObject[] SpikesPrefabs;
+    public Transform[] spawnPosition;
+
+    [Header("WaveAttack")]
+    public GameObject wavePrefabs;
+    public Transform wavePosition;
 
     [Header("Other")]
     private bool facingLeft = true;
@@ -38,8 +40,9 @@ public class MHStateMachine : StateMachine
         movingState = new MHMovingState(this, anim, rb);
         jumpState = new MHJumpState(this, anim, rb);
         attackState = new MHAttackState(this, anim, rb);
+        waveAttack = new MHWaveAttack(this, anim, rb);
 
-        randomStates = new List<BaseState>() { movingState, jumpState, attackState };
+        randomStates = new List<BaseState>() { movingState, jumpState, attackState, waveAttack };
     }
 
     new void Start()
@@ -105,8 +108,6 @@ public class MHStateMachine : StateMachine
     public void Flip()
     {
         facingLeft = !facingLeft;
-        idelMovementDirection.x *= -1;
-        attackMovementDirection.x *= -1;
         transform.Rotate(0, 180, 0);
     }
 

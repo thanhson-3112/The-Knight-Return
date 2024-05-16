@@ -18,7 +18,6 @@ public class MHMovingState : BaseState
     public override void Enter()
     {
         base.Enter();
-        anim.SetBool("MHMove", true);
         SM.StartCoroutine(Dash());
 
     }
@@ -37,6 +36,7 @@ public class MHMovingState : BaseState
         SM.FlipTowardsPlayer();
 
         yield return new WaitForSeconds(1f);
+        anim.SetBool("MHMove", true);
 
         SM.GetTarget();
         if (SM.player != null)
@@ -45,16 +45,15 @@ public class MHMovingState : BaseState
             Vector3 directionToPlayer = (targetPosition - SM.transform.position).normalized;
             Vector2 dashVelocity = new Vector2(directionToPlayer.x * SM.dashSpeed, 0);
             rb.velocity = dashVelocity;
-            
         }
         else
         {
             rb.velocity = Vector2.zero;
         }
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.5f);
         anim.SetTrigger("MHAttack");
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         //SM.ShakeCam(); 
         SM.NextState();
     }
