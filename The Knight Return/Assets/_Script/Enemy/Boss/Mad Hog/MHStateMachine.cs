@@ -32,6 +32,9 @@ public class MHStateMachine : StateMachine
     private bool facingLeft = true;
     public CameraManager cam;
 
+    public MHLifeController MHLife;
+    private float bossHealth;
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -41,8 +44,6 @@ public class MHStateMachine : StateMachine
         jumpState = new MHJumpState(this, anim, rb);
         attackState = new MHAttackState(this, anim, rb);
         waveAttack = new MHWaveAttack(this, anim, rb);
-
-        randomStates = new List<BaseState>() { movingState, jumpState, attackState, waveAttack };
     }
 
     new void Start()
@@ -52,11 +53,22 @@ public class MHStateMachine : StateMachine
         player = playerObject.GetComponent<Transform>();
         GameObject camObject = GameObject.FindGameObjectWithTag("MainCamera");
         cam = camObject.GetComponent<CameraManager>();
+        MHLife = GetComponent<MHLifeController>();
     }
 
     new public void Update()
     {
         base.Update();
+        bossHealth = MHLife.bossHealth;
+        if (bossHealth >= 10)
+        {
+            randomStates = new List<BaseState>() { movingState, jumpState, attackState};
+        }
+        else
+        {
+            randomStates = new List<BaseState>() { movingState, jumpState, attackState, waveAttack };
+        }
+       
     }
 
     public void NextState()

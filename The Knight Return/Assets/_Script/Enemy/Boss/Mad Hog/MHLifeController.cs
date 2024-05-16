@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MHLifeController : BossLifeBase
 {
-    [SerializeField] private float MHHealth = 5f;
+    [SerializeField] public float MHHealth = 20f;
     [SerializeField] private int enemyDamage = 1;
 
     public override void Start()

@@ -7,7 +7,7 @@ public class BossLifeBase : MonoBehaviour
     protected Rigidbody2D rb;
     protected Animator anim;
 
-    [SerializeField] protected float bossHealth;
+    [SerializeField] public float bossHealth;
 
     protected int damage;
     public PlayerLife playerLife;

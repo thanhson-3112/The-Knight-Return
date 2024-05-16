@@ -61,6 +61,16 @@ public class MHWaveAttack : BaseState
         GameObject fireBall = Object.Instantiate(SM.wavePrefabs, SM.wavePosition.position, Quaternion.identity);
         fireBall.transform.right = shootDirection;
 
+        for (int j = 0; j < 5; j++)
+        {
+            int randomIndex = Random.Range(0, SM.spawnPosition.Length);
+
+            int rand = Random.Range(0, SM.SpikesPrefabs.Length);
+            GameObject SpikesToSpawn = SM.SpikesPrefabs[rand];
+
+            Object.Instantiate(SpikesToSpawn, SM.spawnPosition[randomIndex].position, Quaternion.identity);
+        }
+
         anim.SetTrigger("MHAttack");
         SM.ShakeCam();
 

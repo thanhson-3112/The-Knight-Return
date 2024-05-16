@@ -18,6 +18,8 @@ public class PlayerShooting : MonoBehaviour
 
     private float currentSoul;
     public SoulManager soulManager;
+
+    [SerializeField] private bool lockFireBall = true;
     void Start()
     {
     }
@@ -30,7 +32,7 @@ public class PlayerShooting : MonoBehaviour
 
     private void Shoot()
     {
-        if ((Input.GetKeyDown(KeyCode.V) && fireTimer <= 0f) && currentSoul >= 2)
+        if ((Input.GetKeyDown(KeyCode.V) && fireTimer <= 0f) && currentSoul >= 2 && !lockFireBall)
         {
             fireTimer = fireRate;
 
@@ -49,7 +51,10 @@ public class PlayerShooting : MonoBehaviour
         {
             fireTimer -= Time.deltaTime;
         }
+    }
 
-        
+    public void UnlockFireBall()
+    {
+        lockFireBall = false;
     }
 }
