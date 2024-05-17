@@ -15,6 +15,8 @@ public class UnlockWallJumpSkill : MonoBehaviour
     public void Start()
     {
         skillText.gameObject.SetActive(false);
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        playerSkill = playerObject.GetComponent<PlayerMovement>();
     }
 
     private void Update()

@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class NewBehaviourScript : MonoBehaviour
+public class UnlockDoubleJumpSkill : MonoBehaviour
 {
     public TMP_Text skillText;
 
@@ -15,6 +15,8 @@ public class NewBehaviourScript : MonoBehaviour
     public void Start()
     {
         skillText.gameObject.SetActive(false);
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        playerSkill = playerObject.GetComponent<PlayerMovement>();
     }
 
     private void Update()

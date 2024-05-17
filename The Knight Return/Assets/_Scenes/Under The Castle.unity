@@ -208,7 +208,7 @@ MonoBehaviour:
   recollFactor: 2.5
   isRecolling: 0
   playerLife: {fileID: 3510989387169474194}
-  playerDash: {fileID: 1126174348796757618}
+  player: {fileID: 0}
   batHealth: 5
   enemyDamage: 1
 --- !u!114 &4297941
@@ -491,6 +491,11 @@ Transform:
   - {fileID: 665421532}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &39373013 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7890632744287969374, guid: 4be63275f835fd848bb8daf14e88cd51, type: 3}
+  m_PrefabInstance: {fileID: 8434677369198307269}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &87119106
 GameObject:
   m_ObjectHideFlags: 0
@@ -28966,7 +28971,7 @@ MonoBehaviour:
   recollFactor: 2.5
   isRecolling: 0
   playerLife: {fileID: 3510989387169474194}
-  playerDash: {fileID: 1126174348796757618}
+  player: {fileID: 0}
   batHealth: 5
   enemyDamage: 1
 --- !u!95 &553290899
@@ -30423,15 +30428,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1f43b8a094aff04db35b8dbbd32bbb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 20
-  recollLength: 0.2
-  recollFactor: 2
-  isRecolling: 0
-  damage: 1
-  playerLife: {fileID: 3510989387169474194}
-  playerDash: {fileID: 1126174348796757618}
-  activationDistance: 4
-  finishLevelObject: {fileID: 971347209}
 --- !u!1 &767808104
 GameObject:
   m_ObjectHideFlags: 0
@@ -31147,6 +31143,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!4 &884513705 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8663683924679856933, guid: 4be63275f835fd848bb8daf14e88cd51, type: 3}
+  m_PrefabInstance: {fileID: 8434677369198307269}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &899544403
 GameObject:
   m_ObjectHideFlags: 0
@@ -31967,7 +31968,7 @@ MonoBehaviour:
   recollFactor: 2.5
   isRecolling: 0
   playerLife: {fileID: 3510989387169474194}
-  playerDash: {fileID: 1126174348796757618}
+  player: {fileID: 0}
   batHealth: 5
   enemyDamage: 1
 --- !u!95 &1039449757
@@ -32183,7 +32184,7 @@ MonoBehaviour:
   recollFactor: 2.5
   isRecolling: 0
   playerLife: {fileID: 3510989387169474194}
-  playerDash: {fileID: 1126174348796757618}
+  player: {fileID: 0}
   batHealth: 5
   enemyDamage: 1
 --- !u!95 &1054639620
@@ -103991,7 +103992,7 @@ MonoBehaviour:
   recollFactor: 2.5
   isRecolling: 0
   playerLife: {fileID: 3510989387169474194}
-  playerDash: {fileID: 1126174348796757618}
+  player: {fileID: 0}
   batHealth: 5
   enemyDamage: 1
 --- !u!95 &1515671040
@@ -104871,7 +104872,7 @@ MonoBehaviour:
   recollFactor: 2.5
   isRecolling: 0
   playerLife: {fileID: 3510989387169474194}
-  playerDash: {fileID: 1126174348796757618}
+  player: {fileID: 0}
   batHealth: 5
   enemyDamage: 1
 --- !u!95 &1789027551
@@ -110524,17 +110525,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1126174348796757618 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1126174347926588911, guid: 4be63275f835fd848bb8daf14e88cd51, type: 3}
-  m_PrefabInstance: {fileID: 8434677369198307269}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56ad4eb5381315f41a500276b01b006b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1168719606014589002 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1168719606222353367, guid: 4be63275f835fd848bb8daf14e88cd51, type: 3}
@@ -110611,7 +110601,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3510989386961743119, guid: 4be63275f835fd848bb8daf14e88cd51, type: 3}
   m_PrefabInstance: {fileID: 8434677369198307269}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 39373013}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df708c25c2c36a8469fb470e5e71fbba, type: 3}
@@ -110747,9 +110737,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowSpeed: 2
-  Target: {fileID: 1168719606014589002}
+  player: {fileID: 39373013}
   shakeDuration: 0
   shakeAmount: 0.1
+  _isCamGround: {fileID: 884513705}
+  Ground:
+    serializedVersion: 2
+    m_Bits: 0
+  BossRoom: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
