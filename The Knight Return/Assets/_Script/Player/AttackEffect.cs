@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class AttackEffect : MonoBehaviour
 {
-    // Start is called before the first frame update
+
+    public float timeEffect;
+
     void Start()
     {
-        Destroy(gameObject, 0.1f);
+        Destroy(gameObject, 0.2f);
     }
 
     // Update is called once per frame

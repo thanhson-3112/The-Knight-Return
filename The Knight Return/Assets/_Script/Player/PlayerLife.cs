@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,8 +15,11 @@ public class PlayerLife : MonoBehaviour
     [SerializeField] public int health;
 
     public HealthUI healthUI;
+    public GameObject takeDamageEffect;
 
-    //CHeckPoint
+    [Header("CheckPoint")]
+    [SerializeField] private TMP_Text checkPointText;
+    private bool canActivateCheckpoint = false;
     private Vector2 respawnPoint;
     private Vector2 trapRespawnPoint;
     public GameObject startPoint;
@@ -41,6 +45,15 @@ public class PlayerLife : MonoBehaviour
     public void Update()
     {
         healthUI.SetHealth(health);
+
+        if (canActivateCheckpoint && Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            Debug.Log("Da an F");
+            anim.SetTrigger("CheckPoint");
+            CheckpointSoundEffect.Play();
+            respawnPoint = transform.position;
+            Debug.Log("Checkpoint" + respawnPoint);
+        }
     }
 
     public void TakeDamage(int damage)
@@ -52,6 +65,8 @@ public class PlayerLife : MonoBehaviour
             healthUI.SetHealth(health);
             DamageSoundEffect.Play();
 
+            Instantiate(takeDamageEffect, transform.position, Quaternion.identity);
+
             if (health <= 0)
             {
                 Die();
@@ -60,7 +75,6 @@ public class PlayerLife : MonoBehaviour
             {
                 StartCoroutine(MakeInvincible(1.5f));
             }
-
         }
     }
 
@@ -106,7 +120,6 @@ public class PlayerLife : MonoBehaviour
         }
 
         rb.bodyType = RigidbodyType2D.Static;
-
         anim.SetTrigger("death");
 
         Invoke("Respawn", 1.7f);
@@ -121,31 +134,12 @@ public class PlayerLife : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        /*if (collision.gameObject.CompareTag("Blood"))
-        {
-            if (health != maxHealth)
-            {
-                HeathSoundEffect.Play();
-                Destroy(collision.gameObject);
-                health++;
-            }
-        }
-
-        if (collision.gameObject.CompareTag("Heart"))
-        {
-            HeathSoundEffect.Play();
-            Destroy(collision.gameObject);
-            maxHealth++;
-            health = maxHealth;
-        }*/
-
         if (collision.CompareTag("CheckPoint"))
         {
-            CheckpointSoundEffect.Play();
-            respawnPoint = collision.transform.position;
-            Debug.Log("Checkpoint" + respawnPoint);
+            canActivateCheckpoint = true;
+            checkPointText.gameObject.SetActive(true);
         }
-        
+
         if (collision.CompareTag("TrapCheckPoint"))
         {
             trapRespawnPoint = collision.transform.position;
@@ -153,12 +147,20 @@ public class PlayerLife : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("CheckPoint"))
+        {
+            canActivateCheckpoint = false;
+            checkPointText.gameObject.SetActive(false);
+        }
+    }
+
     public void PlayerHealing()
     {
-        if (health < maxHealth) 
+        if (health < maxHealth)
         {
             health++;
         }
     }
-
 }
