@@ -16,8 +16,10 @@ public class PlayerAttack : MonoBehaviour
         UpAttackArea = new Vector2(2f, 2.3f), DownAttackArea = new Vector2(2f, 2.3f);
     [SerializeField] private LayerMask attackablelayer;
 
-    
-    [SerializeField] private GameObject slashEffect;
+
+    [SerializeField] private List<GameObject> slashEffects;
+    [SerializeField] private List<Vector2> slashScales;
+    private int currentSlashEffectIndex = 0; 
     [SerializeField] private GameObject slashHitEffect;
     private bool isUpArrowPressed = false;
     private bool isDownArrowPressed = false;
@@ -58,12 +60,13 @@ public class PlayerAttack : MonoBehaviour
     }
 
     // hieu ung chem
-    private void SlashEffcetAngle(GameObject _slashEffect, int _effcetAngle, Transform _attackTransform)
+    private void SlashEffect(int effectAngle, Transform attackTransform)
     {
-        _slashEffect = Instantiate(_slashEffect, _attackTransform);
-        _slashEffect.transform.eulerAngles = new Vector3(0, 0, _effcetAngle);
-        _slashEffect.transform.localScale = new Vector2(0.14f, 0.24f);
+        GameObject slashEffect = Instantiate(slashEffects[currentSlashEffectIndex], attackTransform.position, Quaternion.Euler(0, 0, effectAngle));
+        slashEffect.transform.localScale = slashScales[currentSlashEffectIndex];
+        currentSlashEffectIndex = (currentSlashEffectIndex + 1) % slashEffects.Count;
     }
+
 
     protected virtual void Attack()
     {
@@ -82,7 +85,7 @@ public class PlayerAttack : MonoBehaviour
                 timeSinceAttack = 0;
                 AttackSoundEffect.Play();
                 anim.SetTrigger("attack");
-                SlashEffcetAngle(slashEffect, 180, UpAttackTransform);
+                SlashEffect(180, UpAttackTransform);
                 Hit(UpAttackTransform, UpAttackArea);
             }
             // tan cong duoi
@@ -91,7 +94,7 @@ public class PlayerAttack : MonoBehaviour
                 timeSinceAttack = 0;
                 AttackSoundEffect.Play();
                 anim.SetTrigger("attack");
-                SlashEffcetAngle(slashEffect, 0, DownAttackTransform);
+                SlashEffect(0, DownAttackTransform);
                 Hit(DownAttackTransform, DownAttackArea);
             }
             // tan cong ngang
@@ -99,7 +102,8 @@ public class PlayerAttack : MonoBehaviour
             {
                 timeSinceAttack = 0;
                 AttackSoundEffect.Play();
-                SlashEffcetAngle(slashEffect, transform.localScale.x > 0 ? 90 : -90, AttackTransform);
+                int effectAngle = transform.localScale.x > 0 ? 90 : -90;
+                SlashEffect(effectAngle, AttackTransform);
                 anim.SetTrigger("attack");
                 Hit(AttackTransform, AttackArea);
             }
@@ -109,6 +113,7 @@ public class PlayerAttack : MonoBehaviour
     private void Hit(Transform _attackTransform, Vector2 _attackArea)
     {
         Collider2D[] objectsToHit = Physics2D.OverlapBoxAll(_attackTransform.position, _attackArea, 0, attackablelayer);
+        
         foreach (Collider2D objCollider in objectsToHit)
         {
             Instantiate(slashHitEffect, objCollider.transform.position, Quaternion.identity);

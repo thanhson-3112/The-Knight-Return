@@ -53,22 +53,27 @@ public class MHStateMachine : StateMachine
         player = playerObject.GetComponent<Transform>();
         GameObject camObject = GameObject.FindGameObjectWithTag("MainCamera");
         cam = camObject.GetComponent<CameraManager>();
+        FlipTowardsPlayer();
+        anim.SetBool("MHMove", false);
+        ShakeCam();
         MHLife = GetComponent<MHLifeController>();
     }
 
     new public void Update()
     {
         base.Update();
+        if (!canUpdate) return; // Ensure no action is taken until allowed
+
         bossHealth = MHLife.bossHealth;
+
         if (bossHealth >= 10)
         {
-            randomStates = new List<BaseState>() { movingState, jumpState, attackState};
+            randomStates = new List<BaseState>() { movingState, jumpState, attackState };
         }
         else
         {
             randomStates = new List<BaseState>() { movingState, jumpState, attackState, waveAttack };
         }
-       
     }
 
     public void NextState()
@@ -91,7 +96,7 @@ public class MHStateMachine : StateMachine
     protected override BaseState GetInitialState()
     {
         LastState = movingState;
-        LastTwoState = movingState; 
+        LastTwoState = movingState;
         return movingState;
     }
 
