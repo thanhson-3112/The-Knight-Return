@@ -60,10 +60,11 @@ public class PlayerAttack : MonoBehaviour
     }
 
     // hieu ung chem
-    private void SlashEffect(int effectAngle, Transform attackTransform)
+    private void SlashEffcetAngle(GameObject _slashEffect, int _effcetAngle, Transform _attackTransform)
     {
-        GameObject slashEffect = Instantiate(slashEffects[currentSlashEffectIndex], attackTransform.position, Quaternion.Euler(0, 0, effectAngle));
-        slashEffect.transform.localScale = slashScales[currentSlashEffectIndex];
+        _slashEffect = Instantiate(_slashEffect, _attackTransform);
+        _slashEffect.transform.eulerAngles = new Vector3(0, 0, _effcetAngle);
+        _slashEffect.transform.localScale = slashScales[currentSlashEffectIndex];
         currentSlashEffectIndex = (currentSlashEffectIndex + 1) % slashEffects.Count;
     }
 
@@ -85,7 +86,7 @@ public class PlayerAttack : MonoBehaviour
                 timeSinceAttack = 0;
                 AttackSoundEffect.Play();
                 anim.SetTrigger("attack");
-                SlashEffect(180, UpAttackTransform);
+                SlashEffcetAngle(slashEffects[currentSlashEffectIndex], 180, UpAttackTransform);
                 Hit(UpAttackTransform, UpAttackArea);
             }
             // tan cong duoi
@@ -94,7 +95,7 @@ public class PlayerAttack : MonoBehaviour
                 timeSinceAttack = 0;
                 AttackSoundEffect.Play();
                 anim.SetTrigger("attack");
-                SlashEffect(0, DownAttackTransform);
+                SlashEffcetAngle(slashEffects[currentSlashEffectIndex], 0, DownAttackTransform);
                 Hit(DownAttackTransform, DownAttackArea);
             }
             // tan cong ngang
@@ -102,8 +103,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 timeSinceAttack = 0;
                 AttackSoundEffect.Play();
-                int effectAngle = transform.localScale.x > 0 ? 90 : -90;
-                SlashEffect(effectAngle, AttackTransform);
+                SlashEffcetAngle(slashEffects[currentSlashEffectIndex], transform.localScale.x > 0 ? 90 : -90, AttackTransform);
                 anim.SetTrigger("attack");
                 Hit(AttackTransform, AttackArea);
             }

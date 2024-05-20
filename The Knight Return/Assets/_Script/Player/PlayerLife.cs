@@ -52,6 +52,7 @@ public class PlayerLife : MonoBehaviour
             anim.SetTrigger("CheckPoint");
             CheckpointSoundEffect.Play();
             respawnPoint = transform.position;
+            health = maxHealth;
             Debug.Log("Checkpoint" + respawnPoint);
         }
     }

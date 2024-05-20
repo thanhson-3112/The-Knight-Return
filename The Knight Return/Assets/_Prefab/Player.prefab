@@ -431,6 +431,8 @@ MonoBehaviour:
   maxHealth: 5
   health: 0
   healthUI: {fileID: 0}
+  takeDamageEffect: {fileID: 5122407199325688400, guid: d87fbdca73e4f434a85a3b62b8b6948a, type: 3}
+  checkPointText: {fileID: 0}
   startPoint: {fileID: 0}
   DamageSoundEffect: {fileID: 5180621368866877218}
   DeathSoundEffect: {fileID: 8154680128077649429}
