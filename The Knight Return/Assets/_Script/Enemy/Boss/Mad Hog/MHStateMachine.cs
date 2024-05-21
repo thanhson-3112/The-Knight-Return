@@ -49,10 +49,8 @@ public class MHStateMachine : StateMachine
     new void Start()
     {
         base.Start();
-        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
-        player = playerObject.GetComponent<Transform>();
-        GameObject camObject = GameObject.FindGameObjectWithTag("MainCamera");
-        cam = camObject.GetComponent<CameraManager>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraManager>();
         FlipTowardsPlayer();
         anim.SetBool("MHMove", false);
         ShakeCam();

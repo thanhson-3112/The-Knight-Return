@@ -14,8 +14,7 @@ public class UnlockFireBallSkill : MonoBehaviour
 
     public void Start()
     {
-        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
-        playerSkill = playerObject.GetComponent<PlayerShooting>();
+        playerSkill = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerShooting>();
         skillText.gameObject.SetActive(false);
     }
 

@@ -25,7 +25,7 @@ public class CameraManager : MonoBehaviour
     public LayerMask Ground;
 
     private bool bossRoom = false;
-    public IntoBossRoom BossRoom;
+    public IntoBossRoomBBA BossRoom;
 
     private float upArrowHoldTime = 0f;
     private float downArrowHoldTime = 0f;

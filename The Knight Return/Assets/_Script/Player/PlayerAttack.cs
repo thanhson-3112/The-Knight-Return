@@ -34,14 +34,13 @@ public class PlayerAttack : MonoBehaviour
     private bool isWall;
 
     [Header("Sound Settings")]
-    [SerializeField] private AudioSource AttackSoundEffect;
-    [SerializeField] private AudioSource HitSoundEffect;
-
+    public AudioManager audioManager;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     // Update is called once per frame
@@ -84,7 +83,7 @@ public class PlayerAttack : MonoBehaviour
             if (isUpArrowPressed)
             {
                 timeSinceAttack = 0;
-                AttackSoundEffect.Play();
+                audioManager.PlayVFX(audioManager.AttackSoundEffect);
                 anim.SetTrigger("attack");
                 SlashEffcetAngle(slashEffects[currentSlashEffectIndex], 180, UpAttackTransform);
                 Hit(UpAttackTransform, UpAttackArea);
@@ -93,7 +92,7 @@ public class PlayerAttack : MonoBehaviour
             else if (isDownArrowPressed && !isGround)
             {
                 timeSinceAttack = 0;
-                AttackSoundEffect.Play();
+                audioManager.PlayVFX(audioManager.AttackSoundEffect);
                 anim.SetTrigger("attack");
                 SlashEffcetAngle(slashEffects[currentSlashEffectIndex], 0, DownAttackTransform);
                 Hit(DownAttackTransform, DownAttackArea);
@@ -102,7 +101,7 @@ public class PlayerAttack : MonoBehaviour
             else
             {
                 timeSinceAttack = 0;
-                AttackSoundEffect.Play();
+                audioManager.PlayVFX(audioManager.AttackSoundEffect);
                 SlashEffcetAngle(slashEffects[currentSlashEffectIndex], transform.localScale.x > 0 ? 90 : -90, AttackTransform);
                 anim.SetTrigger("attack");
                 Hit(AttackTransform, AttackArea);
@@ -121,7 +120,7 @@ public class PlayerAttack : MonoBehaviour
 
         if (objectsToHit.Length > 0)
         {
-            HitSoundEffect.Play();
+            audioManager.PlayVFX(audioManager.HitSoundEffect);
             Debug.Log("Hit");
 
             // tan cong xuong se day len

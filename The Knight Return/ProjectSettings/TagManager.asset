@@ -13,6 +13,7 @@ TagManager:
   - TrapCheckPoint
   - MiniBoss
   - Boss
+  - Audio
   layers:
   - Default
   - TransparentFX

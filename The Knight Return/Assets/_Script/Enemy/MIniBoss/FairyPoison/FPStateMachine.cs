@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FPStateMachine : StateMachine
 {
-    public FPDashState dashState;
+    public FPFollowState dashState;
     public FPMovingState movingState;
     public FPAttackState attackState;
 
@@ -19,8 +19,7 @@ public class FPStateMachine : StateMachine
     public Vector2 idelMovementDirection = new Vector2(-5, 2);
 
     [Header("AttackUpNDown")]
-    public float attackMovementSpeed = 3f;
-    public Vector2 attackMovementDirection = new Vector2(-1, 2);
+    public float attackMovementSpeed = 4f;
 
     [Header("Wave Attack")]
     public GameObject firePrefab;
@@ -50,7 +49,7 @@ public class FPStateMachine : StateMachine
         rb = GetComponent<Rigidbody2D>();
 
         movingState = new FPMovingState(this, anim, rb);
-        dashState = new FPDashState(this, anim, rb);
+        dashState = new FPFollowState(this, anim, rb);
         attackState = new FPAttackState(this, anim, rb);
 
         randomStates = new List<BaseState>() { movingState, dashState, attackState };
@@ -59,8 +58,7 @@ public class FPStateMachine : StateMachine
     new void Start()
     {
         base.Start();
-        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
-        player = playerObject.GetComponent<Transform>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
     }
 
     new public void Update()
@@ -121,14 +119,12 @@ public class FPStateMachine : StateMachine
     {
         goingUp = !goingUp;
         idelMovementDirection.y *= -1;
-        attackMovementDirection.y *= -1;
     }
 
     public void Flip()
     {
         facingLeft = !facingLeft;
         idelMovementDirection.x *= -1;
-        attackMovementDirection.x *= -1;
         transform.Rotate(0, 180, 0);
     }
 

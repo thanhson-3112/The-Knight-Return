@@ -13,9 +13,12 @@ GameObject:
   - component: {fileID: 2431012553432244927}
   - component: {fileID: 898355423833148342}
   - component: {fileID: 1504674041668483809}
-  m_Layer: 0
+  - component: {fileID: 2065227466329336993}
+  - component: {fileID: 5230252660258072030}
+  - component: {fileID: -9040944824860216791}
+  m_Layer: 7
   m_Name: Fairy Poison
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -150,9 +153,8 @@ MonoBehaviour:
   canUpdate: 0
   idelMovementSpeed: 2
   idelMovementDirection: {x: -5, y: 2}
-  attackMovementSpeed: 3
-  attackMovementDirection: {x: -1, y: 2}
-  firePrefab: {fileID: 2415826053164442851, guid: 3c4eeabecb398a74db36fbe501660925, type: 3}
+  attackMovementSpeed: 4
+  firePrefab: {fileID: 2415826053164442851, guid: 898e663dc00765d45bee978c2a4f5230, type: 3}
   firing: {fileID: 5283082309321475088}
   fireRate: 0.8
   goundCheckUp: {fileID: 6314747940165548497}
@@ -167,6 +169,53 @@ MonoBehaviour:
   isTouchingDown: 0
   isTouchingWall: 0
   cam: {fileID: 0}
+--- !u!114 &2065227466329336993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 700227025433305788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad6ba8311d26b324fb7cc338ab5049f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bossHealth: 0
+  playerLife: {fileID: 0}
+  player: {fileID: 0}
+  FPHealth: 15
+  enemyDamage: 1
+--- !u!114 &5230252660258072030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 700227025433305788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c397b73ad6132d74bb05ce8e01704b7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  droppedItemPrefab: {fileID: 8089137497524718166, guid: c35d0675f99ffef41ac2f05aa3af558b, type: 3}
+  lootList:
+  - {fileID: 11400000, guid: 975bfb430f726094e9ea1759b75388c5, type: 2}
+--- !u!114 &-9040944824860216791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 700227025433305788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f8429ae861b04468c89f6485f9a02d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  droppedItemPrefab: {fileID: 7952945152742447162, guid: 454ad9e56824e0543977e62bb3c710fe, type: 3}
+  lootList:
+  - {fileID: 11400000, guid: 1fd0531c9c2d41a4a9d9efe145576236, type: 2}
 --- !u!1 &700227025523507516
 GameObject:
   m_ObjectHideFlags: 0
@@ -593,7 +642,7 @@ Transform:
   m_GameObject: {fileID: 8552290362997183744}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.16, y: 1.26, z: -0.01007681}
+  m_LocalPosition: {x: -0.07, y: 1.26, z: -0.01007681}
   m_LocalScale: {x: 0.653298, y: 0.7700541, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

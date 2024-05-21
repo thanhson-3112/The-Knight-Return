@@ -24,11 +24,8 @@ public class PlayerLife : MonoBehaviour
     private Vector2 trapRespawnPoint;
     public GameObject startPoint;
 
-    //Sound
-    [SerializeField] private AudioSource DamageSoundEffect;
-    [SerializeField] private AudioSource DeathSoundEffect;
-    [SerializeField] private AudioSource HeathSoundEffect;
-    [SerializeField] private AudioSource CheckpointSoundEffect;
+    [Header("Sound")]
+    public AudioManager audioManager;
 
     public bool invincible = false;
     public CameraManager cameraManager;
@@ -40,6 +37,8 @@ public class PlayerLife : MonoBehaviour
         health = maxHealth;
         healthUI.SetMaxHealth(maxHealth);
         respawnPoint = startPoint.transform.position;
+
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     public void Update()
@@ -50,7 +49,7 @@ public class PlayerLife : MonoBehaviour
         {
             Debug.Log("Da an F");
             anim.SetTrigger("CheckPoint");
-            CheckpointSoundEffect.Play();
+            audioManager.PlayVFX(audioManager.CheckpointSoundEffect);
             respawnPoint = transform.position;
             health = maxHealth;
             Debug.Log("Checkpoint" + respawnPoint);
@@ -64,7 +63,7 @@ public class PlayerLife : MonoBehaviour
             health -= damage;
             cameraManager.ShakeCamera();
             healthUI.SetHealth(health);
-            DamageSoundEffect.Play();
+            audioManager.PlayVFX(audioManager.DamageSoundEffect);
 
             Instantiate(takeDamageEffect, transform.position, Quaternion.identity);
 
@@ -93,7 +92,7 @@ public class PlayerLife : MonoBehaviour
         if (collision.gameObject.CompareTag("Trap"))
         {
             health--;
-            DeathSoundEffect.Play();
+            audioManager.PlayVFX(audioManager.DeathSoundEffect);
             anim.SetTrigger("death");
 
             rb.bodyType = RigidbodyType2D.Static;
@@ -115,10 +114,7 @@ public class PlayerLife : MonoBehaviour
 
     private void Die()
     {
-        if (DeathSoundEffect != null)
-        {
-            DeathSoundEffect.Play();
-        }
+        audioManager.PlayVFX(audioManager.DeathSoundEffect);
 
         rb.bodyType = RigidbodyType2D.Static;
         anim.SetTrigger("death");

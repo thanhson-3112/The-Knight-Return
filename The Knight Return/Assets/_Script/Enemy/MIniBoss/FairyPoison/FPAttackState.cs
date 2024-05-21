@@ -9,8 +9,6 @@ public class FPAttackState : BaseState
     private Animator anim;
     private Rigidbody2D rb;
 
-    private bool facingLeft = true;
-
     public FPAttackState(FPStateMachine stateMachine, Animator animator, Rigidbody2D rib) : base(stateMachine)
     {
         SM = stateMachine;
@@ -40,7 +38,8 @@ public class FPAttackState : BaseState
         for (int waveIndex = 0; waveIndex < 3; waveIndex++)
         {
             Attack();
-            yield return new WaitForSeconds(0.5f);
+            anim.SetTrigger("attack");
+            yield return new WaitForSeconds(1f);
         }
         SM.NextState();
     }
@@ -49,10 +48,10 @@ public class FPAttackState : BaseState
     {
         Vector2 direction = SM.player.transform.position - SM.transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        // Ban ra 3 cau lua theo hình non
-        for (int i = 0; i < 12; i++)
+        // Ban ra 5 cau lua theo hình non
+        for (int i = 0; i < 5; i++)
         {
-            float offsetAngle = angle + (i - 1) * 30f;
+            float offsetAngle = angle + (i - 1) * 45f;
             Vector2 bulletDirection = new Vector2(Mathf.Cos(offsetAngle * Mathf.Deg2Rad), Mathf.Sin(offsetAngle * Mathf.Deg2Rad));
 
             // Instantiate bullet
