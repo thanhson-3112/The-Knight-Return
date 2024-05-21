@@ -19,11 +19,18 @@ public class CameraManager : MonoBehaviour
 
     [Header("Check")]
     public Transform _isCamGround;
+    public Transform _isGround;
     private bool isCamGround;
+    private bool playerGround;
     public LayerMask Ground;
 
     private bool bossRoom = false;
     public IntoBossRoom BossRoom;
+
+    private float upArrowHoldTime = 0f;
+    private float downArrowHoldTime = 0f;
+    private const float holdThreshold = 1f;
+
     void Awake()
     {
         cam = GetComponent<Camera>();
@@ -45,21 +52,55 @@ public class CameraManager : MonoBehaviour
     {
         if (!bossRoom)
         {
+            playerGround = Physics2D.OverlapCircle(_isGround.position, 0.2f, Ground);
+            if (playerGround)
+            {
+
+            }
             isCamGround = Physics2D.OverlapCircle(_isCamGround.position, 0.2f, Ground);
+
             Vector3 targetPosition = player.transform.position;
             targetPosition.z = -10;
             Vector3 currentPosition = transform.position;
 
             Vector3 newPosition;
-            if (!isCamGround)
+            if (!isCamGround && playerGround)
             {
                 newPosition = new Vector3(targetPosition.x, targetPosition.y, currentPosition.z);
             }
             else
             {
-                newPosition = new Vector3(targetPosition.x, targetPosition.y + 3f, currentPosition.z);
+                newPosition = new Vector3(targetPosition.x, targetPosition.y + 4f, currentPosition.z);
             }
 
+            if (playerGround)
+            {
+                if (Input.GetKey(KeyCode.UpArrow))
+                {
+                    upArrowHoldTime += Time.deltaTime;
+                    if (upArrowHoldTime >= holdThreshold)
+                    {
+                        newPosition = new Vector3(targetPosition.x, targetPosition.y + 10f, currentPosition.z);
+                    }
+                }
+                else
+                {
+                    upArrowHoldTime = 0f;
+                }
+
+                if (Input.GetKey(KeyCode.DownArrow))
+                {
+                    downArrowHoldTime += Time.deltaTime;
+                    if (downArrowHoldTime >= holdThreshold)
+                    {
+                        newPosition = new Vector3(targetPosition.x, targetPosition.y - 7f, currentPosition.z);
+                    }
+                }
+                else
+                {
+                    downArrowHoldTime = 0f;
+                }
+            }
             transform.position = Vector3.Lerp(currentPosition, newPosition, FollowSpeed * Time.deltaTime);
         }
         else

@@ -211,7 +211,7 @@ Transform:
   m_GameObject: {fileID: 7264863038133064947}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.22, y: -0.79, z: 0}
+  m_LocalPosition: {x: 2.28, y: -0.79, z: 0}
   m_LocalScale: {x: 1.6808938, y: 1.5140876, z: 1.0265}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -266,7 +266,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -146.07, y: -0.53, z: -1.2399118}
-  m_LocalScale: {x: 1.857864, y: 1.6396943, z: 1}
+  m_LocalScale: {x: 2.624233, y: 2.0701141, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4400292128182504601}
@@ -496,9 +496,9 @@ MonoBehaviour:
   AttackTransform: {fileID: 3190115244797873035}
   UpAttackTransform: {fileID: 383817501351722692}
   DownAttackTransform: {fileID: 7989182864585623549}
-  AttackArea: {x: 3, y: 2.4}
-  UpAttackArea: {x: 2, y: 2.3}
-  DownAttackArea: {x: 2, y: 2.3}
+  AttackArea: {x: 4, y: 2.4}
+  UpAttackArea: {x: 2, y: 2.7}
+  DownAttackArea: {x: 2, y: 2.7}
   attackablelayer:
     serializedVersion: 2
     m_Bits: 192
@@ -507,9 +507,9 @@ MonoBehaviour:
   - {fileID: 822040360620348559, guid: 665611b2502e56548b127293c828db3e, type: 3}
   - {fileID: 822040360620348559, guid: 3e8b3b875205c3342accc81f38e88ce0, type: 3}
   slashScales:
-  - {x: 0.2, y: 0.4}
-  - {x: 0.57, y: 0.4}
-  - {x: 0.17, y: 0.5}
+  - {x: 0.15, y: 0.3}
+  - {x: 0.57, y: 0.3}
+  - {x: 0.14, y: 0.3}
   slashHitEffect: {fileID: 822040360620348559, guid: 3213d0e858fb75e4890932e2258474c3, type: 3}
   knockbackForce: 700
   _isGround: {fileID: 6664574097398057885}
