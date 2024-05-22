@@ -63,7 +63,6 @@ public class FPAttackState : BaseState
     public override void Exit()
     {
         base.Exit();
-        anim.SetTrigger("BoDRun");
         SM.gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
     }
 }

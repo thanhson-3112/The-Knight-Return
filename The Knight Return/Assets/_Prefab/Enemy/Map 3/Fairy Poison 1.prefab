@@ -154,7 +154,7 @@ MonoBehaviour:
   idelMovementSpeed: 2
   idelMovementDirection: {x: -5, y: 2}
   attackMovementSpeed: 4
-  firePrefab: {fileID: 2415826053164442851, guid: 898e663dc00765d45bee978c2a4f5230, type: 3}
+  firePrefab: {fileID: 141921338702471786, guid: be697d9db3b4f90469677de5dfab929d, type: 3}
   firing: {fileID: 5283082309321475088}
   fireRate: 0.8
   goundCheckUp: {fileID: 6314747940165548497}

@@ -12,7 +12,6 @@ public class PlayerShooting : MonoBehaviour
     [Header("FireBall")]
     [SerializeField] private GameObject firePrefab;
     [SerializeField] private Transform firingPoint;
-    [SerializeField] private float speed = 20f;
     [SerializeField] private float fireRate = 0.5f;
     private float fireTimer;
 
