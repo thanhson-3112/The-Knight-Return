@@ -34,13 +34,13 @@ public class PlayerAttack : MonoBehaviour
     private bool isWall;
 
     [Header("Sound Settings")]
-    public AudioManager audioManager;
+    public AudioClip AttackSoundEffect;
+    public AudioClip HitSoundEffect;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     // Update is called once per frame
@@ -83,7 +83,7 @@ public class PlayerAttack : MonoBehaviour
             if (isUpArrowPressed)
             {
                 timeSinceAttack = 0;
-                audioManager.PlayVFX(audioManager.AttackSoundEffect);
+                SoundFxManager.instance.PlaySoundFXClip(AttackSoundEffect, transform, 1f);
                 anim.SetTrigger("attack");
                 SlashEffcetAngle(slashEffects[currentSlashEffectIndex], 180, UpAttackTransform);
                 Hit(UpAttackTransform, UpAttackArea);
@@ -92,7 +92,7 @@ public class PlayerAttack : MonoBehaviour
             else if (isDownArrowPressed && !isGround)
             {
                 timeSinceAttack = 0;
-                audioManager.PlayVFX(audioManager.AttackSoundEffect);
+                SoundFxManager.instance.PlaySoundFXClip(AttackSoundEffect, transform, 1f);
                 anim.SetTrigger("attack");
                 SlashEffcetAngle(slashEffects[currentSlashEffectIndex], 0, DownAttackTransform);
                 Hit(DownAttackTransform, DownAttackArea);
@@ -101,7 +101,7 @@ public class PlayerAttack : MonoBehaviour
             else
             {
                 timeSinceAttack = 0;
-                audioManager.PlayVFX(audioManager.AttackSoundEffect);
+                SoundFxManager.instance.PlaySoundFXClip(AttackSoundEffect, transform, 1f);
                 SlashEffcetAngle(slashEffects[currentSlashEffectIndex], transform.localScale.x > 0 ? 90 : -90, AttackTransform);
                 anim.SetTrigger("attack");
                 Hit(AttackTransform, AttackArea);
@@ -120,7 +120,7 @@ public class PlayerAttack : MonoBehaviour
 
         if (objectsToHit.Length > 0)
         {
-            audioManager.PlayVFX(audioManager.HitSoundEffect);
+            SoundFxManager.instance.PlaySoundFXClip(HitSoundEffect, transform, 1f);
             Debug.Log("Hit");
 
             // tan cong xuong se day len

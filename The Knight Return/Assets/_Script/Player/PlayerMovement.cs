@@ -60,7 +60,10 @@ public class PlayerMovement : MonoBehaviour
     public bool KnockFromRight;
 
     [Header("Sound")]
-    public AudioManager audioManager;
+    [SerializeField] private AudioClip RunSoundEffect;
+    public AudioClip JumpSoundEffect;
+    public AudioClip DashSoundEffect;
+
 
 
 
@@ -70,8 +73,6 @@ public class PlayerMovement : MonoBehaviour
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
         tr = GetComponent<TrailRenderer>();
-        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
-
     }
 
 
@@ -94,8 +95,8 @@ public class PlayerMovement : MonoBehaviour
         // Dash input 
         if (!lockDash && Input.GetButtonDown("Dash") && !isDashing && canDash)
         {
-            audioManager.PlayVFX(audioManager.DashSoundEffect);
-            audioManager.StopVFX(audioManager.RunSoundEffect);
+            SoundFxManager.instance.PlaySoundFXClip(DashSoundEffect, transform, 1f);
+            SoundFxManager.instance.StopRunningSound();
             StartCoroutine(Dash());
         }
     }
@@ -134,16 +135,14 @@ public class PlayerMovement : MonoBehaviour
     protected virtual void Move()
     {
         move = Input.GetAxisRaw("Horizontal");
+
         if (isGround && move != 0f)
         {
-            if (!audioManager.vfxAudioSource.isPlaying || audioManager.vfxAudioSource.clip != audioManager.RunSoundEffect)
-            {
-                audioManager.PlayVFX(audioManager.RunSoundEffect);
-            }
+            SoundFxManager.instance.PlaySoundFXClip(RunSoundEffect, transform, 1f);
         }
         else
         {
-            audioManager.StopVFX(audioManager.RunSoundEffect);
+            SoundFxManager.instance.StopRunningSound();
         }
 
         rb.velocity = new Vector2(move * speed, rb.velocity.y);
@@ -157,7 +156,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (isGround || (!lockDoubleJump && canDoubleJump && canDash))
             {
-                audioManager.PlayVFX(audioManager.JumpSoundEffect);
+                SoundFxManager.instance.PlaySoundFXClip(JumpSoundEffect, transform, 1f);
                 isJump = true;
                 jumpTimeCounter = jumpTime;
                 rb.velocity = Vector2.up * jumpForce;
@@ -220,7 +219,7 @@ public class PlayerMovement : MonoBehaviour
         if(Input.GetButtonDown("Jump") && wallJumpingCounter > 0f)
         {
 
-            audioManager.PlayVFX(audioManager.JumpSoundEffect);
+            SoundFxManager.instance.PlaySoundFXClip(JumpSoundEffect, transform, 1f);
             isWallJumping = true;
             anim.SetBool("Hanging", false);
             rb.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
