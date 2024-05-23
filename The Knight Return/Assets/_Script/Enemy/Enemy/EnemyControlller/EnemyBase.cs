@@ -41,6 +41,8 @@ public class EnemyBase : MonoBehaviour
                 recollTimer = 0;
             }
         }
+
+        ActiveEnemy(30f);
     }
 
     public virtual void EnemyHit(float _damageDone, Vector2 _hitDirection, float _hitForce)
@@ -61,7 +63,7 @@ public class EnemyBase : MonoBehaviour
 
     public void EnemyDie()
     {
-        anim.SetTrigger("EnemyDeath");
+        /*anim.SetTrigger("EnemyDeath");*/
 
         Rigidbody2D enemyRigidbody = GetComponent<Rigidbody2D>();
         if (enemyRigidbody != null)
@@ -77,9 +79,6 @@ public class EnemyBase : MonoBehaviour
             collider.enabled = false;
         }
 
-        Destroy(gameObject, 1.25f);
-
-
         // roi soul va gold
         GetComponent<SoulSpawner>().InstantiateLoot(transform.position);
 
@@ -87,7 +86,20 @@ public class EnemyBase : MonoBehaviour
         {
             GetComponent<GoldSpawner>().InstantiateLoot(transform.position);
         }
-        
+
+        StartCoroutine(DeactivateAfterDelay(1.25f));
+    }
+
+    IEnumerator DeactivateAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        gameObject.SetActive(false);
+    }
+
+    IEnumerator ActiveEnemy(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        gameObject.SetActive(true);
     }
 
     IEnumerator RotateOverTime(Transform objectToRotate, Vector3 rotationAmount, float duration)

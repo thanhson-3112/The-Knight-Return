@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isFacingRight = true;
 
     [Header("Jump")]
-    [SerializeField] private float jumpForce = 10f;
+    [SerializeField] private float jumpForce = 13f;
     private bool isGround;
     public Transform _isGround;
     public LayerMask Ground;

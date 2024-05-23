@@ -373,7 +373,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 2
+  m_GravityScale: 4
   m_Material: {fileID: 6200000, guid: 09877aeca6638c84693f8aa93bc659b2, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -425,7 +425,9 @@ MonoBehaviour:
   takeDamageEffect: {fileID: 5122407199325688400, guid: d87fbdca73e4f434a85a3b62b8b6948a, type: 3}
   checkPointText: {fileID: 0}
   startPoint: {fileID: 0}
-  audioManager: {fileID: 0}
+  DamageSoundEffect: {fileID: 8300000, guid: 904396bf43949e24fbd108973daaf31d, type: 3}
+  DeathSoundEffect: {fileID: 8300000, guid: db9502f95fd0e9642b657193c220f00d, type: 3}
+  CheckpointSoundEffect: {fileID: 8300000, guid: 9d5394e18ac1f8745b03077c03b753c0, type: 3}
   invincible: 0
   cameraManager: {fileID: 0}
 --- !u!114 &1126174347926588911
@@ -441,7 +443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 7
-  jumpForce: 10
+  jumpForce: 13
   _isGround: {fileID: 6664574097398057885}
   Ground:
     serializedVersion: 2
@@ -465,7 +467,9 @@ MonoBehaviour:
   KBCounter: 0
   KBTotalTime: 0.2
   KnockFromRight: 0
-  audioManager: {fileID: 0}
+  RunSoundEffect: {fileID: 8300000, guid: 979ec5b47c739344996ca368a2536d4d, type: 3}
+  JumpSoundEffect: {fileID: 8300000, guid: a33bc8a1b2f7d20419c44cad189e82b2, type: 3}
+  DashSoundEffect: {fileID: 8300000, guid: 674d2cb244726984e985fbe5fd9a0b1d, type: 3}
 --- !u!114 &1925679273310991000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -506,7 +510,8 @@ MonoBehaviour:
   wallLayer:
     serializedVersion: 2
     m_Bits: 256
-  audioManager: {fileID: 0}
+  AttackSoundEffect: {fileID: 8300000, guid: 6bee73cc9e6d4fd4cafafe2f83f988ab, type: 3}
+  HitSoundEffect: {fileID: 8300000, guid: ea0f93dacceec9045b3548275307bee7, type: 3}
 --- !u!114 &5186071947490286237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -878,7 +883,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firePrefab: {fileID: 2415826053164442851, guid: 3c4eeabecb398a74db36fbe501660925, type: 3}
   firingPoint: {fileID: 4400292128182504601}
-  speed: 20
   fireRate: 1
   soulManager: {fileID: 7923703251854798278}
   lockFireBall: 1

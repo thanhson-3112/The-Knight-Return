@@ -184,7 +184,7 @@ MonoBehaviour:
   bossHealth: 0
   playerLife: {fileID: 0}
   player: {fileID: 0}
-  FPHealth: 15
+  FPHealth: 1
   enemyDamage: 1
 --- !u!114 &5230252660258072030
 MonoBehaviour:

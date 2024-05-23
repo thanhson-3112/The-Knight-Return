@@ -9,14 +9,14 @@ public class IntoBossRoomFP : MonoBehaviour
     public List<BossDoor> doors;
     public Transform bossSpawnPoint1;
     public Transform bossSpawnPoint2;
-    public GameObject boss;
+    public GameObject[] boss;
 
     private bool isTrigger = true;
     private bool bossDead = false;
 
     public void Start()
     {
-        boss = GameObject.FindGameObjectWithTag("Boss");
+        boss = GameObject.FindGameObjectsWithTag("Boss");
     }
 
     public void Update()
@@ -26,13 +26,25 @@ public class IntoBossRoomFP : MonoBehaviour
             return;
         }
 
-        if (boss == null)
+        if (AreAllBossesDead())
         {
             foreach (BossDoor door in doors)
             {
                 door.OpenDoor();
             }
         }
+    }
+
+    private bool AreAllBossesDead()
+    {
+        foreach (GameObject bossInstance in boss)
+        {
+            if (bossInstance != null)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -47,12 +59,19 @@ public class IntoBossRoomFP : MonoBehaviour
             // Spawn boss ? v? trí bossSpawnPoint
             GameObject spawnedBoss1 = Instantiate(bossPrefab1, bossSpawnPoint1.position, Quaternion.identity);
             GameObject spawnedBoss2 = Instantiate(bossPrefab2, bossSpawnPoint2.position, Quaternion.identity);
-            /*boss = spawnedBoss;*/
+            boss = new GameObject[] { spawnedBoss1, spawnedBoss2 };
             isTrigger = false;
 
-            if (boss == null)
+            foreach (GameObject bossInstance in boss)
             {
-                bossDead = true; // nguoi choi tieu diet boss khi dang trigger
+                if (bossInstance != null)
+                {
+                    bossDead = false;
+                }
+                else
+                {
+                    bossDead = true; // nguoi choi tieu diet boss khi dang trigger
+                }
             }
         }
     }
@@ -68,8 +87,14 @@ public class IntoBossRoomFP : MonoBehaviour
             }
             if (boss != null)
             {
-                Destroy(boss);
-                bossDead = false; //khi boss bien mat khi nguoi choi chet
+                foreach (GameObject bossInstance in boss)
+                {
+                    if (bossInstance != null)
+                    {
+                        Destroy(bossInstance);
+                    }
+                }
+                bossDead = false;
                 isTrigger = true;
             }
         }

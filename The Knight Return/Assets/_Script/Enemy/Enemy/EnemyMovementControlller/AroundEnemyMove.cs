@@ -5,7 +5,7 @@ using UnityEngine;
 public class AroundEnemyMove : MonoBehaviour
 {
     private Rigidbody2D rb;
-    public float speed = 10f;
+    public float speed = 3f;
     public GameObject[] wayPoints;
 
     int nextWayPoint = 1;

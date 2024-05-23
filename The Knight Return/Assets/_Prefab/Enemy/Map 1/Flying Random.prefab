@@ -244,6 +244,8 @@ GameObject:
   - component: {fileID: 7803433550423907639}
   - component: {fileID: 816361599883929760}
   - component: {fileID: 8633344886110174917}
+  - component: {fileID: 1851006857955381548}
+  - component: {fileID: 3943527100908407065}
   m_Layer: 7
   m_Name: Flying Random
   m_TagString: Untagged
@@ -409,6 +411,36 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 264
   goingUp: 1
+--- !u!114 &1851006857955381548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4357351810918520841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c397b73ad6132d74bb05ce8e01704b7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  droppedItemPrefab: {fileID: 8089137497524718166, guid: c35d0675f99ffef41ac2f05aa3af558b, type: 3}
+  lootList:
+  - {fileID: 11400000, guid: 975bfb430f726094e9ea1759b75388c5, type: 2}
+--- !u!114 &3943527100908407065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4357351810918520841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f8429ae861b04468c89f6485f9a02d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  droppedItemPrefab: {fileID: 7952945152742447162, guid: 454ad9e56824e0543977e62bb3c710fe, type: 3}
+  lootList:
+  - {fileID: 11400000, guid: 1fd0531c9c2d41a4a9d9efe145576236, type: 2}
 --- !u!1 &4357351811411015284
 GameObject:
   m_ObjectHideFlags: 0
