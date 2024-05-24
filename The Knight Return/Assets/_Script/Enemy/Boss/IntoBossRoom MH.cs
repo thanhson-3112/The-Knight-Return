@@ -9,8 +9,7 @@ public class IntoBossRoomMH: MonoBehaviour
     public Transform bossSpawnPoint;
     public GameObject boss;
 
-    private bool isTrigger = true;
-    private bool bossDead = false;
+    private bool canTrigger = true;
 
     public void Start()
     {
@@ -19,11 +18,6 @@ public class IntoBossRoomMH: MonoBehaviour
 
     public void Update()
     {
-        if (bossDead)
-        {
-            return;
-        }
-
         if (boss == null)
         {
             foreach (BossDoor door in doors)
@@ -35,7 +29,7 @@ public class IntoBossRoomMH: MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!bossDead && collision.gameObject.tag == "Player" && isTrigger)
+        if (collision.gameObject.tag == "Player" && canTrigger)
         {
             foreach (BossDoor door in doors)
             {
@@ -45,12 +39,7 @@ public class IntoBossRoomMH: MonoBehaviour
             // Spawn boss ? v? trí bossSpawnPoint
             GameObject spawnedBoss = Instantiate(bossPrefab, bossSpawnPoint.position, Quaternion.identity);
             boss = spawnedBoss;
-            isTrigger = false;
-
-            if(boss == null)
-            {
-                bossDead = true; // nguoi choi tieu diet boss khi dang trigger
-            }
+            canTrigger = false;
         }
     }
 
@@ -59,15 +48,10 @@ public class IntoBossRoomMH: MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            foreach (BossDoor door in doors)
-            {
-                door.OpenDoor();
-            }
             if (boss != null)
             {
                 Destroy(boss);
-                bossDead = false; //khi boss bien mat khi nguoi choi chet
-                isTrigger = true;
+                canTrigger = true;
             }
         }
     }

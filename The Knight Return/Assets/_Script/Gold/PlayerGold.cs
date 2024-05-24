@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerGold : MonoBehaviour
 {
-    [SerializeField] private int goldTotal;
+    [SerializeField] public int goldTotal;
     public int goldAdd;
 
     public TextMeshProUGUI goldTotalText;
@@ -64,4 +64,13 @@ public class PlayerGold : MonoBehaviour
 
         goldAddText.gameObject.SetActive(false); 
     }
+
+    public void ClearGold()
+    {
+        goldTotal = 0;
+        goldAdd = 0;
+        goldTotalText.text = "Gold: " + goldTotal.ToString();
+        goldAddText.gameObject.SetActive(false);
+    }
+
 }

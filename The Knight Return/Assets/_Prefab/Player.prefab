@@ -428,8 +428,10 @@ MonoBehaviour:
   DamageSoundEffect: {fileID: 8300000, guid: 904396bf43949e24fbd108973daaf31d, type: 3}
   DeathSoundEffect: {fileID: 8300000, guid: db9502f95fd0e9642b657193c220f00d, type: 3}
   CheckpointSoundEffect: {fileID: 8300000, guid: 9d5394e18ac1f8745b03077c03b753c0, type: 3}
-  invincible: 0
   cameraManager: {fileID: 0}
+  DropGold: {fileID: 1920559023543550340, guid: 0cc11de27bb62364fa70a35e0dc407e8, type: 3}
+  playerGold: {fileID: 0}
+  dieTime: 0
 --- !u!114 &1126174347926588911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -662,7 +664,7 @@ TrailRenderer:
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_ColorSpace: 0
+      m_ColorSpace: -1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0

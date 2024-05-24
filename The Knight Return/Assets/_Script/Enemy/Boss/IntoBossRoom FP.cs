@@ -11,8 +11,7 @@ public class IntoBossRoomFP : MonoBehaviour
     public Transform bossSpawnPoint2;
     public GameObject[] boss;
 
-    private bool isTrigger = true;
-    private bool bossDead = false;
+    private bool canTrigger = true;
 
     public void Start()
     {
@@ -21,11 +20,6 @@ public class IntoBossRoomFP : MonoBehaviour
 
     public void Update()
     {
-        if (bossDead)
-        {
-            return;
-        }
-
         if (AreAllBossesDead())
         {
             foreach (BossDoor door in doors)
@@ -49,7 +43,7 @@ public class IntoBossRoomFP : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!bossDead && collision.gameObject.tag == "Player" && isTrigger)
+        if (collision.gameObject.tag == "Player" && canTrigger)
         {
             foreach (BossDoor door in doors)
             {
@@ -60,19 +54,7 @@ public class IntoBossRoomFP : MonoBehaviour
             GameObject spawnedBoss1 = Instantiate(bossPrefab1, bossSpawnPoint1.position, Quaternion.identity);
             GameObject spawnedBoss2 = Instantiate(bossPrefab2, bossSpawnPoint2.position, Quaternion.identity);
             boss = new GameObject[] { spawnedBoss1, spawnedBoss2 };
-            isTrigger = false;
-
-            foreach (GameObject bossInstance in boss)
-            {
-                if (bossInstance != null)
-                {
-                    bossDead = false;
-                }
-                else
-                {
-                    bossDead = true; // nguoi choi tieu diet boss khi dang trigger
-                }
-            }
+            canTrigger = false;
         }
     }
 
@@ -81,21 +63,13 @@ public class IntoBossRoomFP : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            foreach (BossDoor door in doors)
-            {
-                door.OpenDoor();
-            }
-            if (boss != null)
+            if (!AreAllBossesDead())
             {
                 foreach (GameObject bossInstance in boss)
                 {
-                    if (bossInstance != null)
-                    {
-                        Destroy(bossInstance);
-                    }
+                    Destroy(bossInstance);
                 }
-                bossDead = false;
-                isTrigger = true;
+                canTrigger = true;
             }
         }
     }

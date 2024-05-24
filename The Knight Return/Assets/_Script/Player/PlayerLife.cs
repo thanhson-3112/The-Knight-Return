@@ -29,8 +29,13 @@ public class PlayerLife : MonoBehaviour
     public AudioClip DeathSoundEffect;
     public AudioClip CheckpointSoundEffect;
 
-    public bool invincible = false;
+    private bool invincible = false;
     public CameraManager cameraManager;
+
+    [Header("Player Gold")]
+    public GameObject DropGold;
+    public PlayerGold playerGold;
+    public int dieTime;
 
     private void Start()
     {
@@ -39,6 +44,7 @@ public class PlayerLife : MonoBehaviour
         health = maxHealth;
         healthUI.SetMaxHealth(maxHealth);
         respawnPoint = startPoint.transform.position;
+        playerGold = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerGold>();
     }
 
     public void Update()
@@ -117,14 +123,40 @@ public class PlayerLife : MonoBehaviour
         SoundFxManager.instance.PlaySoundFXClip(DeathSoundEffect, transform, 1f);
 
         rb.bodyType = RigidbodyType2D.Static;
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), true);
         anim.SetTrigger("death");
 
+        // vang roi ra khi chet
+        Instantiate(DropGold, transform.position, Quaternion.identity);
+        StartCoroutine(ClearGold());
+
+        if (playerGold.goldTotal == 0 && dieTime == 0)
+        {
+            dieTime += 0;
+        }
+        else
+        {
+            dieTime += 1;
+        }
+
         Invoke("Respawn", 1.7f);
+    }
+
+    IEnumerator ClearGold()
+    {
+        yield return new WaitForSeconds(2f);
+        playerGold.ClearGold();
+    }
+
+    public void ResetDieTime()
+    {
+        dieTime = 0;
     }
 
     private void Respawn()
     {
         rb.bodyType = RigidbodyType2D.Dynamic;
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), false);
         transform.position = respawnPoint;
         health = maxHealth;
     }
