@@ -1,7 +1,8 @@
 fileFormatVersion: 2
-guid: 014f34c6d7bffda4db20140b6ad0422d
-PrefabImporter:
+guid: 33f986fbee565ce4c9e2dce4c9086fb1
+NativeFormatImporter:
   externalObjects: {}
+  mainObjectFileID: 100100000
   userData: 
   assetBundleName: 
   assetBundleVariant: 
@@ -10,5 +11,5 @@ AssetOrigin:
   productId: 166731
   packageName: Metroidvania Controller
   packageVersion: 1.2
-  assetPath: Assets/MetroidvaniaController/Prefabs/Particles/LeafCut.prefab
+  assetPath: Assets/_Prefab/Particles/SmokeGround 1.prefab
   uploadId: 398611

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WormEnemy : EnemyBase
 {
-    [SerializeField] private float wormHealth = 2f;
+    [SerializeField] public float wormHealth = 2f;
     [SerializeField] private int enemyDamage = 1;
 
     public override void Start()
@@ -13,5 +13,12 @@ public class WormEnemy : EnemyBase
         damage = enemyDamage;
 
         base.Start();
+    }
+
+    public override void ActivateEnemy()
+    {
+        base.ActivateEnemy();
+        enemyHealth = wormHealth;
+
     }
 }

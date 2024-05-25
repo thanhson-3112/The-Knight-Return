@@ -14,4 +14,10 @@ public class FastWormEnemy : EnemyBase
 
         base.Start();
     }
+
+    public override void ActivateEnemy()
+    {
+        base.ActivateEnemy();
+        enemyHealth = FastWormHealth;
+    }
 }

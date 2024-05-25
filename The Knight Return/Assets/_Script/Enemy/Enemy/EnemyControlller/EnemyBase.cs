@@ -41,8 +41,6 @@ public class EnemyBase : MonoBehaviour
                 recollTimer = 0;
             }
         }
-
-        ActiveEnemy(30f);
     }
 
     public virtual void EnemyHit(float _damageDone, Vector2 _hitDirection, float _hitForce)
@@ -72,7 +70,7 @@ public class EnemyBase : MonoBehaviour
             enemyRigidbody.isKinematic = true;
         }
 
-        StartCoroutine(RotateOverTime(transform, Vector3.forward * 180, 1.0f));
+        /*StartCoroutine(RotateOverTime(transform, Vector3.forward * 180, 1.0f));*/
         Collider2D collider = GetComponent<Collider2D>();
         if (collider != null)
         {
@@ -88,21 +86,36 @@ public class EnemyBase : MonoBehaviour
         }
 
         StartCoroutine(DeactivateAfterDelay(1.25f));
+
     }
 
     IEnumerator DeactivateAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
         gameObject.SetActive(false);
+        yield return new WaitForSeconds(2f);
+        ActivateEnemy();
     }
 
-    IEnumerator ActiveEnemy(float delay)
+    public virtual void ActivateEnemy()
     {
-        yield return new WaitForSeconds(delay);
-        gameObject.SetActive(true);
+        if (rb != null)
+        {
+            rb.isKinematic = false;
+            rb.velocity = Vector2.zero;
+        }
+
+        Collider2D collider = GetComponent<Collider2D>();
+        if (collider != null)
+        {
+            collider.enabled = true;
+        }
+
+        isRecolling = false;
+        recollTimer = 0;
     }
 
-    IEnumerator RotateOverTime(Transform objectToRotate, Vector3 rotationAmount, float duration)
+    /*IEnumerator RotateOverTime(Transform objectToRotate, Vector3 rotationAmount, float duration)
     {
         Quaternion startRotation = objectToRotate.rotation;
         Quaternion endRotation = objectToRotate.rotation * Quaternion.Euler(rotationAmount);
@@ -117,7 +130,7 @@ public class EnemyBase : MonoBehaviour
 
         objectToRotate.rotation = endRotation; 
     }
-
+*/
 
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {

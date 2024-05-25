@@ -64,9 +64,6 @@ public class PlayerMovement : MonoBehaviour
     public AudioClip JumpSoundEffect;
     public AudioClip DashSoundEffect;
 
-
-
-
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -146,7 +143,6 @@ public class PlayerMovement : MonoBehaviour
         {
             SoundFxManager.instance.StopRunningSound();
         }
-
         rb.velocity = new Vector2(move * speed, rb.velocity.y);
     }
 

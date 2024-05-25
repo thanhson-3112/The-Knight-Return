@@ -37,6 +37,8 @@ public class PlayerLife : MonoBehaviour
     public PlayerGold playerGold;
     public int dieTime;
 
+    public GameObject enemyParent;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -126,7 +128,7 @@ public class PlayerLife : MonoBehaviour
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), true);
         anim.SetTrigger("death");
 
-        // vang roi ra khi chet
+        // Spawn gold when the player dies
         Instantiate(DropGold, transform.position, Quaternion.identity);
         StartCoroutine(ClearGold());
 
@@ -159,6 +161,21 @@ public class PlayerLife : MonoBehaviour
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), false);
         transform.position = respawnPoint;
         health = maxHealth;
+
+        ActivateAllEnemies(enemyParent);
+    }
+
+    private void ActivateAllEnemies(GameObject parent)
+    {
+        parent.SetActive(true);
+        foreach (Transform child in parent.transform)
+        {
+            child.gameObject.SetActive(true);
+            if (child.childCount > 0)
+            {
+                ActivateAllEnemies(child.gameObject);
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
