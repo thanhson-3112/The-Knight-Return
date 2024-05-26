@@ -61,15 +61,6 @@ public class EnemyBase : MonoBehaviour
 
     public void EnemyDie()
     {
-        /*anim.SetTrigger("EnemyDeath");*/
-
-        Rigidbody2D enemyRigidbody = GetComponent<Rigidbody2D>();
-        if (enemyRigidbody != null)
-        {
-            enemyRigidbody.velocity = Vector2.zero; 
-            enemyRigidbody.isKinematic = true;
-        }
-
         /*StartCoroutine(RotateOverTime(transform, Vector3.forward * 180, 1.0f));*/
         Collider2D collider = GetComponent<Collider2D>();
         if (collider != null)
@@ -85,7 +76,8 @@ public class EnemyBase : MonoBehaviour
             GetComponent<GoldSpawner>().InstantiateLoot(transform.position);
         }
 
-        StartCoroutine(DeactivateAfterDelay(1.25f));
+        ActivateEnemy();
+        StartCoroutine(DeactivateAfterDelay(0f));
 
     }
 
@@ -93,18 +85,10 @@ public class EnemyBase : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         gameObject.SetActive(false);
-        yield return new WaitForSeconds(2f);
-        ActivateEnemy();
     }
 
     public virtual void ActivateEnemy()
     {
-        if (rb != null)
-        {
-            rb.isKinematic = false;
-            rb.velocity = Vector2.zero;
-        }
-
         Collider2D collider = GetComponent<Collider2D>();
         if (collider != null)
         {

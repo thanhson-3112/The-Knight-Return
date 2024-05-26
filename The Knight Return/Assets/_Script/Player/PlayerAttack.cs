@@ -12,8 +12,8 @@ public class PlayerAttack : MonoBehaviour
     private float timeBetweenAttack = 0.3f;
     private float timeSinceAttack;
     [SerializeField] private Transform AttackTransform, UpAttackTransform, DownAttackTransform;
-    [SerializeField] private Vector2 AttackArea = new Vector2(3f, 2.4f),
-        UpAttackArea = new Vector2(2f, 2.3f), DownAttackArea = new Vector2(2f, 2.3f);
+    [SerializeField] private Vector2 AttackArea = new Vector2(4f, 2.4f),
+        UpAttackArea = new Vector2(2f, 2.7f), DownAttackArea = new Vector2(2f, 2.7f);
     [SerializeField] private LayerMask attackablelayer;
 
 
@@ -23,7 +23,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private GameObject slashHitEffect;
     private bool isUpArrowPressed = false;
     private bool isDownArrowPressed = false;
-    public float knockbackForce = 700f;
+    public float knockbackForce = 10f;
 
     [Header("Ground,Wall Checking")]
     [SerializeField] public Transform _isGround;
@@ -126,8 +126,9 @@ public class PlayerAttack : MonoBehaviour
             // tan cong xuong se day len
             if (isDownArrowPressed && !isGround)
             {
-                Vector2 knockbackDirection = Vector2.up; 
-                rb.AddForce(knockbackDirection * knockbackForce);
+                Vector2 knockbackDirection = Vector2.up;
+                rb.velocity = Vector2.zero; // Reset the velocity before applying force
+                rb.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse); // Apply force with impulse for instant effect
             }
         }
 

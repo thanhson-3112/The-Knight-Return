@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5e074b3116ac694abe043f9bb9896e4, type: 3}
   m_Name: Gold
   m_EditorClassIdentifier: 
-  goldSprite: {fileID: 21300000, guid: b21502460dd28e548b949a770376d199, type: 3}
+  goldSprite: {fileID: 21300000, guid: deb9d5b798c337a48859c869df812779, type: 3}
   goldName: 
   goldChance: 100
   goldAmount: 1

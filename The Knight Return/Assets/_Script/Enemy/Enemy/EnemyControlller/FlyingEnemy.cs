@@ -14,4 +14,10 @@ public class FlyingEnemy : EnemyBase
 
         base.Start();
     }
+
+    public override void ActivateEnemy()
+    {
+        base.ActivateEnemy();
+        enemyHealth = flyingHealth;
+    }
 }
