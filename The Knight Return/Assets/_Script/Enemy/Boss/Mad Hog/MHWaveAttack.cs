@@ -20,7 +20,7 @@ public class MHWaveAttack : BaseState
     {
         base.Enter();
         anim.SetBool("MHMove", false);
-        SM.StartCoroutine(Jump());
+        SM.StartCoroutine(WaveAttack());
     }
 
     public override void UpdateLogic()
@@ -28,7 +28,7 @@ public class MHWaveAttack : BaseState
         base.UpdateLogic();
     }
 
-    IEnumerator Jump()
+    IEnumerator WaveAttack()
     {
         yield return new WaitForSeconds(0.1f);
         rb.velocity = Vector2.zero;

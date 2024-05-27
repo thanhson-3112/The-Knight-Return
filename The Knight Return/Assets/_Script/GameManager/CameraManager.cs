@@ -53,11 +53,7 @@ public class CameraManager : MonoBehaviour
         if (!bossRoom)
         {
             playerGround = Physics2D.OverlapCircle(_isGround.position, 0.2f, Ground);
-            if (playerGround)
-            {
-
-            }
-            isCamGround = Physics2D.OverlapCircle(_isCamGround.position, 0.2f, Ground);
+            isCamGround = Physics2D.OverlapCircle(_isCamGround.position, 5f, Ground);
 
             Vector3 targetPosition = player.transform.position;
             targetPosition.z = -10;
@@ -75,7 +71,17 @@ public class CameraManager : MonoBehaviour
 
             if (playerGround)
             {
-                if (Input.GetKey(KeyCode.UpArrow))
+                bool otherKeyPressed = false;
+                foreach (KeyCode keyCode in System.Enum.GetValues(typeof(KeyCode)))
+                {
+                    if (Input.GetKey(keyCode) && keyCode != KeyCode.UpArrow && keyCode != KeyCode.DownArrow)
+                    {
+                        otherKeyPressed = true;
+                        break;
+                    }
+                }
+
+                if (Input.GetKey(KeyCode.UpArrow) && !otherKeyPressed)
                 {
                     upArrowHoldTime += Time.deltaTime;
                     if (upArrowHoldTime >= holdThreshold)
@@ -88,7 +94,7 @@ public class CameraManager : MonoBehaviour
                     upArrowHoldTime = 0f;
                 }
 
-                if (Input.GetKey(KeyCode.DownArrow))
+                if (Input.GetKey(KeyCode.DownArrow) && !otherKeyPressed)
                 {
                     downArrowHoldTime += Time.deltaTime;
                     if (downArrowHoldTime >= holdThreshold)
@@ -101,6 +107,7 @@ public class CameraManager : MonoBehaviour
                     downArrowHoldTime = 0f;
                 }
             }
+
             transform.position = Vector3.Lerp(currentPosition, newPosition, FollowSpeed * Time.deltaTime);
         }
         else

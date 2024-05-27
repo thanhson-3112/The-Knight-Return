@@ -22,6 +22,7 @@ public class FPMovingState : BaseState
     public override void Enter()
     {
         base.Enter();
+        Debug.Log("move");
         SM.StartCoroutine(EndState());
         anim.SetBool("isMoving", false);
     }

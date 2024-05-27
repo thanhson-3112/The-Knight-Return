@@ -19,6 +19,7 @@ public class FPAttackState : BaseState
     public override void Enter()
     {
         base.Enter();
+        Debug.Log("Attack");
         SM.StartCoroutine(WaveAttackRoutine());
     }
 

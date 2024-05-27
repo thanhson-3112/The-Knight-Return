@@ -19,7 +19,7 @@ public class MHAttackState : BaseState
     {
         base.Enter();
         anim.SetBool("MHMove", false);
-        SM.StartCoroutine(Jump());
+        SM.StartCoroutine(RampageAttack());
     }
 
     public override void UpdateLogic()
@@ -27,7 +27,7 @@ public class MHAttackState : BaseState
         base.UpdateLogic();
     }
 
-    IEnumerator Jump()
+    IEnumerator RampageAttack()
     {
         yield return new WaitForSeconds(0.1f);
         rb.velocity = Vector2.zero;

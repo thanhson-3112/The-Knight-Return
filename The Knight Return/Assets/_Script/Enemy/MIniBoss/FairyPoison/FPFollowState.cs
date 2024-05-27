@@ -17,6 +17,7 @@ public class FPFollowState : BaseState
     public override void Enter()
     {
         base.Enter();
+        Debug.Log("follow");
         anim.SetBool("isMoving", true);
         SM.StartCoroutine(DashAttack());
         
