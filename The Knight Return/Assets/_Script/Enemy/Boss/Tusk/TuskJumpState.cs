@@ -34,8 +34,9 @@ public class TuskJumpState : BaseState
             yield return new WaitForSeconds(0.1f);
             rb.velocity = Vector2.zero;
             SM.FlipTowardsPlayer();
+            anim.SetTrigger("attack");
 
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1f);
 
             SM.GetTarget();
             if (SM.player != null)

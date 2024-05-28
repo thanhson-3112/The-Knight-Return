@@ -20,6 +20,7 @@ public class TuskAttackState : BaseState
     {
         base.Enter();
         Debug.Log("Attack");
+        SM.FlipTowardsPlayer();
         SM.StartCoroutine(WaveAttackRoutine());
     }
 
@@ -49,7 +50,7 @@ public class TuskAttackState : BaseState
     {
         for (int i = 0; i < 7; i++)
         {
-            float offsetAngle =  (i - 1) * 60f;
+            float offsetAngle =  (i - 1) * 90f;
             Vector2 bulletDirection = new Vector2(Mathf.Cos(offsetAngle * Mathf.Deg2Rad), Mathf.Sin(offsetAngle * Mathf.Deg2Rad));
 
             // Instantiate bullet

@@ -198,7 +198,7 @@ GameObject:
   m_Layer: 0
   m_Name: IsCamGround
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -211,7 +211,7 @@ Transform:
   m_GameObject: {fileID: 7264863038133064947}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.28, y: -0.79, z: 0}
+  m_LocalPosition: {x: 2.28, y: -0.69, z: 0}
   m_LocalScale: {x: 1.6808938, y: 1.5140876, z: 1.0265}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -309,7 +309,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: 4723107735738678597, guid: caedcd44135837849863a4a709400012, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -433,6 +433,7 @@ MonoBehaviour:
   playerGold: {fileID: 0}
   dieTime: 0
   enemyParent: {fileID: 0}
+  playerMovement: {fileID: 0}
 --- !u!114 &1126174347926588911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -504,7 +505,7 @@ MonoBehaviour:
   - {x: 0.57, y: 0.3}
   - {x: 0.14, y: 0.3}
   slashHitEffect: {fileID: 822040360620348559, guid: 3213d0e858fb75e4890932e2258474c3, type: 3}
-  knockbackForce: 700
+  knockbackForce: 10
   _isGround: {fileID: 6664574097398057885}
   Ground:
     serializedVersion: 2

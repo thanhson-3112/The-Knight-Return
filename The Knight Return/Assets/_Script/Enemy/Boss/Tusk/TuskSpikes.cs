@@ -26,7 +26,7 @@ public class TuskSpikes : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("Player");
         StartCoroutine(MoveUp());
 
-        Destroy(gameObject, 3);
+        Destroy(gameObject, 6);
     }
 
     private IEnumerator MoveUp()

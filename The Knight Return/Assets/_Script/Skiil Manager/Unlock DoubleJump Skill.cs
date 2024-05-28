@@ -11,11 +11,15 @@ public class UnlockDoubleJumpSkill : MonoBehaviour
     private bool isPlayerInside = false;
 
     public PlayerMovement playerSkill;
+    public PlayerLife playerPray;
+    public PlayerMovement playerMovement;
 
     public void Start()
     {
         skillText.gameObject.SetActive(false);
         playerSkill = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+        playerPray = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerLife>();
+        playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
     }
 
     private void Update()
@@ -23,8 +27,18 @@ public class UnlockDoubleJumpSkill : MonoBehaviour
         if (isPlayerInside && Input.GetKeyDown(KeyCode.UpArrow))
         {
             Debug.Log("Da an F");
+            StartCoroutine(LockPlayerMove());
+            playerPray.PlayerPray();
             playerSkill.UnlockDoubleJump();
         }
+    }
+
+    IEnumerator LockPlayerMove()
+    {
+        playerMovement.enabled = false;
+        yield return new WaitForSeconds(1.5f);
+        playerMovement.enabled = true;
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

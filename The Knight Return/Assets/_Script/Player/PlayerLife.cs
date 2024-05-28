@@ -38,6 +38,7 @@ public class PlayerLife : MonoBehaviour
     public int dieTime;
 
     public GameObject enemyParent;
+    public PlayerMovement playerMovement;
 
     private void Start()
     {
@@ -47,6 +48,8 @@ public class PlayerLife : MonoBehaviour
         healthUI.SetMaxHealth(maxHealth);
         respawnPoint = startPoint.transform.position;
         playerGold = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerGold>();
+        playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+
     }
 
     public void Update()
@@ -58,10 +61,19 @@ public class PlayerLife : MonoBehaviour
             Debug.Log("Da an F");
             anim.SetTrigger("CheckPoint");
             SoundFxManager.instance.PlaySoundFXClip(CheckpointSoundEffect, transform, 1f);
+            StartCoroutine(LockPlayerMove());
             respawnPoint = transform.position;
             health = maxHealth;
             Debug.Log("Checkpoint" + respawnPoint);
         }
+    }
+
+    IEnumerator LockPlayerMove()
+    {
+        playerMovement.enabled = false;
+        yield return new WaitForSeconds(1.5f);
+        playerMovement.enabled = true;
+
     }
 
     public void TakeDamage(int damage)
@@ -128,7 +140,7 @@ public class PlayerLife : MonoBehaviour
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), true);
         anim.SetTrigger("death");
 
-        // Spawn gold when the player dies
+        // Spawn gold khi nguoi choi chet
         Instantiate(DropGold, transform.position, Quaternion.identity);
         StartCoroutine(ClearGold());
 
@@ -144,6 +156,7 @@ public class PlayerLife : MonoBehaviour
         Invoke("Respawn", 1.7f);
     }
 
+    // Khi nguoi choi chet se mat sach gold
     IEnumerator ClearGold()
     {
         yield return new WaitForSeconds(2f);
@@ -158,6 +171,7 @@ public class PlayerLife : MonoBehaviour
     private void Respawn()
     {
         rb.bodyType = RigidbodyType2D.Dynamic;
+        anim.SetTrigger("CheckPoint");
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), false);
         transform.position = respawnPoint;
         health = maxHealth;
@@ -208,5 +222,10 @@ public class PlayerLife : MonoBehaviour
         {
             health++;
         }
+    }
+
+    public void PlayerPray()
+    {
+        anim.SetTrigger("CheckPoint");
     }
 }

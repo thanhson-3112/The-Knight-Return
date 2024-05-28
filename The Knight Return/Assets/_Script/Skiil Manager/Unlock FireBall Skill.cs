@@ -11,10 +11,14 @@ public class UnlockFireBallSkill : MonoBehaviour
     private bool isPlayerInside = false;
 
     public PlayerShooting playerSkill;
+    public PlayerLife playerPray;
+    public PlayerMovement playerMovement;
 
     public void Start()
     {
         playerSkill = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerShooting>();
+        playerPray = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerLife>();
+        playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         skillText.gameObject.SetActive(false);
     }
 
@@ -23,8 +27,18 @@ public class UnlockFireBallSkill : MonoBehaviour
         if (isPlayerInside && Input.GetKeyDown(KeyCode.UpArrow))
         {
             Debug.Log("Da an F");
+            StartCoroutine(LockPlayerMove());
+            playerPray.PlayerPray();
             playerSkill.UnlockFireBall();
         }
+    }
+
+    IEnumerator LockPlayerMove()
+    {
+        playerMovement.enabled = false;
+        yield return new WaitForSeconds(1.5f);
+        playerMovement.enabled = true;
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
