@@ -240,6 +240,8 @@ GameObject:
   - component: {fileID: 6997242008421827954}
   - component: {fileID: 7839722812209259862}
   - component: {fileID: 2151207976687966998}
+  - component: {fileID: 6353690177208169878}
+  - component: {fileID: 2408394347834323275}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -890,3 +892,39 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6353690177208169878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7890632744287969374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0cbcc68e6132934fa829a21a810354d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryUI: {fileID: 0}
+  inventoryData: {fileID: 11400000, guid: 31bf2d2a01b24ea44b3c0f083617abc1, type: 2}
+  initialItems:
+  - quantity: 1
+    item: {fileID: 11400000, guid: 187bc917306c5a74fbb9bc7f0bce2691, type: 2}
+  - quantity: 1
+    item: {fileID: 11400000, guid: a74adc203f72d844d958a19980d0824f, type: 2}
+  - quantity: 1
+    item: {fileID: 11400000, guid: dbae8904ca1116b4d97399e526c23d3d, type: 2}
+  - quantity: 1
+    item: {fileID: 11400000, guid: d591df664d393f245ae25283e5efe5f0, type: 2}
+--- !u!114 &2408394347834323275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7890632744287969374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70cd3cdb3ae46a049b577f54f41487ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryData: {fileID: 11400000, guid: 31bf2d2a01b24ea44b3c0f083617abc1, type: 2}
