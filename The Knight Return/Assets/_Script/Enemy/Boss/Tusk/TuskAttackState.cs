@@ -7,7 +7,6 @@ public class TuskAttackState : BaseState
     private TuskStateMachine SM;
     private Animator anim;
     private Rigidbody2D rb;
-    private int moveRound;
 
     public TuskAttackState(TuskStateMachine stateMachine, Animator animator, Rigidbody2D rib) : base(stateMachine)
     {
@@ -20,7 +19,6 @@ public class TuskAttackState : BaseState
     {
         base.Enter();
         Debug.Log("Attack");
-        SM.FlipTowardsPlayer();
         SM.StartCoroutine(WaveAttackRoutine());
     }
 

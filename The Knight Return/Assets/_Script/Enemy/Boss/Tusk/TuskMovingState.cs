@@ -44,7 +44,6 @@ public class TuskMovingState : BaseState
             if (SM.isTouchingWall)
             {
                 SM.Flip();
-                /*SM.StartCoroutine(Wait());*/
                 moveRound = 1;
             }
         }
@@ -59,12 +58,6 @@ public class TuskMovingState : BaseState
         }
     }
 
-    private IEnumerator Wait()
-    {
-        yield return new WaitForSeconds(0.5f);
-        SM.NextState();
-    }
-
     public override void Exit()
     {
         base.Exit();
@@ -73,7 +66,7 @@ public class TuskMovingState : BaseState
 
     IEnumerator EndState()
     {
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(7f);
         SM.NextState();
     }
 }

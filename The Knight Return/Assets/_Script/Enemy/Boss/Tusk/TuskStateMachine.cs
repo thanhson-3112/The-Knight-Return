@@ -7,6 +7,7 @@ public class TuskStateMachine : StateMachine
     public TuskJumpState jumpState;
     public TuskMovingState movingState;
     public TuskAttackState attackState;
+    public TuskJumpUpState jumpUpState;
 
     List<BaseState> randomStates;
     private Animator anim;
@@ -49,8 +50,9 @@ public class TuskStateMachine : StateMachine
         movingState = new TuskMovingState(this, anim, rb);
         jumpState = new TuskJumpState(this, anim, rb);
         attackState = new TuskAttackState(this, anim, rb);
+        jumpUpState = new TuskJumpUpState(this, anim, rb);
 
-        randomStates = new List<BaseState>() { movingState, jumpState, attackState };
+        randomStates = new List<BaseState>() { movingState, jumpState, attackState, jumpUpState };
     }
 
     new void Start()
