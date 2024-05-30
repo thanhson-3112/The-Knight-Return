@@ -48,4 +48,9 @@ public class SoulManager : MonoBehaviour
     {
         currentSoul -= 2;
     }
+
+    public void AddCurrentSoul()
+    {
+        currentSoul = maxSoul;
+    }
 }

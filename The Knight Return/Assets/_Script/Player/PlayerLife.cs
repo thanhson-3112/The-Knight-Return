@@ -37,6 +37,7 @@ public class PlayerLife : MonoBehaviour
     public PlayerGold playerGold;
     public int dieTime;
 
+    [Header("Enemy controller")]
     public GameObject enemyParent;
     public PlayerMovement playerMovement;
 
@@ -49,11 +50,11 @@ public class PlayerLife : MonoBehaviour
         respawnPoint = startPoint.transform.position;
         playerGold = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerGold>();
         playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
-
     }
 
     public void Update()
     {
+        enemyParent = GameObject.FindGameObjectWithTag("EnemyList");
         healthUI.SetHealth(health);
 
         if (canActivateCheckpoint && Input.GetKeyDown(KeyCode.UpArrow))
