@@ -59,7 +59,7 @@ public class EnemyBase : MonoBehaviour
         }
     }
 
-    public void EnemyDie()
+    public virtual void EnemyDie()
     {
         /*StartCoroutine(RotateOverTime(transform, Vector3.forward * 180, 1.0f));*/
         Collider2D collider = GetComponent<Collider2D>();

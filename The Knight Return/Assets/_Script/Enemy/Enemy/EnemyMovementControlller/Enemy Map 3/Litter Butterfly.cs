@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlyEnemyMove : MonoBehaviour
+public class LitterButterfly : MonoBehaviour
 {
     protected Rigidbody2D rb;
     protected Animator anim;
@@ -12,7 +12,7 @@ public class FlyEnemyMove : MonoBehaviour
     [SerializeField] private float enemySpeed = 5f;
 
     public bool isChasing;
-    public float chaseDistance = 10;
+    public float chaseDistance = 30;
 
     private Vector2 initialPosition;
 
@@ -20,8 +20,7 @@ public class FlyEnemyMove : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
-        playerTransform = playerObject.GetComponent<Transform>();
+        playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
 
         initialPosition = transform.position;
     }
@@ -37,6 +36,7 @@ public class FlyEnemyMove : MonoBehaviour
             MoveTowardsTarget();
         }
 
+        Destroy(gameObject, 60f);
     }
 
     private void MoveTowardsTarget()

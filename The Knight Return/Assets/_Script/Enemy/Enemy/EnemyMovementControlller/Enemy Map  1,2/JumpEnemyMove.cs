@@ -23,7 +23,7 @@ public class JumpEnemyMove : MonoBehaviour
     private Rigidbody2D rb;
 
     public bool isChasing;
-    public float chaseDistance = 5;
+    public float chaseDistance = 10f;
 
     private bool isJumping = false;
 
@@ -37,6 +37,8 @@ public class JumpEnemyMove : MonoBehaviour
 
     void Update()
     {
+        anim.SetBool("isMoving", true);
+
         isGround = Physics2D.OverlapCircle(groundCheckPoint.position, 0.2f, groundLayer);
         isWall = Physics2D.OverlapCircle(wallCheckPoint.position, 0.2f, groundLayer);
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
@@ -49,12 +51,11 @@ public class JumpEnemyMove : MonoBehaviour
             }
             else
             {
-                anim.SetTrigger("SlimeChasing");
-                if (playerTransform.transform.position.x - transform.position.x < 0 && !isFacingRight && isGrounded)
+                if (playerTransform.transform.position.x - transform.position.x > 0 && !isFacingRight && isGrounded)
                 {
                     Flip();
                 }
-                else if (playerTransform.transform.position.x - transform.position.x > 0 && isFacingRight && isGrounded)
+                else if (playerTransform.transform.position.x - transform.position.x < 0 && isFacingRight && isGrounded)
                 {
                     Flip();
                 }
@@ -68,7 +69,6 @@ public class JumpEnemyMove : MonoBehaviour
             {
                 isChasing = true;
             }
-            anim.SetTrigger("EnemyRun");
             transform.position += Vector3.right * speed * Time.deltaTime;
             if (!isGround && isFacingRight && isGrounded || isWall && isFacingRight && isGrounded)
             {
@@ -89,16 +89,11 @@ public class JumpEnemyMove : MonoBehaviour
             isJumping = true; 
 
             yield return new WaitForSeconds(1f);
-
-            anim.SetTrigger("SlimeJump");
             Vector2 direction = (playerTransform.transform.position - transform.position).normalized;
             float jumpForceX = direction.x * jumpHeight;
-            float jumpForceY = jumpHeight;
-            rb.velocity = new Vector2(jumpForceX, jumpForceY);
+            rb.velocity = new Vector2(jumpForceX, 20f);
 
             yield return new WaitForSeconds(0.5f);
-
-            anim.SetTrigger("SlimeFall");
 
             isJumping = false;
         }
