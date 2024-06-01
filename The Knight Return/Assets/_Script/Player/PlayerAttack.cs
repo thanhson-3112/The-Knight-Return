@@ -136,6 +136,7 @@ public class PlayerAttack : MonoBehaviour
         {
             EnemyBase enemy = objCollider.GetComponent<EnemyBase>();
             BossLifeBase bossLifeBasess = objCollider.GetComponent<BossLifeBase>();
+            Lever lever = objCollider.GetComponent<Lever>();
 
             Org org = objCollider.GetComponent<Org>();
 
@@ -147,6 +148,11 @@ public class PlayerAttack : MonoBehaviour
             if (org != null)
             {
                 org.OrgHit(damage);
+            }
+
+            if(lever != null)
+            {
+                lever.LeverDoor(damage);
             }
 
             else if (bossLifeBasess != null)
