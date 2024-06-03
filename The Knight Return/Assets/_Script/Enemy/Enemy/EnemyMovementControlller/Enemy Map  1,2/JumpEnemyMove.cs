@@ -89,6 +89,7 @@ public class JumpEnemyMove : MonoBehaviour
             isJumping = true; 
 
             yield return new WaitForSeconds(1f);
+
             Vector2 direction = (playerTransform.transform.position - transform.position).normalized;
             float jumpForceX = direction.x * jumpHeight;
             rb.velocity = new Vector2(jumpForceX, 20f);
