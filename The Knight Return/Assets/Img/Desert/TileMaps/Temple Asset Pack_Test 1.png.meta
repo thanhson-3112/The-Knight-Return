@@ -1,12 +1,5 @@
 fileFormatVersion: 2
-guid: d63d3fe059687124d87ff7bee2e31733
-AssetOrigin:
-  serializedVersion: 1
-  productId: 195739
-  packageName: Pixel Art Environment/Platformer Pack
-  packageVersion: 1.0
-  assetPath: Assets/Lifty's Pixel Art Pack/Pixel Art Pack/TileMaps/Temple_Decorations1.png
-  uploadId: 434447
+guid: 3938f048ee10c614fb603ce59a08d544
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -55,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 15
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -126,13 +119,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Temple_Decorations1_0
+      name: Temple Asset Pack_Test 1_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 128
-        width: 30
-        height: 29
+        x: 0
+        y: 0
+        width: 192
+        height: 320
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,125 +133,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 212428c70b6760e4d94a4ccfb3f5d747
-      internalID: -1334908296
+      spriteID: e74a24a863e3f8d429de70094355cd0b
+      internalID: -1466908498
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Temple_Decorations1_1
+      name: Temple Asset Pack_Test 1_1
       rect:
         serializedVersion: 2
-        x: 35
-        y: 128
-        width: 26
-        height: 25
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 749f66ff44d815b46a453e5abfed1acb
-      internalID: -1706411510
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Temple_Decorations1_2
-      rect:
-        serializedVersion: 2
-        x: 81
-        y: 135
-        width: 15
-        height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 51aef016a1a9cff48b8adcba86eec748
-      internalID: -1398325725
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Temple_Decorations1_3
-      rect:
-        serializedVersion: 2
-        x: 112
-        y: 135
-        width: 16
-        height: 17
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6d5943ce3a1e3784fa64f1797b48ca25
-      internalID: -1226758583
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Temple_Decorations1_4
-      rect:
-        serializedVersion: 2
-        x: 145
-        y: 132
-        width: 15
-        height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7386a2160e39eac43afbc4f58011eaea
-      internalID: 1645856788
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Temple_Decorations1_5
-      rect:
-        serializedVersion: 2
-        x: 4
-        y: 96
-        width: 22
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f8c611c9994e64d4885c76fb34228327
-      internalID: 1488828177
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Temple_Decorations1_6
-      rect:
-        serializedVersion: 2
-        x: 33
-        y: 96
+        x: 195
+        y: 228
         width: 27
-        height: 7
+        height: 92
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -266,20 +154,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 995a1b7dcf013cb4a9892acc05303a74
-      internalID: 1382257571
+      spriteID: 989337405e0bd6d429ebf5e95dec4fb8
+      internalID: -159530993
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Temple_Decorations1_7
+      name: Temple Asset Pack_Test 1_2
       rect:
         serializedVersion: 2
-        x: 77
-        y: 96
-        width: 6
-        height: 32
+        x: 226
+        y: 225
+        width: 27
+        height: 95
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -287,19 +175,61 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4cf3b6444aedd0e4da63a18499b94013
-      internalID: 1285181568
+      spriteID: 021319b2f57698d4aad1f8198f30ed19
+      internalID: 1603209853
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Temple_Decorations1_8
+      name: Temple Asset Pack_Test 1_3
       rect:
         serializedVersion: 2
-        x: 99
-        y: 96
-        width: 26
+        x: 256
+        y: 262
+        width: 64
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11e87b16d94ac9b488f87ab7b85e887a
+      internalID: 1588882467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Temple Asset Pack_Test 1_4
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 160
+        width: 24
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b81910a373052624eb4f0717646d82e5
+      internalID: 579515368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Temple Asset Pack_Test 1_5
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 228
+        width: 24
         height: 23
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -308,20 +238,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8cd40e43738b3e74e80ce6aef24a14a2
-      internalID: 1706444374
+      spriteID: d7f71b1981053594b9cbac42b8fcacba
+      internalID: 582761813
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Temple_Decorations1_9
+      name: Temple Asset Pack_Test 1_6
       rect:
         serializedVersion: 2
-        x: 128
-        y: 96
-        width: 32
-        height: 24
+        x: 197
+        y: 160
+        width: 22
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -329,20 +259,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 801d67be6506914439ce10997cc19494
-      internalID: -1009737354
+      spriteID: a2a555cee69c84348beca2025319c66d
+      internalID: -1590689503
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Temple_Decorations1_10
+      name: Temple Asset Pack_Test 1_7
       rect:
         serializedVersion: 2
-        x: 9
-        y: 64
-        width: 44
-        height: 14
+        x: 229
+        y: 160
+        width: 22
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -350,20 +280,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d67b893a9cb7f0048a3b0ec671d98d21
-      internalID: 77457759
+      spriteID: 44e7485592a8e90449ecc9cd56c54e59
+      internalID: 1940128556
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Temple_Decorations1_11
+      name: Temple Asset Pack_Test 1_8
       rect:
         serializedVersion: 2
-        x: 74
-        y: 64
-        width: 12
-        height: 21
+        x: 293
+        y: 160
+        width: 22
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -371,62 +301,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a8defa711a76e004b9e1deb1be081e2f
-      internalID: -1066184633
+      spriteID: 10538f19a93912e46ae57d9c661444ed
+      internalID: 833293135
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Temple_Decorations1_12
+      name: Temple Asset Pack_Test 1_9
       rect:
         serializedVersion: 2
         x: 96
-        y: 78
-        width: 32
-        height: 4
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f207074cf1a533d438df636d51bbc62f
-      internalID: 1155508374
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Temple_Decorations1_13
-      rect:
-        serializedVersion: 2
-        x: 3
-        y: 32
-        width: 26
-        height: 17
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f990e46d9335c4546b97617d85dd8c6f
-      internalID: 486789212
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Temple_Decorations1_14
-      rect:
-        serializedVersion: 2
-        x: 32
         y: 0
-        width: 32
-        height: 58
+        width: 118
+        height: 156
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -434,20 +322,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c057e5c63f3ff3b479c5bc938d058623
-      internalID: -1589753860
+      spriteID: 620297c238abd284d9bcd9eea177e406
+      internalID: -1345173346
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Temple_Decorations1_15
+      name: Temple Asset Pack_Test 1_10
       rect:
         serializedVersion: 2
-        x: 74
-        y: 32
-        width: 12
-        height: 27
+        x: 193
+        y: 128
+        width: 29
+        height: 7
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -455,20 +343,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1870ee679eda1924e984dd6fa32e67c4
-      internalID: -1026326344
+      spriteID: 7ff458dc47021774281b7be47559e701
+      internalID: -430889110
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Temple_Decorations1_16
+      name: Temple Asset Pack_Test 1_11
       rect:
         serializedVersion: 2
-        x: 106
-        y: 32
-        width: 12
-        height: 29
+        x: 226
+        y: 128
+        width: 29
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -476,20 +364,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d9b130879a47b464a96c84b3e1034a98
-      internalID: -318292580
+      spriteID: 47c2a452f4d0a114382bb4baf8333555
+      internalID: 832451635
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Temple_Decorations1_17
+      name: Temple Asset Pack_Test 1_12
       rect:
         serializedVersion: 2
-        x: 138
-        y: 32
-        width: 12
-        height: 29
+        x: 257
+        y: 128
+        width: 28
+        height: 9
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -497,20 +385,62 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ea2db936dfd064540b7b8ffa3e6c137d
-      internalID: -35253776
+      spriteID: 22183060e2f787e499bb41e73d28f471
+      internalID: -1173971414
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Temple_Decorations1_18
+      name: Temple Asset Pack_Test 1_13
       rect:
         serializedVersion: 2
-        x: 0
+        x: 288
+        y: 128
+        width: 31
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32aa4d34e2bb3e74e9fa939cf6df2698
+      internalID: 2018361120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Temple Asset Pack_Test 1_14
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 96
+        width: 10
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce34941eb74cd36469d39471ef3d7b67
+      internalID: 1576368663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Temple Asset Pack_Test 1_15
+      rect:
+        serializedVersion: 2
+        x: 224
         y: 0
-        width: 32
-        height: 18
+        width: 96
+        height: 98
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -518,71 +448,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1f72eaff73ac13f4f9359c984d3a4a53
-      internalID: 604959149
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Temple_Decorations1_19
-      rect:
-        serializedVersion: 2
-        x: 74
-        y: 0
-        width: 12
-        height: 29
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 38bf75e238e0945429ac0a0c50d68c51
-      internalID: 582788619
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Temple_Decorations1_20
-      rect:
-        serializedVersion: 2
-        x: 106
-        y: 0
-        width: 12
-        height: 31
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0956c4da21a58c44aa8c2ce4d2d16cc2
-      internalID: -1375897315
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Temple_Decorations1_21
-      rect:
-        serializedVersion: 2
-        x: 138
-        y: 0
-        width: 12
-        height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cd08271c6355bb340bea761b798c308e
-      internalID: -1529977619
+      spriteID: a4aabdcb6cefa3346a08f2bb27ac120d
+      internalID: -320872424
       vertices: []
       indices: 
       edges: []
@@ -598,28 +465,22 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Temple_Decorations1_0: -1334908296
-      Temple_Decorations1_1: -1706411510
-      Temple_Decorations1_10: 77457759
-      Temple_Decorations1_11: -1066184633
-      Temple_Decorations1_12: 1155508374
-      Temple_Decorations1_13: 486789212
-      Temple_Decorations1_14: -1589753860
-      Temple_Decorations1_15: -1026326344
-      Temple_Decorations1_16: -318292580
-      Temple_Decorations1_17: -35253776
-      Temple_Decorations1_18: 604959149
-      Temple_Decorations1_19: 582788619
-      Temple_Decorations1_2: -1398325725
-      Temple_Decorations1_20: -1375897315
-      Temple_Decorations1_21: -1529977619
-      Temple_Decorations1_3: -1226758583
-      Temple_Decorations1_4: 1645856788
-      Temple_Decorations1_5: 1488828177
-      Temple_Decorations1_6: 1382257571
-      Temple_Decorations1_7: 1285181568
-      Temple_Decorations1_8: 1706444374
-      Temple_Decorations1_9: -1009737354
+      Temple Asset Pack_Test 1_0: -1466908498
+      Temple Asset Pack_Test 1_1: -159530993
+      Temple Asset Pack_Test 1_10: -430889110
+      Temple Asset Pack_Test 1_11: 832451635
+      Temple Asset Pack_Test 1_12: -1173971414
+      Temple Asset Pack_Test 1_13: 2018361120
+      Temple Asset Pack_Test 1_14: 1576368663
+      Temple Asset Pack_Test 1_15: -320872424
+      Temple Asset Pack_Test 1_2: 1603209853
+      Temple Asset Pack_Test 1_3: 1588882467
+      Temple Asset Pack_Test 1_4: 579515368
+      Temple Asset Pack_Test 1_5: 582761813
+      Temple Asset Pack_Test 1_6: -1590689503
+      Temple Asset Pack_Test 1_7: 1940128556
+      Temple Asset Pack_Test 1_8: 833293135
+      Temple Asset Pack_Test 1_9: -1345173346
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
