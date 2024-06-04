@@ -41,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float wallJumpingTime = 0.2f;
     private float wallJumpingCounter;
     [SerializeField] private float wallJumpingDuration = 0.4f;
-    public Vector2 wallJumpingPower = new Vector2(25f, 10f);
+    public Vector2 wallJumpingPower = new Vector2(25f, 20f);
 
 
     [SerializeField] private bool lockDash = true;

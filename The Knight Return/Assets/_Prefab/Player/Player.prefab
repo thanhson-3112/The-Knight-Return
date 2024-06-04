@@ -465,10 +465,10 @@ MonoBehaviour:
     m_Bits: 264
   wallJumpingTime: 0.2
   wallJumpingDuration: 0.4
-  wallJumpingPower: {x: 30, y: 10}
-  lockDash: 1
-  lockDoubleJump: 1
-  lockSlideWall: 1
+  wallJumpingPower: {x: 25, y: 20}
+  lockDash: 0
+  lockDoubleJump: 0
+  lockSlideWall: 0
   KBForce: 10
   KBCounter: 0
   KBTotalTime: 0.2

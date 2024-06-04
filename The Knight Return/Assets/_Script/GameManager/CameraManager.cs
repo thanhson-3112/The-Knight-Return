@@ -25,7 +25,7 @@ public class CameraManager : MonoBehaviour
     public LayerMask Ground;
 
     private bool bossRoom = false;
-    public IntoBossRoomBBA BossRoom;
+    public GameObject BossRoomPos;
 
     private float upArrowHoldTime = 0f;
     private float downArrowHoldTime = 0f;
@@ -40,6 +40,7 @@ public class CameraManager : MonoBehaviour
         }
 
         player = GameObject.FindGameObjectWithTag("Player");
+        BossRoomPos = GameObject.FindGameObjectWithTag("MiniBoss");
     }
 
     void OnEnable()
@@ -112,7 +113,7 @@ public class CameraManager : MonoBehaviour
         }
         else
         {
-            transform.position = BossRoom.bossCamPoint.transform.position;
+            transform.position = BossRoomPos.transform.position;
         }
 
         if (shakeDuration > 0)

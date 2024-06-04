@@ -8,7 +8,7 @@ public class IntoBossRoomBBA: MonoBehaviour
     public GameObject bossPrefab;
     public List<BossDoor> doors;
     public Transform bossSpawnPoint;
-    public Transform bossCamPoint;
+
     public GameObject boss;
 
     private bool canTrigger = true;

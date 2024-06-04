@@ -36,7 +36,7 @@ public class BossLifeBase : MonoBehaviour
         }
     }
 
-    public void EnemyDie()
+    public virtual void EnemyDie()
     {
         Rigidbody2D enemyRigidbody = GetComponent<Rigidbody2D>();
         if (enemyRigidbody != null)
