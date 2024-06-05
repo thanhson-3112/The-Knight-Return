@@ -23,6 +23,7 @@ public class TuskStateMachine : StateMachine
 
     [Header("Wave Attack")]
     public GameObject firePrefab;
+    public GameObject firePrefab1;
     public Transform firing;
     [Range(0.1f, 2f)]
     public float fireRate = 0.8f;

@@ -120,10 +120,10 @@ public class PlayerMovement : MonoBehaviour
         }
 
         tr.emitting = true;
-/*        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Default"), true);
-*/        yield return new WaitForSeconds(dashTime);
-/*        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Default"), false);
-*/        tr.emitting = false;
+        
+        yield return new WaitForSeconds(dashTime);
+       
+        tr.emitting = false;
         isDashing = false;
 
         yield return new WaitForSeconds(dashCooldown);

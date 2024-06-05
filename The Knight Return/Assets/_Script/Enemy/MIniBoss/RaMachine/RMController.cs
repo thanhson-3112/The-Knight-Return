@@ -74,7 +74,7 @@ public class RMController : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
-            float offsetAngle = (i - 1) * 30f;
+            float offsetAngle = (i - 1) * 60f;
             Vector2 bulletDirection = new Vector2(Mathf.Cos(offsetAngle * Mathf.Deg2Rad), Mathf.Sin(offsetAngle * Mathf.Deg2Rad));
 
             // Instantiate bullet

@@ -290,7 +290,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 1000
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -412,6 +412,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RaFireball: {fileID: 2518301177742697001, guid: d9bc548947f443c4b98543ffa7c9a6cf, type: 3}
   player: {fileID: 0}
+  canUpdate: 0
 --- !u!1 &7751825976792938056
 GameObject:
   m_ObjectHideFlags: 0

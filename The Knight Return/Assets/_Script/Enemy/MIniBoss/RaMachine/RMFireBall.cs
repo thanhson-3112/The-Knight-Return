@@ -15,6 +15,12 @@ public class RMFireBall : MonoBehaviour
     private Vector2 initialPosition;
     private bool isFalling = false;
 
+    [Header("FireBallExplosion")]
+    public Transform _isGround;
+    public LayerMask Ground;
+    private bool isGround;
+    public GameObject fireBallExplosion;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -27,6 +33,16 @@ public class RMFireBall : MonoBehaviour
         StartCoroutine(MoveUp());
 
         Destroy(gameObject, 6);
+    }
+
+    private void Update()
+    {
+        isGround = Physics2D.OverlapCircle(_isGround.position, 0.2f, Ground);
+        if (isGround)
+        {
+            Instantiate(fireBallExplosion, transform.position, Quaternion.identity);  
+            Destroy(gameObject);
+        }
     }
 
     private IEnumerator MoveUp()

@@ -39,7 +39,7 @@ public class CoreMachine : MonoBehaviour
 
     private IEnumerator MachineCoreExplosion()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         Instantiate(explosionPrefab, transform.position, transform.rotation);
         Destroy(gameObject);
     }
