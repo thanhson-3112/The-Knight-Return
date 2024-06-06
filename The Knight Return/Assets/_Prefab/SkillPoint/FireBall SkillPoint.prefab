@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7147243951007364710}
   - component: {fileID: 861780909558218918}
   - component: {fileID: 4564850940256301941}
-  - component: {fileID: 4327939438124130730}
+  - component: {fileID: 599551014652494630}
   m_Layer: 0
   m_Name: FireBall SkillPoint
   m_TagString: Untagged
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 616618855563398343}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 46.55, y: 16.47, z: 0}
+  m_LocalPosition: {x: 84.76, y: -31.57, z: 0}
   m_LocalScale: {x: 2.4488459, y: 1.6115626, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1571921696665375265, guid: 08c262eeb11417e43b61328984e82cc3, type: 3}
+  m_Sprite: {fileID: 3031874457097069154, guid: 08c262eeb11417e43b61328984e82cc3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -124,7 +124,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.47, y: 4.33}
+    oldSize: {x: 2.51, y: 4.26}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -132,7 +132,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.4637651, y: 4.2133465}
   m_EdgeRadius: 0
---- !u!114 &4327939438124130730
+--- !u!114 &599551014652494630
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -141,7 +141,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 616618855563398343}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ea12f1b060b6dc4886992d122d2dec1, type: 3}
+  m_Script: {fileID: 11500000, guid: 3bdf511db0177f840a6e2fdf6563ff60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   skillText: {fileID: 0}

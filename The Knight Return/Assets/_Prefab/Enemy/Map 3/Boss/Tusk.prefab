@@ -354,7 +354,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canUpdate: 0
   idleMovementSpeed: 15
-  jumpForce: 20
+  jumpForce: 10
   firePrefab: {fileID: 141921338702471786, guid: 4e0d63c1f2ee40c438ba27d9aad9935b, type: 3}
   firePrefab1: {fileID: 141921338702471786, guid: ed69d75ea6ec14c439c209d084ec4d33, type: 3}
   firing: {fileID: 7538635304639856229}

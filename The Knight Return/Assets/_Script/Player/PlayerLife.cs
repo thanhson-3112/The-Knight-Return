@@ -14,6 +14,7 @@ public class PlayerLife : MonoBehaviour
     [SerializeField] public int maxHealth = 5;
     [SerializeField] public int health;
 
+    public TextMeshProUGUI healthText;
     public HealthUI healthUI;
     public GameObject takeDamageEffect;
 
@@ -67,6 +68,13 @@ public class PlayerLife : MonoBehaviour
             health = maxHealth;
             Debug.Log("Checkpoint" + respawnPoint);
         }
+
+        UpdateHealthText();
+    }
+
+    private void UpdateHealthText()
+    {
+        healthText.text = $"{health} / {maxHealth}";
     }
 
     IEnumerator LockPlayerMove()

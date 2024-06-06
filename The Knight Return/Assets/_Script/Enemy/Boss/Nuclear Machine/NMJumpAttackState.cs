@@ -51,13 +51,17 @@ public class NMJumpAttackState : BaseState
             rb.velocity = Vector2.zero;
         }
 
+        yield return new WaitForSeconds(1.5f);
+        SM.ShakeCam();
+
         yield return new WaitForSeconds(3f);
         // Jump back to initial position
         Vector2 directionToInitialPosition = (initialPosition - SM.transform.position).normalized;
         float jumpForceXBack = directionToInitialPosition.x * SM.jumpForce;
         rb.velocity = new Vector2(jumpForceXBack, 40f);
 
-        /*SM.ShakeCam();*/
+        yield return new WaitForSeconds(1.5f);
+        SM.ShakeCam();
         yield return new WaitForSeconds(2f);
         SM.NextState();
     }

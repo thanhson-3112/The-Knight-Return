@@ -19,7 +19,7 @@ public class TuskStateMachine : StateMachine
     public float idleMovementSpeed = 15f;
 
     [Header("JumpAttack")]
-    public float jumpForce = 20f;
+    public float jumpForce = 10f;
 
     [Header("Wave Attack")]
     public GameObject firePrefab;

@@ -14,13 +14,13 @@ public class NMStateMachine : StateMachine
     BaseState LastState;
     BaseState LastTwoState;
 
-    [Header("Idel")]
+    [Header("Move")]
     public float MovementSpeed = 5f;
 
-    [Header("AttackUpNDown")]
-    public float jumpForce = 4f;
+    [Header("JumpAttack")]
+    public float jumpForce = 10f;
 
-    [Header("Wave Attack")]
+    [Header("FireAttack")]
     public GameObject firePrefab;
     public GameObject firePrefab1;
     public Transform firing;
@@ -56,6 +56,7 @@ public class NMStateMachine : StateMachine
     {
         base.Start();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraManager>();
     }
 
     new public void Update()
@@ -115,5 +116,10 @@ public class NMStateMachine : StateMachine
     public void Flip()
     {
         MovementSpeed = -MovementSpeed;
+    }
+
+    public void ShakeCam()
+    {
+        cam.ShakeCamera();
     }
 }

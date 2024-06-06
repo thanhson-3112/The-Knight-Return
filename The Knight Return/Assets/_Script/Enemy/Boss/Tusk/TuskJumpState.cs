@@ -41,10 +41,9 @@ public class TuskJumpState : BaseState
             SM.GetTarget();
             if (SM.player != null)
             {
-                Vector3 targetPosition = SM.player.position + new Vector3(0, -1, 0);
-                Vector3 directionToPlayer = (targetPosition - SM.transform.position).normalized;
-                Vector2 jumpVelocity = new Vector2(directionToPlayer.x * SM.jumpForce, 30f);
-                rb.velocity = jumpVelocity;
+                Vector2 direction = (SM.player.transform.position - SM.transform.position).normalized;
+                float jumpForceX = direction.x * SM.jumpForce;
+                rb.velocity = new Vector2(jumpForceX, 30f);
             }
             else
             {
@@ -53,7 +52,6 @@ public class TuskJumpState : BaseState
             yield return new WaitForSeconds(1.5f);
             SM.ShakeCam();
         }
-        SM.ShakeCam();
         yield return new WaitForSeconds(1f);
         SM.NextState();
     }

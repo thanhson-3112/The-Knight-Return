@@ -159,9 +159,12 @@ GameObject:
   - component: {fileID: 6293921023107756983}
   - component: {fileID: 8031422725748214697}
   - component: {fileID: 2669109227105383790}
-  m_Layer: 0
+  - component: {fileID: 7091318227326291113}
+  - component: {fileID: -5191703379452333851}
+  - component: {fileID: 4045271175438784284}
+  m_Layer: 7
   m_Name: Nuclear Machine
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -268,10 +271,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 1000
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 5
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -297,8 +300,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canUpdate: 0
   MovementSpeed: 5
-  jumpForce: 4
+  jumpForce: 10
   firePrefab: {fileID: 2518301177742697001, guid: a5bf3e310c2430c4caab3038bea3448f, type: 3}
+  firePrefab1: {fileID: 2518301177742697001, guid: 5e6fda1b4492daa48abd48a45283740a, type: 3}
   firing: {fileID: 242036976627226202}
   checkLeft: {fileID: 8859247673688928341}
   checkRight: {fileID: 8672957525960684077}
@@ -311,6 +315,53 @@ MonoBehaviour:
   isRight: 0
   isGround: 0
   cam: {fileID: 0}
+--- !u!114 &7091318227326291113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2718784174853004702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4463887831d7545ac132329969df6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bossHealth: 0
+  playerLife: {fileID: 0}
+  player: {fileID: 0}
+  FPHealth: 20
+  enemyDamage: 1
+--- !u!114 &-5191703379452333851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2718784174853004702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c397b73ad6132d74bb05ce8e01704b7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  droppedItemPrefab: {fileID: 8089137497524718166, guid: c35d0675f99ffef41ac2f05aa3af558b, type: 3}
+  lootList:
+  - {fileID: 11400000, guid: 975bfb430f726094e9ea1759b75388c5, type: 2}
+--- !u!114 &4045271175438784284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2718784174853004702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f8429ae861b04468c89f6485f9a02d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  droppedItemPrefab: {fileID: 7952945152742447162, guid: 454ad9e56824e0543977e62bb3c710fe, type: 3}
+  lootList:
+  - {fileID: 11400000, guid: 1fd0531c9c2d41a4a9d9efe145576236, type: 2}
 --- !u!1 &5378172419348529276
 GameObject:
   m_ObjectHideFlags: 0

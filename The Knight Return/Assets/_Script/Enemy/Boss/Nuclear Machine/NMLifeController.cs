@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class NMLifeController : BossLifeBase
 {
-    [SerializeField] private float FPHealth = 5f;
+    [SerializeField] private float NMHealth = 20f;
     [SerializeField] private int enemyDamage = 1;
 
     public override void Start()
     {
-        bossHealth = FPHealth;
+        bossHealth = NMHealth;
         damage = enemyDamage;
 
         base.Start();
