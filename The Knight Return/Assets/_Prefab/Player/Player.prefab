@@ -423,6 +423,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 5
   health: 0
+  healthText: {fileID: 0}
   healthUI: {fileID: 0}
   takeDamageEffect: {fileID: 5122407199325688400, guid: d87fbdca73e4f434a85a3b62b8b6948a, type: 3}
   checkPointText: {fileID: 0}
@@ -507,7 +508,7 @@ MonoBehaviour:
   - {x: 0.57, y: 0.3}
   - {x: 0.14, y: 0.3}
   slashHitEffect: {fileID: 822040360620348559, guid: 3213d0e858fb75e4890932e2258474c3, type: 3}
-  knockbackForce: 10
+  knockbackForce: 13
   _isGround: {fileID: 6664574097398057885}
   Ground:
     serializedVersion: 2

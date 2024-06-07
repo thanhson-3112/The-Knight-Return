@@ -37,5 +37,5 @@ public class FallingPlatform : MonoBehaviour
 
         rb.bodyType = RigidbodyType2D.Dynamic;
         Destroy(gameObject, destroyDelay);
-     }
+    }
 }

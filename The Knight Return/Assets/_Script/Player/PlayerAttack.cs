@@ -23,7 +23,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private GameObject slashHitEffect;
     private bool isUpArrowPressed = false;
     private bool isDownArrowPressed = false;
-    public float knockbackForce = 10f;
+    public float knockbackForce = 13f;
 
     [Header("Ground,Wall Checking")]
     [SerializeField] public Transform _isGround;

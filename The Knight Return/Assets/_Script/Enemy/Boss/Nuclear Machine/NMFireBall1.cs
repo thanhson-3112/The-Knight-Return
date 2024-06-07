@@ -104,6 +104,8 @@ public class NMFireBall1 : MonoBehaviour
             {
                 player.KnockFromRight = false;
             }
+            Instantiate(fireBallExplosion, transform.position, Quaternion.identity);
+            Destroy(gameObject);
             playerLife.TakeDamage(damage);
         }
     }

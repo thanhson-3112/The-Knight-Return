@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/_Scenes/Map 2.unity
     guid: 377cb0297ed3bb6499287c53654d62aa
   - enabled: 1
-    path: Assets/_Scenes/Devil's Castle.unity
-    guid: 8e580d6347ee09d4899612089882f091
+    path: Assets/_Scenes/Map 3.unity
+    guid: 22c79d88de56e734d8d8371c45b44138
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
