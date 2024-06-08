@@ -9,9 +9,9 @@ public class EnemyBase : MonoBehaviour
     protected Animator anim;
 
     [SerializeField] protected float enemyHealth;
-    [SerializeField] protected float recollLength = 0.2f;
-    [SerializeField] protected float recollFactor = 2.5f;
-    [SerializeField] protected bool isRecolling = false;
+    protected float recollLength = 0.2f;
+    protected float recollFactor = 20f;
+    protected bool isRecolling = false;
     protected float recollTimer;
 
     protected int damage;
