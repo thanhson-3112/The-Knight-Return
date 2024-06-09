@@ -12,7 +12,7 @@ public class CameraManager : MonoBehaviour
 
     public float shakeDuration = 0f;
     public float shakeAmount = 0.1f;
-    Vector3 originalPos;
+    private Vector3 originalPos;
 
     private float originalSize;
     private Coroutine shrinkCoroutine;
@@ -59,6 +59,17 @@ public class CameraManager : MonoBehaviour
             Vector3 targetPosition = player.transform.position;
             targetPosition.z = -10;
             Vector3 currentPosition = transform.position;
+
+            // Calculate shake offset
+            Vector3 shakeOffset = Vector3.zero;
+            if (shakeDuration > 0)
+            {
+                shakeOffset = Random.insideUnitSphere * shakeAmount;
+                shakeDuration -= Time.deltaTime;
+            }
+
+            // Apply shake offset to the target position
+            targetPosition += shakeOffset;
 
             Vector3 newPosition;
             if (!isCamGround && playerGround)
@@ -115,23 +126,14 @@ public class CameraManager : MonoBehaviour
         {
             transform.position = BossRoomPos.transform.position;
         }
-
-        if (shakeDuration > 0)
-        {
-            camTransform.localPosition = originalPos + Random.insideUnitSphere * shakeAmount;
-            shakeDuration -= Time.deltaTime;
-        }
     }
 
-
-    // rung camera
     public void ShakeCamera()
     {
         originalPos = camTransform.localPosition;
         shakeDuration = 0.5f;
     }
 
-    // Thu nho camera
     public void StartShrinkCamera(float shrinkSize, float duration)
     {
         if (shrinkCoroutine != null)
@@ -155,7 +157,6 @@ public class CameraManager : MonoBehaviour
         cam.orthographicSize = shrinkSize;
     }
 
-    // Dung thu nho camera
     public void StopShrinkCamera()
     {
         if (shrinkCoroutine != null)

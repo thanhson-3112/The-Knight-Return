@@ -220,7 +220,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3890010291066187801}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -330,7 +330,7 @@ MonoBehaviour:
   bossHealth: 0
   playerLife: {fileID: 0}
   player: {fileID: 0}
-  BBAHealth: 5
+  BBAHealth: 10
   enemyDamage: 1
 --- !u!114 &8636343884732561057
 MonoBehaviour:

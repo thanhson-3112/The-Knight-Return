@@ -40,7 +40,7 @@ public class MHAttackState : BaseState
         {
             Vector3 targetPosition = SM.player.position + new Vector3(0, -1, 0);
             Vector3 directionToPlayer = (targetPosition - SM.transform.position).normalized;
-            Vector2 jumpVelocity = new Vector2(-directionToPlayer.x * SM.jumpForce -5f, 10f);
+            Vector2 jumpVelocity = new Vector2(-directionToPlayer.x * SM.jumpForce -5f, 15f);
             rb.velocity = jumpVelocity;
         }
         else

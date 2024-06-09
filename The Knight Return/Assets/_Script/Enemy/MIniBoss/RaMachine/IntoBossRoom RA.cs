@@ -14,6 +14,9 @@ public class IntoBossRoomRA : MonoBehaviour
 
     private bool canTrigger = true;
 
+    public string bossName; // Name of the boss
+    public BossNameText bossNameText; // Reference to the BossNameText script
+
     public void Start()
     {
         boss = GameObject.FindGameObjectsWithTag("Boss");
@@ -54,11 +57,31 @@ public class IntoBossRoomRA : MonoBehaviour
                 door.CloseDoor();
             }
 
+            if (bossNameText != null)
+            {
+                // Set the boss name and show it
+                bossNameText.SetText(bossName);
+                bossNameText.Show();
+
+                // Start the coroutine to hide the boss name after 5 seconds
+                StartCoroutine(HideBossNameAfterDelay(5f));
+            }
+
             // Spawn boss ? v? trí bossSpawnPoint
             GameObject spawnedBoss1 = Instantiate(bossPrefab1, bossSpawnPoint1.position, Quaternion.identity);
             GameObject spawnedBoss2 = Instantiate(bossPrefab2, bossSpawnPoint2.position, Quaternion.identity);
             boss = new GameObject[] { spawnedBoss1, spawnedBoss2 };
             canTrigger = false;
+        }
+    }
+
+    // Coroutine to hide the boss name after a delay
+    private IEnumerator HideBossNameAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (bossNameText != null)
+        {
+            bossNameText.Hide();
         }
     }
 
@@ -74,6 +97,7 @@ public class IntoBossRoomRA : MonoBehaviour
                 {
                     Destroy(bossInstance);
                 }
+                bossNameText.Hide();
                 canTrigger = true;
             }
         }
