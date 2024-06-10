@@ -42,6 +42,9 @@ public class TuskStateMachine : StateMachine
     public bool isTouchingWall;
 
     public CameraManager cam;
+    public GameObject soundWave;
+    public Transform soundWavePos;
+    private bool stopSoundWave = false;
 
     private void Awake()
     {
@@ -53,7 +56,6 @@ public class TuskStateMachine : StateMachine
         attackState = new TuskAttackState(this, anim, rb);
         jumpUpState = new TuskJumpUpState(this, anim, rb);
 
-        randomStates = new List<BaseState>() { movingState, jumpState, attackState, jumpUpState };
     }
 
     new void Start()
@@ -61,13 +63,29 @@ public class TuskStateMachine : StateMachine
         base.Start();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraManager>(); 
+        StartCoroutine(SoundWaveLoop());
+
     }
 
     new public void Update()
     {
         base.Update();
+        if (!canUpdate) return;
+
         isTouchingDown = Physics2D.OverlapCircle(goundCheckDown.position, 0.2f, groundLayer);
         isTouchingWall = Physics2D.OverlapCircle(goundCheckWall.position, 0.2f, groundLayer);
+
+        randomStates = new List<BaseState>() { movingState, jumpState, attackState, jumpUpState };
+        stopSoundWave = true;
+    }
+
+    IEnumerator SoundWaveLoop()
+    {
+        while (!stopSoundWave)
+        {
+            Instantiate(soundWave, soundWavePos.position, Quaternion.identity);
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 
     public void NextState()

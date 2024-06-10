@@ -12,11 +12,14 @@ public class TransMoving : MonoBehaviour
     private GameObject player;
     private Rigidbody2D playerRb;
 
+    public DarkScene darkScene;
+
     private void Update()
     {
         if (isPlayerTouching && Input.GetKeyDown(KeyCode.UpArrow))
         {
             isMoving = true;
+            StartCoroutine(darkScene.ActivateDarkScene());
         }
 
         if (isMoving)
@@ -34,6 +37,7 @@ public class TransMoving : MonoBehaviour
                 if (currentWaypointIndex == 2)
                 {
                     DetachPlayer();
+                    StartCoroutine(darkScene.DeactivateDarkScene());
                 }
             }
 

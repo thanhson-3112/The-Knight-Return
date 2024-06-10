@@ -170,6 +170,7 @@ Transform:
   - {fileID: 3702847001000076556}
   - {fileID: 9155113679878617302}
   - {fileID: 6520423210493262731}
+  - {fileID: 5643080882006434521}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!95 &8085698119127902528
@@ -329,6 +330,8 @@ MonoBehaviour:
   RaFireball: {fileID: 2518301177742697001, guid: d9bc548947f443c4b98543ffa7c9a6cf, type: 3}
   player: {fileID: 0}
   canUpdate: 0
+  soundWave: {fileID: 7793921124681592715, guid: ab4910ca5975b2646b731853306e2bd4, type: 3}
+  soundWavePos: {fileID: 5643080882006434521}
 --- !u!1 &3242921908352375925
 GameObject:
   m_ObjectHideFlags: 0
@@ -413,6 +416,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &5139362335765388145
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5643080882006434521}
+  m_Layer: 0
+  m_Name: SoundWave
+  m_TagString: Untagged
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5643080882006434521
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5139362335765388145}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.13, y: 2.32, z: -0.01007681}
+  m_LocalScale: {x: 0.5189481, y: 0.7812278, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5250129236246304147}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5294798350850586803
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,20 +10,34 @@ public class RMController : MonoBehaviour
     private bool nearAttacking = false;
     public GameObject player;
 
-    public bool canUpdate = false; 
+    public bool canUpdate = false;
 
+    public GameObject soundWave;
+    public Transform soundWavePos;
+    private bool stopSoundWave = false;
 
     void Start()
     {
-        anim = GetComponent<Animator>(); 
+        anim = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player");
         StartCoroutine(WaitBeforeStart());
     }
 
     private IEnumerator WaitBeforeStart()
     {
-        yield return new WaitForSeconds(3f); 
-        canUpdate = true; 
+        StartCoroutine(SoundWaveLoop()); // Start the sound wave loop
+        yield return new WaitForSeconds(3f);
+        canUpdate = true;
+        stopSoundWave = true; // Stop the sound wave loop
+    }
+
+    private IEnumerator SoundWaveLoop()
+    {
+        while (!stopSoundWave)
+        {
+            Instantiate(soundWave, soundWavePos.position, Quaternion.identity);
+            yield return new WaitForSeconds(0.5f); // Adjust the interval as needed
+        }
     }
 
     private void Update()
@@ -61,13 +75,12 @@ public class RMController : MonoBehaviour
         nearAttacking = false;
     }
 
-
     IEnumerator ShootAttack()
     {
         FireBallShoot();
         anim.SetBool("isMoving", true);
         yield return new WaitForSeconds(4f);
-        isAttacking = false; 
+        isAttacking = false;
     }
 
     private void FireBallShoot()

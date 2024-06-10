@@ -18,7 +18,8 @@ public class BoDAttackState : BaseState
     public override void Enter()
     {
         base.Enter();
-        anim.SetBool("BoDAttack", true);
+        Debug.Log("Attack");
+        anim.SetTrigger("BoDAttack");
         hasAttacked = false;
         isAttacking = false;
         Debug.Log("Enter state: BoDAttackState");
@@ -47,7 +48,6 @@ public class BoDAttackState : BaseState
     {
         base.Exit();
         hasAttacked = false;
-        anim.SetBool("BoDAttack", false);
         Debug.Log("Exit state: BoDAttackState");
     }
 }

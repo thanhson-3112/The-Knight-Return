@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossLifeBase : MonoBehaviour
+public class BossLifeBase : MonoBehaviour, IDamageable
 {
     protected Rigidbody2D rb;
     protected Animator anim;
@@ -26,7 +26,7 @@ public class BossLifeBase : MonoBehaviour
     {
     }
 
-    public virtual void EnemyHit(float _damageDone)
+    public virtual void TakePlayerDamage(float _damageDone)
     {
         bossHealth -= _damageDone;
         GetComponent<SoulSpawner>().InstantiateLoot(transform.position);

@@ -135,29 +135,16 @@ public class PlayerAttack : MonoBehaviour
         foreach (Collider2D objCollider in objectsToHit)
         {
             EnemyBase enemy = objCollider.GetComponent<EnemyBase>();
-            BossLifeBase bossLifeBasess = objCollider.GetComponent<BossLifeBase>();
-            Lever lever = objCollider.GetComponent<Lever>();
-
-            Org org = objCollider.GetComponent<Org>();
+            IDamageable isCanTakeDamage = objCollider.GetComponent<IDamageable>();
 
             if (enemy != null)
             {
                 enemy.EnemyHit(damage, (transform.position - objCollider.transform.position).normalized, 100);
             }
 
-            if (org != null)
+            if (isCanTakeDamage != null)
             {
-                org.OrgHit(damage);
-            }
-
-            if(lever != null)
-            {
-                lever.LeverDoor(damage);
-            }
-
-            else if (bossLifeBasess != null)
-            {
-                bossLifeBasess.EnemyHit(damage);
+                isCanTakeDamage.TakePlayerDamage(damage);
             }
         }
     }

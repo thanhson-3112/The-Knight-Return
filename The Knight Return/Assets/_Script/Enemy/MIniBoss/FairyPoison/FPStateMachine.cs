@@ -42,6 +42,9 @@ public class FPStateMachine : StateMachine
     public bool isTouchingWall;
 
     public CameraManager cam;
+    public GameObject soundWave;
+    public Transform soundWavePos;
+    private bool stopSoundWave = false;
 
     private void Awake()
     {
@@ -51,22 +54,35 @@ public class FPStateMachine : StateMachine
         movingState = new FPMovingState(this, anim, rb);
         dashState = new FPFollowState(this, anim, rb);
         attackState = new FPAttackState(this, anim, rb);
-
-        randomStates = new List<BaseState>() { movingState, dashState, attackState };
     }
 
     new void Start()
     {
         base.Start();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        StartCoroutine(SoundWaveLoop());
     }
 
     new public void Update()
     {
         base.Update();
+        if (!canUpdate) return;
+
         isTouchingUp = Physics2D.OverlapCircle(goundCheckUp.position, 0.5f, groundLayer);
         isTouchingDown = Physics2D.OverlapCircle(goundCheckDown.position, 0.5f, groundLayer);
         isTouchingWall = Physics2D.OverlapCircle(goundCheckWall.position, 0.5f, groundLayer);
+
+        randomStates = new List<BaseState>() { movingState, dashState, attackState };
+        stopSoundWave = true;
+    }
+
+    IEnumerator SoundWaveLoop()
+    {
+        while (!stopSoundWave)
+        {
+            Instantiate(soundWave, soundWavePos.position, Quaternion.identity);
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 
     public void NextState()

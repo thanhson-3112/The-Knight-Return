@@ -35,28 +35,47 @@ public class BoDStateMachine : StateMachine
     BaseState LastState;
     BaseState LastTwoState;
 
+    public GameObject soundWave;
+    public Transform soundWavePos;
+    private bool stopSoundWave = false;
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
+
         movingState = new BoDMovingState(this, anim);
         dashState = new BoDDashState(this, anim);
         spawnState = new BoDSpawnState(this, anim);
         attackState = new BoDAttackState(this, anim);
         waveAttack = new BoDWaveattackState(this, anim);
         spellState = new BoDSpellState(this, anim);
-
-        randomStates = new List<BaseState>() { movingState, dashState, spawnState, waveAttack, spellState};
     }
 
     new void Start()
     {
         base.Start();
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+
+        StartCoroutine(SoundWaveLoop());
     }
 
     new public void Update()
     {
         base.Update();
-        Death();
+        if (!canUpdate) return;
+
+        randomStates = new List<BaseState>() { movingState, dashState, spawnState, waveAttack, spellState };
+
+        stopSoundWave = true;
+    }
+
+    IEnumerator SoundWaveLoop()
+    {
+        while (!stopSoundWave)
+        {
+            Instantiate(soundWave, soundWavePos.position, Quaternion.identity);
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 
     public void NextState()
@@ -89,10 +108,5 @@ public class BoDStateMachine : StateMachine
         {
             target = GameObject.FindGameObjectWithTag("Player").transform;
         }
-    }
-
-    public void Death()
-    {
-       
     }
 }

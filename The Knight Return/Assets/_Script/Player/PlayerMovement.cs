@@ -49,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool lockSlideWall = true;
 
     //Animation
-    private enum MovementState { idle, running, jumping, falling }
+    private enum MovementState { idle, running, jumping, falling, doubleJumping }
     private MovementState state = MovementState.idle;
 
 
@@ -120,12 +120,12 @@ public class PlayerMovement : MonoBehaviour
         }
 
         tr.emitting = true;
-        
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), true);
         yield return new WaitForSeconds(dashTime);
-       
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), false);
         tr.emitting = false;
-        isDashing = false;
 
+        isDashing = false;
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
 
@@ -152,13 +152,23 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Jump"))
         {
-            if (isGround || (!lockDoubleJump && canDoubleJump && canDash))
+            if (isGround)
             {
                 SoundFxManager.instance.PlaySoundFXClip(JumpSoundEffect, transform, 1f);
                 isJump = true;
                 jumpTimeCounter = jumpTime;
                 rb.velocity = Vector2.up * jumpForce;
-                canDoubleJump = !canDoubleJump;
+                canDoubleJump = true; 
+                state = MovementState.jumping;
+            }
+            else if (!lockDoubleJump && canDoubleJump)
+            {
+                SoundFxManager.instance.PlaySoundFXClip(JumpSoundEffect, transform, 1f);
+                isJump = true;
+                jumpTimeCounter = jumpTime;
+                rb.velocity = Vector2.up * jumpForce;
+                canDoubleJump = false; 
+                state = MovementState.doubleJumping; 
             }
         }
 
@@ -267,33 +277,30 @@ public class PlayerMovement : MonoBehaviour
 
     protected virtual void UpdateAnimationState()
     {
-        this.state = MovementState.idle;
-
-        if (move > 0f)
-        {
-            state = MovementState.running;
-        
-        }
-        else if (move < 0f)
-        {
-            state = MovementState.running;
-        }
-        else
-        {
-            state = MovementState.idle;
-        }
-
         if (rb.velocity.y > .1f)
         {
-            state = MovementState.jumping;
+            if (state != MovementState.doubleJumping && !isGround)
+            {
+                state = canDoubleJump ? MovementState.jumping : MovementState.doubleJumping;
+            }
         }
         else if (rb.velocity.y < -.1f && !isWallSliding)
         {
             state = MovementState.falling;
-            
         }
+        else if (move != 0f && isGround)
+        {
+            state = MovementState.running;
+        }
+        else if (isGround && move == 0f)
+        {
+            state = MovementState.idle;
+        }
+
         anim.SetInteger("state", (int)state);
     }
+
+
 
     private void Flip()
     {

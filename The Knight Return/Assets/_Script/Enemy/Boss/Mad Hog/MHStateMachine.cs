@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MHStateMachine : StateMachine
@@ -35,6 +36,10 @@ public class MHStateMachine : StateMachine
     public MHLifeController MHLife;
     private float bossHealth;
 
+    public GameObject soundWave;
+    public Transform soundWavePos;
+    private bool stopSoundWave = false;
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -55,6 +60,7 @@ public class MHStateMachine : StateMachine
         anim.SetBool("MHMove", false);
         ShakeCam();
         MHLife = GetComponent<MHLifeController>();
+        StartCoroutine(SoundWaveLoop());
     }
 
     new public void Update()
@@ -71,6 +77,17 @@ public class MHStateMachine : StateMachine
         else
         {
             randomStates = new List<BaseState>() { movingState, jumpState, attackState, waveAttack };
+        }
+
+        stopSoundWave = true;
+    }
+
+    IEnumerator SoundWaveLoop()
+    {
+        while (!stopSoundWave)
+        {
+            Instantiate(soundWave, soundWavePos.position, Quaternion.identity);
+            yield return new WaitForSeconds(0.5f);
         }
     }
 

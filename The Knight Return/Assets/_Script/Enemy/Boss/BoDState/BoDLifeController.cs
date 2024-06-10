@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class BoDLifeController : BossLifeBase
 {
-    [SerializeField] public float MHHealth = 20f;
+    [SerializeField] public float BoDHealth = 20f;
     [SerializeField] private int enemyDamage = 1;
 
     public override void Start()
     {
-        bossHealth = MHHealth;
+        bossHealth = BoDHealth;
         damage = enemyDamage;
 
         base.Start();
     }
 
-    public override void EnemyHit(float _damageDone)
+    public override void TakePlayerDamage(float _damageDone)
     {
-        base.EnemyHit(_damageDone);
+        base.TakePlayerDamage(_damageDone);
         bossHealth -= _damageDone;
 
         anim.SetTrigger("BoDTakeHit");

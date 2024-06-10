@@ -7,8 +7,8 @@ public class SpellSkill : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
 
-    [SerializeField] private float spellSpeed = 7f;
-    public int spellDamage = 3;
+    [SerializeField] private float spellSpeed = 5f;
+    public int spellDamage = 1;
 
     public float rotateSpeed = 0.25f;
 

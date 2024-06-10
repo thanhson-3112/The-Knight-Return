@@ -125,6 +125,16 @@ public class CameraManager : MonoBehaviour
         else
         {
             transform.position = BossRoomPos.transform.position;
+            // Calculate shake offset
+            Vector3 shakeOffset = Vector3.zero;
+            if (shakeDuration > 0)
+            {
+                shakeOffset = Random.insideUnitSphere * shakeAmount;
+                shakeDuration -= Time.deltaTime;
+            }
+
+
+            transform.position += shakeOffset;
         }
     }
 

@@ -19,7 +19,8 @@ public class BoDDashState : BaseState
     public override void Enter()
     {
         base.Enter();
-        anim.SetBool("BoDAttack", true);
+        Debug.Log("Dash");
+        anim.SetTrigger("BoDAttack");
         SM.StartCoroutine(Dash());
 
     }
@@ -40,7 +41,7 @@ public class BoDDashState : BaseState
             SM.GetTarget();
             SM.gameObject.GetComponent<Rigidbody2D>().velocity = targetDirection * SM.dashSpeed;
 
-            anim.SetBool("BoDAttack", true);
+            anim.SetTrigger("BoDAttack");
             yield return new WaitForSeconds(2f);
         }
 
@@ -58,7 +59,7 @@ public class BoDDashState : BaseState
         base.UpdatePhysics();
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("BoDTakeHit"))
         {
-            anim.SetBool("BoDAttack", true);
+            anim.SetTrigger("BoDAttack");
         }
     }
 
@@ -66,6 +67,6 @@ public class BoDDashState : BaseState
     {
         base.Exit();
         SM.gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
-        anim.SetBool("BoDAttack", false);
+        anim.SetTrigger("BoDRun");
     }
 }

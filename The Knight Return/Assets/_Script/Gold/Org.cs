@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Org : MonoBehaviour
+public class Org : MonoBehaviour, IDamageable
 {
     [SerializeField] protected float org = 4f;
     [SerializeField] private float shakeDuration = 0.5f;
@@ -20,7 +20,7 @@ public class Org : MonoBehaviour
 
     }
 
-    public virtual void OrgHit(float _damageDone)
+    public virtual void TakePlayerDamage(float _damageDone)
     {
         org -= _damageDone;
 

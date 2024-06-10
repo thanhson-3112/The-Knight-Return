@@ -55,7 +55,7 @@ public class MHAttackState : BaseState
             SM.Flip();
             anim.SetTrigger("MHAttack");
             SM.ShakeCam();
-            yield return new WaitForSeconds(0.5f); // Th?i gian gi?a m?i l?n quay (có th? ?i?u ch?nh)
+            yield return new WaitForSeconds(0.5f); 
 
             for (int j = 0; j < 5; j++)
             {

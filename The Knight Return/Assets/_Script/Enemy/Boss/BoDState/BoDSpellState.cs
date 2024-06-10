@@ -18,7 +18,7 @@ public class BoDSpellState : BaseState
     {
         base.Enter();
         spawning = true;
-        anim.SetTrigger("BoDCastSpell");
+        Debug.Log("SpellAttack");
         SM.StartCoroutine(Spawner());
         SpawnSpell();
         SM.StartCoroutine(EndState());
@@ -40,7 +40,7 @@ public class BoDSpellState : BaseState
 
         while (spawning)
         {
-            anim.SetTrigger("BoDCastSpell");
+            anim.SetBool("BoDCastSpell", true);
             yield return wait;
         }
     }
@@ -59,6 +59,7 @@ public class BoDSpellState : BaseState
     {
         base.Exit();
         SM.gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+        anim.SetBool("BoDCastSpell", false);
         spawning = false;
     }
 

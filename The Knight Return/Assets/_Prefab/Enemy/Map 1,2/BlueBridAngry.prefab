@@ -188,6 +188,7 @@ Transform:
   - {fileID: 3244780674558300861}
   - {fileID: 5593767379715289784}
   - {fileID: 7605091628192629809}
+  - {fileID: 649505718204138814}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &7149783906078447535
@@ -315,6 +316,8 @@ MonoBehaviour:
   isTouchingDown: 0
   isTouchingWall: 0
   cam: {fileID: 0}
+  soundWave: {fileID: 7793921124681592715, guid: ab4910ca5975b2646b731853306e2bd4, type: 3}
+  soundWavePos: {fileID: 649505718204138814}
 --- !u!114 &354595780296270331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -530,6 +533,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &4960144200128501247
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 649505718204138814}
+  m_Layer: 7
+  m_Name: SoundWavePos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &649505718204138814
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4960144200128501247}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: -0.15, y: 1.34, z: -0.02892062}
+  m_LocalScale: {x: 1.4975599, y: 1.2428399, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3890010291066187800}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7551045350308456852
 GameObject:
   m_ObjectHideFlags: 0

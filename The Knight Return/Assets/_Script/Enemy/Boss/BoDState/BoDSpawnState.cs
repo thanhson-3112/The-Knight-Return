@@ -17,6 +17,7 @@ public class BoDSpawnState : BaseState
     public override void Enter()
     {
         base.Enter();
+        Debug.Log("Spawn");
         spawning = true;
         anim.SetBool("BoDCastSpell", true);
         SM.StartCoroutine(Spawner());

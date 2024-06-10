@@ -195,7 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c008ffae1d429e46b5d6073f16f03b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spellSpeed: 10
+  spellSpeed: 5
   spellDamage: 0
   rotateSpeed: 0.25
   playerLife: {fileID: 0}

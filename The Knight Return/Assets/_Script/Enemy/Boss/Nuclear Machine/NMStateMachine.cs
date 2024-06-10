@@ -39,6 +39,9 @@ public class NMStateMachine : StateMachine
     public bool isGround;
 
     public CameraManager cam;
+    public GameObject soundWave;
+    public Transform soundWavePos;
+    private bool stopSoundWave = false;
 
     private void Awake()
     {
@@ -48,8 +51,6 @@ public class NMStateMachine : StateMachine
         movingShootState = new NMMoveShootState(this, anim, rb);
         rampageShoot = new NMRampageShootState(this, anim, rb);
         attackShoot = new NMJumpAttackState(this, anim, rb);
-
-        randomStates = new List<BaseState>() { movingShootState, rampageShoot, attackShoot };
     }
 
     new void Start()
@@ -57,15 +58,32 @@ public class NMStateMachine : StateMachine
         base.Start();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraManager>();
+        StartCoroutine(SoundWaveLoop());
     }
 
     new public void Update()
     {
         base.Update();
+        if (!canUpdate) return;
+
         isLeft = Physics2D.OverlapCircle(checkLeft.position, 0.5f, groundLayer);
         isRight = Physics2D.OverlapCircle(checkRight.position, 0.5f, groundLayer);
         isGround = Physics2D.OverlapCircle(checkGround.position, 0.5f, groundLayer);
+
+        randomStates = new List<BaseState>() { movingShootState, rampageShoot, attackShoot };
+        stopSoundWave = true;
+
     }
+
+    IEnumerator SoundWaveLoop()
+    {
+        while (!stopSoundWave)
+        {
+            Instantiate(soundWave, soundWavePos.position, Quaternion.identity);
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
 
     public void NextState()
     {

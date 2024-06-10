@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -14,8 +13,10 @@ public class PlayerLife : MonoBehaviour
     [SerializeField] public int maxHealth = 5;
     [SerializeField] public int health;
 
+    [Header("Other")]
     public TextMeshProUGUI healthText;
     public HealthUI healthUI;
+    public DarkScene darkScene;
     public GameObject takeDamageEffect;
 
     [Header("CheckPoint")]
@@ -82,7 +83,6 @@ public class PlayerLife : MonoBehaviour
         playerMovement.enabled = false;
         yield return new WaitForSeconds(1.5f);
         playerMovement.enabled = true;
-
     }
 
     public void TakeDamage(int damage)
@@ -130,8 +130,11 @@ public class PlayerLife : MonoBehaviour
             {
                 Die();
             }
-
-            Invoke("TrapRespawn", 1f);
+            else
+            {
+                StartCoroutine(darkScene.ActivateDarkScene());
+                Invoke("TrapRespawn", 2f);
+            }
         }
     }
 
@@ -139,6 +142,7 @@ public class PlayerLife : MonoBehaviour
     {
         rb.bodyType = RigidbodyType2D.Dynamic;
         transform.position = trapRespawnPoint;
+        StartCoroutine(darkScene.DeactivateDarkScene());
     }
 
     private void Die()
@@ -149,7 +153,6 @@ public class PlayerLife : MonoBehaviour
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), true);
         anim.SetTrigger("death");
 
-        // Spawn gold khi nguoi choi chet
         Instantiate(DropGold, transform.position, Quaternion.identity);
         StartCoroutine(ClearGold());
 
@@ -162,10 +165,11 @@ public class PlayerLife : MonoBehaviour
             dieTime += 1;
         }
 
-        Invoke("Respawn", 1.7f);
+        StartCoroutine(darkScene.ActivateDarkScene());
+
+        Invoke("Respawn", 2f);
     }
 
-    // Khi nguoi choi chet se mat sach gold
     IEnumerator ClearGold()
     {
         yield return new WaitForSeconds(2f);
@@ -185,6 +189,7 @@ public class PlayerLife : MonoBehaviour
         transform.position = respawnPoint;
         health = maxHealth;
 
+        StartCoroutine(darkScene.DeactivateDarkScene());
         ActivateAllEnemies(enemyParent);
     }
 

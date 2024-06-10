@@ -6,7 +6,7 @@ public class PMSword : MonoBehaviour
 {
     [SerializeField] private float speed = 20f;
 
-    private int damage = 0;
+    private int damage = 1;
 
     public PlayerLife playerLife;
     public PlayerMovement player;

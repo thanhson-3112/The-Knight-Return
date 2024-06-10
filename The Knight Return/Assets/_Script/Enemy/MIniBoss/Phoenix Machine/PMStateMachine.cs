@@ -28,6 +28,10 @@ public class PMStateMachine : StateMachine
     [Header("Move")]
     public PMShield shield;
 
+    public GameObject soundWave;
+    public Transform soundWavePos;
+    private bool stopSoundWave = false;
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -36,19 +40,31 @@ public class PMStateMachine : StateMachine
         movingState = new PMMovingState(this, anim, rb);
         dashState = new PMFollowState(this, anim, rb);
         attackState = new PMAttackState(this, anim, rb);
-
-        randomStates = new List<BaseState>() { movingState, dashState, attackState };
     }
 
     new void Start()
     {
         base.Start();
         player = GameObject.FindGameObjectWithTag("Player");
+        StartCoroutine(SoundWaveLoop());
     }
 
     new public void Update()
     {
         base.Update();
+        if (!canUpdate) return;
+
+        randomStates = new List<BaseState>() { movingState, dashState, attackState };
+        stopSoundWave = true;
+    }
+
+    IEnumerator SoundWaveLoop()
+    {
+        while (!stopSoundWave)
+        {
+            Instantiate(soundWave, soundWavePos.position, Quaternion.identity);
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 
     public void NextState()
