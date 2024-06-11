@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6217727925465177520}
   - component: {fileID: 438240641595111728}
   - component: {fileID: 3481088694129494365}
-  - component: {fileID: 7245932056660078216}
+  - component: {fileID: 5683974174367407235}
   m_Layer: 0
   m_Name: Meteo
   m_TagString: FireBall
@@ -76,12 +76,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8bc3500bd9317e74c8f619bbb7c1f670, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0d39408a52772a64b9c55c526f67abb5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 32.03128, y: 32}
+  m_Size: {x: 31.25, y: 31.25}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -95,7 +95,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1030084824094156150}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -113,7 +113,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!70 &3481088694129494365
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -149,9 +149,9 @@ CapsuleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 1.8914669, y: -4.297558}
-  m_Size: {x: 19.27293, y: 19.417534}
+  m_Size: {x: 19.27293, y: 23.20334}
   m_Direction: 0
---- !u!114 &7245932056660078216
+--- !u!114 &5683974174367407235
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -160,10 +160,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1030084824094156150}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92ba27709ae8d974e82a399a610975de, type: 3}
+  m_Script: {fileID: 11500000, guid: 5caa313c9c89bd240940fcfc2148cd77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
-  lifeTime: 3
-  explosionPrefab: {fileID: 4589927675149386922, guid: 5afd1b39296e346458f518cb502f31e4,
-    type: 3}
+  explosionPrefab: {fileID: 4589927675149386922, guid: 94160b504201e1e4bb9171cb4d6cea4a, type: 3}
+  playerLife: {fileID: 0}
+  player: {fileID: 0}

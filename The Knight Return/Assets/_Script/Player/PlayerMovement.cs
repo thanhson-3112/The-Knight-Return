@@ -63,6 +63,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private AudioClip RunSoundEffect;
     public AudioClip JumpSoundEffect;
     public AudioClip DashSoundEffect;
+    private bool isRunSoundPlaying = false;
 
     void Start()
     {
@@ -93,7 +94,7 @@ public class PlayerMovement : MonoBehaviour
         if (!lockDash && Input.GetButtonDown("Dash") && !isDashing && canDash)
         {
             SoundFxManager.instance.PlaySoundFXClip(DashSoundEffect, transform, 1f);
-            SoundFxManager.instance.StopRunningSound();
+            SoundFxManager.instance.StopAudio(RunSoundEffect);
             StartCoroutine(Dash());
         }
     }
@@ -137,14 +138,24 @@ public class PlayerMovement : MonoBehaviour
 
         if (isGround && move != 0f)
         {
-            SoundFxManager.instance.PlaySoundFXClip(RunSoundEffect, transform, 1f);
+            if (!isRunSoundPlaying)
+            {
+                SoundFxManager.instance.PlaySoundFXClip(RunSoundEffect, transform, 1f);
+                isRunSoundPlaying = true;
+            }
         }
         else
         {
-            SoundFxManager.instance.StopRunningSound();
+            if (isRunSoundPlaying)
+            {
+                SoundFxManager.instance.StopAudio(RunSoundEffect);
+                isRunSoundPlaying = false;
+            }
         }
+
         rb.velocity = new Vector2(move * speed, rb.velocity.y);
     }
+
 
     protected virtual void Jump()
     {
@@ -277,6 +288,23 @@ public class PlayerMovement : MonoBehaviour
 
     protected virtual void UpdateAnimationState()
     {
+
+        this.state = MovementState.idle;
+
+        if (move > 0f)
+        {
+            state = MovementState.running;
+
+        }
+        else if (move < 0f)
+        {
+            state = MovementState.running;
+        }
+        else
+        {
+            state = MovementState.idle;
+        }
+
         if (rb.velocity.y > .1f)
         {
             if (state != MovementState.doubleJumping && !isGround)
@@ -287,16 +315,8 @@ public class PlayerMovement : MonoBehaviour
         else if (rb.velocity.y < -.1f && !isWallSliding)
         {
             state = MovementState.falling;
-        }
-        else if (move != 0f && isGround)
-        {
-            state = MovementState.running;
-        }
-        else if (isGround && move == 0f)
-        {
-            state = MovementState.idle;
-        }
 
+        }
         anim.SetInteger("state", (int)state);
     }
 

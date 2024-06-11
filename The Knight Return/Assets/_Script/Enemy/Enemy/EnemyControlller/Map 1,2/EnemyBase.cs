@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class EnemyBase : MonoBehaviour
+public class EnemyBase : MonoBehaviour, IDamageableEnemy
 {
     protected Rigidbody2D rb;
     protected Animator anim;
@@ -43,7 +43,7 @@ public class EnemyBase : MonoBehaviour
         }
     }
 
-    public virtual void EnemyHit(float _damageDone, Vector2 _hitDirection, float _hitForce)
+    public virtual void TakePlayerDamage(float _damageDone, Vector2 _hitDirection, float _hitForce)
     {
         enemyHealth -= _damageDone;
 
@@ -61,7 +61,6 @@ public class EnemyBase : MonoBehaviour
 
     public virtual void EnemyDie()
     {
-        /*StartCoroutine(RotateOverTime(transform, Vector3.forward * 180, 1.0f));*/
         Collider2D collider = GetComponent<Collider2D>();
         if (collider != null)
         {
@@ -98,23 +97,6 @@ public class EnemyBase : MonoBehaviour
         isRecolling = false;
         recollTimer = 0;
     }
-
-    /*IEnumerator RotateOverTime(Transform objectToRotate, Vector3 rotationAmount, float duration)
-    {
-        Quaternion startRotation = objectToRotate.rotation;
-        Quaternion endRotation = objectToRotate.rotation * Quaternion.Euler(rotationAmount);
-        float timeElapsed = 0;
-
-        while (timeElapsed < duration)
-        {
-            objectToRotate.rotation = Quaternion.Lerp(startRotation, endRotation, timeElapsed / duration);
-            timeElapsed += Time.deltaTime;
-            yield return null;
-        }
-
-        objectToRotate.rotation = endRotation; 
-    }
-*/
 
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {

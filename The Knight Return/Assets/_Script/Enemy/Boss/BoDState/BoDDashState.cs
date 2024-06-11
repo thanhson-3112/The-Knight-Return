@@ -8,12 +8,14 @@ public class BoDDashState : BaseState
     private BoDStateMachine SM;
     public int DashNumber = 3;
     private Animator anim;
+    private Rigidbody2D rb;
 
-    public BoDDashState(BoDStateMachine stateMachine, Animator animator, int dashNumber = 3) : base(stateMachine)
+    public BoDDashState(BoDStateMachine stateMachine, Animator animator, Rigidbody2D rib, int dashNumber = 3) : base(stateMachine)
     {
         DashNumber = dashNumber;
         SM = stateMachine;
         anim = animator;
+        rb = rib;
     }
 
     public override void Enter()
@@ -42,7 +44,7 @@ public class BoDDashState : BaseState
             SM.gameObject.GetComponent<Rigidbody2D>().velocity = targetDirection * SM.dashSpeed;
 
             anim.SetTrigger("BoDAttack");
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(3f);
         }
 
         SM.NextState();

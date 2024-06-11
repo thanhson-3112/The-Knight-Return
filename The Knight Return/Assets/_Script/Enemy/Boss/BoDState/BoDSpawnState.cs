@@ -6,12 +6,15 @@ public class BoDSpawnState : BaseState
 {
     private BoDStateMachine SM;
     private Animator anim;
+    private Rigidbody2D rb;
+
     private bool spawning = true;
 
-    public BoDSpawnState(BoDStateMachine stateMachine, Animator animator) : base(stateMachine)
+    public BoDSpawnState(BoDStateMachine stateMachine, Animator animator, Rigidbody2D rib) : base(stateMachine)
     {
         SM = stateMachine;
         anim = animator;
+        rb = rib;
     }
 
     public override void Enter()
@@ -66,7 +69,7 @@ public class BoDSpawnState : BaseState
     public override void Exit()
     {
         base.Exit();
-        SM.gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+        rb.velocity = Vector3.zero;
         anim.SetBool("BoDCastSpell", false);
         spawning = false;
     }

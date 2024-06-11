@@ -63,7 +63,7 @@ public class GoldItem : MonoBehaviour
             transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
 
             // Ki?m tra n?u ??i t??ng ?ã di chuy?n ?? xa
-            if (Vector3.Distance(transform.position, initialPosition) >= 2f)
+            if (Vector3.Distance(transform.position, initialPosition) >= 1.5f)
             {
                 break; // Thoát vòng l?p n?u ??i t??ng ?ã di chuy?n ?? xa
             }

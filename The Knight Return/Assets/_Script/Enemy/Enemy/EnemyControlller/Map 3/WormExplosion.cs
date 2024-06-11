@@ -23,9 +23,9 @@ public class WormExplosion : EnemyBase
         enemyHealth = WormExplosionHealth;
     }
 
-    public override void EnemyHit(float _damageDone, Vector2 _hitDirection, float _hitForce)
+    public override void TakePlayerDamage(float _damageDone, Vector2 _hitDirection, float _hitForce)
     {
-        base.EnemyHit(_damageDone, _hitDirection, _hitForce);
+        base.TakePlayerDamage(_damageDone, _hitDirection, _hitForce);
 
         Instantiate(explosionPrefab, transform.position, transform.rotation);
 

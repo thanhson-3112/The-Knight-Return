@@ -134,12 +134,12 @@ public class PlayerAttack : MonoBehaviour
 
         foreach (Collider2D objCollider in objectsToHit)
         {
-            EnemyBase enemy = objCollider.GetComponent<EnemyBase>();
             IDamageable isCanTakeDamage = objCollider.GetComponent<IDamageable>();
+            IDamageableEnemy isCanTakeDamageEnemy = objCollider.GetComponent<IDamageableEnemy>();
 
-            if (enemy != null)
+            if (isCanTakeDamageEnemy != null)
             {
-                enemy.EnemyHit(damage, (transform.position - objCollider.transform.position).normalized, 100);
+                isCanTakeDamageEnemy.TakePlayerDamage(damage, (transform.position - objCollider.transform.position).normalized, 100);
             }
 
             if (isCanTakeDamage != null)

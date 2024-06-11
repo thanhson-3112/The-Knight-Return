@@ -2,21 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossLifeBase : MonoBehaviour, IDamageable
+public class EnemyNoGold : MonoBehaviour, IDamageableEnemy
 {
     protected Rigidbody2D rb;
     protected Animator anim;
 
-    [SerializeField] public float bossHealth;
+    [SerializeField] protected float enemyHealth;
+    protected float recollLength = 0.2f;
+    protected float recollFactor = 20f;
+    protected bool isRecolling = false;
+    protected float recollTimer;
 
     protected int damage;
     public PlayerLife playerLife;
     public PlayerMovement player;
-
-    private Vector3 originalPosition;
-
-    private float shakeMagnitude = 0.5f;
-    private bool isDying = false; // Bi?n c? ?? ki?m tra tr?ng thái ch?t
 
     public virtual void Start()
     {
@@ -25,19 +24,35 @@ public class BossLifeBase : MonoBehaviour, IDamageable
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         player = playerObject.GetComponent<PlayerMovement>();
         playerLife = playerObject.GetComponent<PlayerLife>();
-
-        originalPosition = transform.position;
     }
 
     public virtual void Update()
     {
+        if (isRecolling)
+        {
+            if (recollTimer < recollLength)
+            {
+                recollTimer += Time.deltaTime;
+            }
+            else
+            {
+                isRecolling = false;
+                recollTimer = 0;
+            }
+        }
     }
 
-    public virtual void TakePlayerDamage(float _damageDone)
+    public virtual void TakePlayerDamage(float _damageDone, Vector2 _hitDirection, float _hitForce)
     {
-        bossHealth -= _damageDone;
-        GetComponent<SoulSpawner>().InstantiateLoot(transform.position);
-        if (bossHealth <= 0)
+        enemyHealth -= _damageDone;
+
+        if (!isRecolling)
+        {
+            rb.AddForce(-_hitForce * recollFactor * _hitDirection);
+            isRecolling = true;
+        }
+
+        if (enemyHealth <= 0)
         {
             EnemyDie();
         }
@@ -45,40 +60,36 @@ public class BossLifeBase : MonoBehaviour, IDamageable
 
     public virtual void EnemyDie()
     {
-        Rigidbody2D enemyRigidbody = GetComponent<Rigidbody2D>();
-        if (enemyRigidbody != null)
-        {
-            enemyRigidbody.velocity = Vector2.zero;
-            enemyRigidbody.isKinematic = true;
-        }
-
-        // Trigger shake effect
-        isDying = true; // ?ánh d?u b?t ??u quá trình ch?t
-        StartCoroutine(Shake());
         Collider2D collider = GetComponent<Collider2D>();
         if (collider != null)
         {
             collider.enabled = false;
         }
 
-        Destroy(gameObject, 2f);
+        // roi soul va gold
+        GetComponent<SoulSpawner>().InstantiateLoot(transform.position);
 
-        // Roi gold
-        for (int i = 0; i <= 30; i++)
-        {
-            GetComponent<GoldSpawner>().InstantiateLoot(transform.position);
-        }
+        ActivateEnemy();
+        StartCoroutine(DeactivateAfterDelay(0f));
+
     }
 
-    private IEnumerator Shake()
+    IEnumerator DeactivateAfterDelay(float delay)
     {
-        while (isDying)
+        yield return new WaitForSeconds(delay);
+        gameObject.SetActive(false);
+    }
+
+    public virtual void ActivateEnemy()
+    {
+        Collider2D collider = GetComponent<Collider2D>();
+        if (collider != null)
         {
-            Vector3 newPos = originalPosition + Random.insideUnitSphere * shakeMagnitude;
-            transform.position = newPos;
-            yield return null;
+            collider.enabled = true;
         }
-        transform.position = originalPosition;
+
+        isRecolling = false;
+        recollTimer = 0;
     }
 
     protected virtual void OnCollisionEnter2D(Collision2D collision)
@@ -97,4 +108,5 @@ public class BossLifeBase : MonoBehaviour, IDamageable
             playerLife.TakeDamage(damage);
         }
     }
+
 }

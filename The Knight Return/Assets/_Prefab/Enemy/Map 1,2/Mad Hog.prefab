@@ -302,6 +302,7 @@ MonoBehaviour:
   player: {fileID: 0}
   MHHealth: 20
   enemyDamage: 1
+  bossState: {fileID: 3684740742671664548}
 --- !u!114 &3684740742671664548
 MonoBehaviour:
   m_ObjectHideFlags: 0

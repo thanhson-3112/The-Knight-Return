@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 5876660399821518026}
   - component: {fileID: 3032700401313766257}
   - component: {fileID: 6010352419931648045}
-  - component: {fileID: 2046377515108063020}
   - component: {fileID: 1969125230676986281}
   - component: {fileID: 5297674152030127417}
+  - component: {fileID: 4007017013160129199}
   m_Layer: 7
   m_Name: OneEyeMachine
   m_TagString: Untagged
@@ -133,26 +133,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.9229803, y: 1.4803846}
   m_EdgeRadius: 0
---- !u!114 &2046377515108063020
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 800519972532610473}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef4f76653f117604bb71ee035db3ea43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyHealth: 0
-  recollLength: 0.2
-  recollFactor: 2.5
-  isRecolling: 0
-  playerLife: {fileID: 0}
-  player: {fileID: 0}
-  flyingHealth: 2
-  enemyDamage: 1
 --- !u!114 &1969125230676986281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,6 +163,21 @@ MonoBehaviour:
   droppedItemPrefab: {fileID: 7952945152742447162, guid: 454ad9e56824e0543977e62bb3c710fe, type: 3}
   lootList:
   - {fileID: 11400000, guid: 1fd0531c9c2d41a4a9d9efe145576236, type: 2}
+--- !u!114 &4007017013160129199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 800519972532610473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 549a8acdf0ac94c41869ba97f246dbcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyHealth: 2
+  playerLife: {fileID: 0}
+  player: {fileID: 0}
 --- !u!1 &3005282160791380781
 GameObject:
   m_ObjectHideFlags: 0

@@ -54,7 +54,7 @@ public class BoDWaveattackState : BaseState
             }
 
             Attack();
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(1f);
         }
         SM.NextState();
     }

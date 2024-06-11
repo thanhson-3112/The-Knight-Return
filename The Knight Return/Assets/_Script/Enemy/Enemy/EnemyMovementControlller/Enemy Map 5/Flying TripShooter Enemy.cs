@@ -117,7 +117,7 @@ public class FlyingTripShooterEnemy : MonoBehaviour
                 GameObject spawnedEnemy = GameObject.Instantiate(FireBall, transform.position, Quaternion.identity);
                 spawnedEnemy.transform.right = bulletDirection;
             }
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(3f);
         }
     }
 

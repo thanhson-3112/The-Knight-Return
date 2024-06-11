@@ -6,9 +6,7 @@ public class SoundFxManager : MonoBehaviour
 {
     public static SoundFxManager instance;
     public AudioSource audioFxObject;
-    private AudioSource runningAudioSource; 
-
-    public AudioClip RunSoundEffect;
+    private Dictionary<AudioClip, List<AudioSource>> playingAudioSources = new Dictionary<AudioClip, List<AudioSource>>();
 
     private void Awake()
     {
@@ -20,35 +18,52 @@ public class SoundFxManager : MonoBehaviour
 
     public void PlaySoundFXClip(AudioClip audioClip, Transform spawnTransform, float volume)
     {
-        if (audioClip == RunSoundEffect)
-        {
-            if (runningAudioSource != null && runningAudioSource.isPlaying)
-            {
-                return; 
-            }
-        }
-
         AudioSource audioSource = Instantiate(audioFxObject, spawnTransform.position, Quaternion.identity);
         audioSource.clip = audioClip;
         audioSource.volume = volume;
         audioSource.Play();
 
-        if (audioClip == RunSoundEffect)
+        if (!playingAudioSources.ContainsKey(audioClip))
         {
-            runningAudioSource = audioSource;
+            playingAudioSources[audioClip] = new List<AudioSource>();
         }
 
+        playingAudioSources[audioClip].Add(audioSource);
+
         float clipLength = audioSource.clip.length;
-        Destroy(audioSource.gameObject, clipLength);
+        StartCoroutine(DestroyAfter(audioSource.gameObject, audioClip, clipLength));
     }
 
-    public void StopRunningSound()
+    public void StopAudio(AudioClip audioClip)
     {
-        if (runningAudioSource != null && runningAudioSource.isPlaying)
+        if (playingAudioSources.ContainsKey(audioClip))
         {
-            runningAudioSource.Stop();
-            Destroy(runningAudioSource.gameObject);
-            runningAudioSource = null;
+            List<AudioSource> audioSources = playingAudioSources[audioClip];
+            foreach (AudioSource audioSource in audioSources)
+            {
+                if (audioSource != null)
+                {
+                    audioSource.Stop();
+                    Destroy(audioSource.gameObject);
+                }
+            }
+
+            playingAudioSources.Remove(audioClip);
+        }
+    }
+
+    IEnumerator DestroyAfter(GameObject gameObject, AudioClip audioClip, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Destroy(gameObject);
+
+        if (playingAudioSources.ContainsKey(audioClip))
+        {
+            playingAudioSources[audioClip].RemoveAll(source => source == null);
+            if (playingAudioSources[audioClip].Count == 0)
+            {
+                playingAudioSources.Remove(audioClip);
+            }
         }
     }
 }

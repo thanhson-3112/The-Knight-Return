@@ -30,25 +30,23 @@ public class FireBall : MonoBehaviour
 
     private void Hit(Collider2D objCollider)
     {
-        EnemyBase enemy = objCollider.GetComponent<EnemyBase>();
-        BossLifeBase bossLifeBase = objCollider.GetComponent<BossLifeBase>();
         IronBall ironBall = objCollider.GetComponent<IronBall>();
-
         IDamageable isCanTakeDamage = objCollider.GetComponent<IDamageable>();
+        IDamageableEnemy isCanTakeDamageEnemy = objCollider.GetComponent<IDamageableEnemy>();
+
 
         if (isCanTakeDamage != null)
         {
             isCanTakeDamage.TakePlayerDamage(fireBallDamage);
         }
 
-        if (enemy != null)
+        if (isCanTakeDamageEnemy != null)
         {
-            enemy.EnemyHit(fireBallDamage, (transform.position - objCollider.transform.position).normalized, 100);
+            isCanTakeDamageEnemy.TakePlayerDamage(fireBallDamage, (transform.position - objCollider.transform.position).normalized, 100);
         }
         else if (ironBall != null)
         {
             ironBall.IronBallHit(fireBallDamage);
         }
-
     }
 }

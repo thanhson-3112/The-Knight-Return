@@ -4,19 +4,28 @@ using UnityEngine;
 
 public class BoDStateMachine : StateMachine
 {
-    public BoDDashState dashState;
     public BoDMovingState movingState;
+    public BoDDashState dashState;
     public BoDSpawnState spawnState;
-    public BoDAttackState attackState;
+    public BoDJumpAttackState jumpAttackState;
     public BoDWaveattackState waveAttack;
     public BoDSpellState spellState;
+    public BoDMeteorState meteorState;
 
     List<BaseState> randomStates;
     public Transform target;
-    
-    public float moveSpeed = 5f;
-    public float dashSpeed = 30f;
+    private Animator anim;
+    private Rigidbody2D rb;
+    BaseState LastState;
+    BaseState LastTwoState;
 
+    public float moveSpeed = 5f;
+    public float dashSpeed = 20f;
+
+    [Header("JumpAttack")]
+    public float jumpForce = 15f;
+
+    [Header("Spawn Enemy")]
     public float bossSpawnRate = 5f; 
     public float spawnRadius = 5f; 
     public GameObject[] enemyPrefabs;
@@ -28,33 +37,42 @@ public class BoDStateMachine : StateMachine
     public GameObject firePrefab;
     public GameObject firingPoint;
     public Transform firing;
-    [Range(0.1f, 2f)]
-    public float fireRate = 0.8f;
 
-    private Animator anim;
-    BaseState LastState;
-    BaseState LastTwoState;
+    [Header("Meteor Attack")]
+    public GameObject[] meteorPrefab;
+    public Transform[] spawnPosition;
 
+    [Header("SoundWave")]
     public GameObject soundWave;
     public Transform soundWavePos;
     private bool stopSoundWave = false;
 
+    [Header("Other")]
+    public BoDLifeController BoDLife;
+    private float bossHealth;
+    public CameraManager cam;
+    private bool facingLeft = true;
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
 
         movingState = new BoDMovingState(this, anim);
-        dashState = new BoDDashState(this, anim);
-        spawnState = new BoDSpawnState(this, anim);
-        attackState = new BoDAttackState(this, anim);
+        dashState = new BoDDashState(this, anim, rb);
+        spawnState = new BoDSpawnState(this, anim, rb);
+        jumpAttackState = new BoDJumpAttackState(this, anim, rb);
         waveAttack = new BoDWaveattackState(this, anim);
         spellState = new BoDSpellState(this, anim);
+        meteorState = new BoDMeteorState(this,anim, rb);
     }
 
     new void Start()
     {
         base.Start();
         target = GameObject.FindGameObjectWithTag("Player").transform;
+        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraManager>();
+        FlipTowardsPlayer();
 
         StartCoroutine(SoundWaveLoop());
     }
@@ -64,7 +82,19 @@ public class BoDStateMachine : StateMachine
         base.Update();
         if (!canUpdate) return;
 
-        randomStates = new List<BaseState>() { movingState, dashState, spawnState, waveAttack, spellState };
+
+        bossHealth = BoDLife.bossHealth;
+        if (bossHealth >= 20)
+        {
+            randomStates = new List<BaseState>() { movingState, jumpAttackState,  dashState, waveAttack, meteorState };
+
+        }
+        else
+        {
+            randomStates = new List<BaseState>() { movingState, jumpAttackState, spawnState, spellState, meteorState };
+
+        }
+
 
         stopSoundWave = true;
     }
@@ -109,4 +139,30 @@ public class BoDStateMachine : StateMachine
             target = GameObject.FindGameObjectWithTag("Player").transform;
         }
     }
+
+    public void FlipTowardsPlayer()
+    {
+        float playerDirection = target.position.x - transform.position.x;
+
+        if (playerDirection > 0 && facingLeft)
+        {
+            Flip();
+        }
+        else if (playerDirection < 0 && !facingLeft)
+        {
+            Flip();
+        }
+    }
+
+    public void Flip()
+    {
+        facingLeft = !facingLeft;
+        transform.Rotate(0, 180, 0);
+    }
+
+    public void ShakeCam()
+    {
+        cam.ShakeCamera();
+    }
 }
+
