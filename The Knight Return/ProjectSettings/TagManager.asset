@@ -14,6 +14,8 @@ TagManager:
   - MiniBoss
   - Boss
   - EnemyList
+  - FireBall
+  - AudioManager
   layers:
   - Default
   - TransparentFX

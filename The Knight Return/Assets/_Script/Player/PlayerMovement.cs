@@ -43,7 +43,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float wallJumpingDuration = 0.4f;
     public Vector2 wallJumpingPower = new Vector2(25f, 20f);
 
-
     [SerializeField] private bool lockDash = true;
     [SerializeField] private bool lockDoubleJump = true;
     [SerializeField] private bool lockSlideWall = true;
@@ -52,12 +51,15 @@ public class PlayerMovement : MonoBehaviour
     private enum MovementState { idle, running, jumping, falling, doubleJumping }
     private MovementState state = MovementState.idle;
 
-
     [Header("KB")]
     public float KBForce = 10;
     public float KBCounter;
     public float KBTotalTime = 0.2f;
     public bool KnockFromRight;
+
+    [Header("Dust")]
+    public ParticleSystem jumpDust;
+    public ParticleSystem groundDust;
 
     [Header("Sound")]
     [SerializeField] private AudioClip RunSoundEffect;
@@ -72,7 +74,6 @@ public class PlayerMovement : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         tr = GetComponent<TrailRenderer>();
     }
-
 
     void Update()
     {
@@ -117,7 +118,6 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             rb.velocity = new Vector2(transform.localScale.x * dashSpeed, 0);
-
         }
 
         tr.emitting = true;
@@ -129,7 +129,6 @@ public class PlayerMovement : MonoBehaviour
         isDashing = false;
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
-
     }
 
     protected virtual void Move()
@@ -156,10 +155,15 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector2(move * speed, rb.velocity.y);
     }
 
-
     protected virtual void Jump()
     {
+        bool wasGrounded = isGround;
         isGround = Physics2D.OverlapCircle(_isGround.position, 0.2f, Ground);
+
+        if (isGround && !wasGrounded)
+        {
+            groundDust.Play();
+        }
 
         if (Input.GetButtonDown("Jump"))
         {
@@ -169,8 +173,9 @@ public class PlayerMovement : MonoBehaviour
                 isJump = true;
                 jumpTimeCounter = jumpTime;
                 rb.velocity = Vector2.up * jumpForce;
-                canDoubleJump = true; 
+                canDoubleJump = true;
                 state = MovementState.jumping;
+                jumpDust.Play();
             }
             else if (!lockDoubleJump && canDoubleJump)
             {
@@ -178,8 +183,9 @@ public class PlayerMovement : MonoBehaviour
                 isJump = true;
                 jumpTimeCounter = jumpTime;
                 rb.velocity = Vector2.up * jumpForce;
-                canDoubleJump = false; 
-                state = MovementState.doubleJumping; 
+                canDoubleJump = false;
+                state = MovementState.doubleJumping;
+                jumpDust.Play();
             }
         }
 
@@ -207,10 +213,10 @@ public class PlayerMovement : MonoBehaviour
     {
         isWall = Physics2D.OverlapCircle(_isWall.position, 0.2f, wallLayer);
 
-        if(!lockSlideWall && isWall && !isGround)
+        if (!lockSlideWall && isWall && !isGround)
         {
             isWallSliding = true;
-            rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed,float.MaxValue));
+            rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed, float.MaxValue));
             anim.SetBool("Hanging", true);
         }
         else
@@ -235,16 +241,15 @@ public class PlayerMovement : MonoBehaviour
             wallJumpingCounter -= Time.deltaTime;
         }
 
-        if(Input.GetButtonDown("Jump") && wallJumpingCounter > 0f)
+        if (Input.GetButtonDown("Jump") && wallJumpingCounter > 0f)
         {
-
             SoundFxManager.instance.PlaySoundFXClip(JumpSoundEffect, transform, 1f);
             isWallJumping = true;
             anim.SetBool("Hanging", false);
             rb.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
             wallJumpingCounter = 0f;
 
-            if(transform.localScale.x != wallJumpingDirection)
+            if (transform.localScale.x != wallJumpingDirection)
             {
                 isFacingRight = !isFacingRight;
                 Vector3 localScale = transform.localScale;
@@ -259,7 +264,6 @@ public class PlayerMovement : MonoBehaviour
     {
         isWallJumping = false;
     }
-
 
     public virtual void KnockBackCouter()
     {
@@ -285,16 +289,13 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-
     protected virtual void UpdateAnimationState()
     {
-
         this.state = MovementState.idle;
 
         if (move > 0f)
         {
             state = MovementState.running;
-
         }
         else if (move < 0f)
         {
@@ -315,16 +316,14 @@ public class PlayerMovement : MonoBehaviour
         else if (rb.velocity.y < -.1f && !isWallSliding)
         {
             state = MovementState.falling;
-
         }
+
         anim.SetInteger("state", (int)state);
     }
 
-
-
     private void Flip()
     {
-        if (isFacingRight && move < 0f || !isFacingRight && move > 0f )
+        if (isFacingRight && move < 0f || !isFacingRight && move > 0f)
         {
             isFacingRight = !isFacingRight;
             Vector3 localScale = transform.localScale;

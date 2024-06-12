@@ -190,6 +190,8 @@ Transform:
   - {fileID: 634020208866728875}
   - {fileID: 242036976627226202}
   - {fileID: 3390488841504128715}
+  - {fileID: 3887660448519134801}
+  - {fileID: 3737104980687114852}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &5037282224873807280
@@ -335,6 +337,8 @@ MonoBehaviour:
   player: {fileID: 0}
   NMHealth: 20
   enemyDamage: 1
+  hitEffect: {fileID: 3887660448504944407}
+  hitEffect1: {fileID: 3737104980702288674}
 --- !u!114 &-5191703379452333851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -626,3 +630,137 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2691886580667293918}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &3737104980687197616
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2691886580667293918}
+    m_Modifications:
+    - target: {fileID: 120410, guid: 037f684c045f5cb45a04d414e238c4e9, type: 3}
+      propertyPath: m_Name
+      value: FX_Fireworks_Blue_Small  1
+      objectReference: {fileID: 0}
+    - target: {fileID: 444372, guid: 037f684c045f5cb45a04d414e238c4e9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 444372, guid: 037f684c045f5cb45a04d414e238c4e9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 444372, guid: 037f684c045f5cb45a04d414e238c4e9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 444372, guid: 037f684c045f5cb45a04d414e238c4e9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 444372, guid: 037f684c045f5cb45a04d414e238c4e9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 444372, guid: 037f684c045f5cb45a04d414e238c4e9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 444372, guid: 037f684c045f5cb45a04d414e238c4e9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 444372, guid: 037f684c045f5cb45a04d414e238c4e9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 444372, guid: 037f684c045f5cb45a04d414e238c4e9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 444372, guid: 037f684c045f5cb45a04d414e238c4e9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 037f684c045f5cb45a04d414e238c4e9, type: 3}
+--- !u!4 &3737104980687114852 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 444372, guid: 037f684c045f5cb45a04d414e238c4e9, type: 3}
+  m_PrefabInstance: {fileID: 3737104980687197616}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &3737104980702288674 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 19811986, guid: 037f684c045f5cb45a04d414e238c4e9, type: 3}
+  m_PrefabInstance: {fileID: 3737104980687197616}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &3887660448519510405
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2691886580667293918}
+    m_Modifications:
+    - target: {fileID: 120410, guid: 6636b3078b0905e489f698a11b7a6b6b, type: 3}
+      propertyPath: m_Name
+      value: 'FX_Fireworks_Blue_Small '
+      objectReference: {fileID: 0}
+    - target: {fileID: 444372, guid: 6636b3078b0905e489f698a11b7a6b6b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 444372, guid: 6636b3078b0905e489f698a11b7a6b6b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 444372, guid: 6636b3078b0905e489f698a11b7a6b6b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 444372, guid: 6636b3078b0905e489f698a11b7a6b6b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 444372, guid: 6636b3078b0905e489f698a11b7a6b6b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 444372, guid: 6636b3078b0905e489f698a11b7a6b6b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 444372, guid: 6636b3078b0905e489f698a11b7a6b6b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 444372, guid: 6636b3078b0905e489f698a11b7a6b6b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 444372, guid: 6636b3078b0905e489f698a11b7a6b6b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 444372, guid: 6636b3078b0905e489f698a11b7a6b6b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6636b3078b0905e489f698a11b7a6b6b, type: 3}
+--- !u!198 &3887660448504944407 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 19811986, guid: 6636b3078b0905e489f698a11b7a6b6b, type: 3}
+  m_PrefabInstance: {fileID: 3887660448519510405}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3887660448519134801 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 444372, guid: 6636b3078b0905e489f698a11b7a6b6b, type: 3}
+  m_PrefabInstance: {fileID: 3887660448519510405}
+  m_PrefabAsset: {fileID: 0}

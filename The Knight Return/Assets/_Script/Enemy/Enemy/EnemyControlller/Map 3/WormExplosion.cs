@@ -8,6 +8,7 @@ public class WormExplosion : EnemyBase
     [SerializeField] private int enemyDamage = 1;
 
     public GameObject explosionPrefab;
+    public ParticleSystem hitEffect;
 
     public override void Start()
     {
@@ -29,17 +30,6 @@ public class WormExplosion : EnemyBase
 
         Instantiate(explosionPrefab, transform.position, transform.rotation);
 
-        enemyHealth -= _damageDone;
-
-        if (!isRecolling)
-        {
-            rb.AddForce(-_hitForce * recollFactor * _hitDirection);
-            isRecolling = true;
-        }
-
-        if (enemyHealth <= 0)
-        {
-            EnemyDie();
-        }
+        hitEffect.Play();
     }
 }

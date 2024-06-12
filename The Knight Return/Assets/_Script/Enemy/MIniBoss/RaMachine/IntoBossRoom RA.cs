@@ -14,12 +14,16 @@ public class IntoBossRoomRA : MonoBehaviour
 
     private bool canTrigger = true;
 
-    public string bossName; // Name of the boss
-    public BossNameText bossNameText; // Reference to the BossNameText script
+    public string bossName; 
+    public BossNameText bossNameText;
+
+    public AudioManager audioManager;
+    private bool mapAudioRun = false;
 
     public void Start()
     {
         boss = GameObject.FindGameObjectsWithTag("Boss");
+        audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
     }
 
     public void Update()
@@ -30,6 +34,12 @@ public class IntoBossRoomRA : MonoBehaviour
             foreach (BossDoor door in doors)
             {
                 door.OpenDoor();
+            }
+
+            if (mapAudioRun == false)
+            {
+                audioManager.PlayAudio(audioManager.map4Audio);
+                mapAudioRun = true;
             }
         }
     }
@@ -67,6 +77,10 @@ public class IntoBossRoomRA : MonoBehaviour
                 StartCoroutine(HideBossNameAfterDelay(5f));
             }
 
+            //Sound
+            audioManager.PlayAudio(audioManager.bossRM);
+            mapAudioRun = false;
+
             // Spawn boss ? v? trí bossSpawnPoint
             GameObject spawnedBoss1 = Instantiate(bossPrefab1, bossSpawnPoint1.position, Quaternion.identity);
             GameObject spawnedBoss2 = Instantiate(bossPrefab2, bossSpawnPoint2.position, Quaternion.identity);
@@ -99,6 +113,8 @@ public class IntoBossRoomRA : MonoBehaviour
                 }
                 bossNameText.Hide();
                 canTrigger = true;
+                audioManager.PlayAudio(audioManager.map4Audio);
+
             }
         }
     }

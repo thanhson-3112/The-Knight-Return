@@ -14,7 +14,8 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private Transform AttackTransform, UpAttackTransform, DownAttackTransform;
     [SerializeField] private Vector2 AttackArea = new Vector2(4f, 2.4f),
         UpAttackArea = new Vector2(2f, 2.7f), DownAttackArea = new Vector2(2f, 2.7f);
-    [SerializeField] private LayerMask attackablelayer;
+    [SerializeField] private LayerMask enemyLayer;
+    [SerializeField] private LayerMask attackableLayer;
 
 
     [SerializeField] private List<GameObject> slashEffects;
@@ -35,7 +36,8 @@ public class PlayerAttack : MonoBehaviour
 
     [Header("Sound Settings")]
     public AudioClip AttackSoundEffect;
-    public AudioClip HitSoundEffect;
+    public AudioClip hitEnemySoundEffect;
+    public AudioClip hitAttackableSoundEffect;
 
     void Start()
     {
@@ -111,7 +113,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void Hit(Transform _attackTransform, Vector2 _attackArea)
     {
-        Collider2D[] objectsToHit = Physics2D.OverlapBoxAll(_attackTransform.position, _attackArea, 0, attackablelayer);
+        Collider2D[] objectsToHit = Physics2D.OverlapBoxAll(_attackTransform.position, _attackArea, 0, enemyLayer | attackableLayer);
         
         foreach (Collider2D objCollider in objectsToHit)
         {
@@ -120,8 +122,19 @@ public class PlayerAttack : MonoBehaviour
 
         if (objectsToHit.Length > 0)
         {
-            SoundFxManager.instance.PlaySoundFXClip(HitSoundEffect, transform, 1f);
-            Debug.Log("Hit");
+            foreach (Collider2D objCollider in objectsToHit)
+            {
+                if ((enemyLayer.value & (1 << objCollider.gameObject.layer)) > 0)
+                {
+                    SoundFxManager.instance.PlaySoundFXClip(hitEnemySoundEffect, transform, 1f);
+                    Debug.Log("Hit Enemy");
+                }
+                else if ((attackableLayer.value & (1 << objCollider.gameObject.layer)) > 0)
+                {
+                    SoundFxManager.instance.PlaySoundFXClip(hitAttackableSoundEffect, transform, 1f);
+                    Debug.Log("Hit Attackable");
+                }
+            }
 
             // tan cong xuong se day len
             if (isDownArrowPressed && !isGround)

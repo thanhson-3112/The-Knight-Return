@@ -65,7 +65,9 @@ public class BoDLifeController : MonoBehaviour, IDamageable
             collider.enabled = false;
         }
 
-        anim.SetBool("BoDDeath", true);
+
+        /*anim.SetBool("BoDCastSpell", false);*/
+        anim.SetTrigger("BoDDeath");
         Destroy(gameObject, 2f);
 
     }

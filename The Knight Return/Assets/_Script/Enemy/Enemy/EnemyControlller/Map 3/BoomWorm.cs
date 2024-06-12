@@ -8,6 +8,7 @@ public class BoomWorm : EnemyBase
     [SerializeField] private int enemyDamage = 1;
 
     public GameObject explosionPrefab;
+    public ParticleSystem hitEffect;
 
     public override void Start()
     {
@@ -15,6 +16,13 @@ public class BoomWorm : EnemyBase
         damage = enemyDamage;
 
         base.Start();
+    }
+
+    public override void TakePlayerDamage(float _damageDone, Vector2 _hitDirection, float _hitForce)
+    {
+        base.TakePlayerDamage(_damageDone, _hitDirection, _hitForce);
+        hitEffect.Play();
+
     }
 
     public override void ActivateEnemy()

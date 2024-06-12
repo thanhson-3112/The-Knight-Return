@@ -11,12 +11,16 @@ public class IntoBossRoomNC : MonoBehaviour
 
     private bool canTrigger = true;
 
-    public string bossName; // Name of the boss
-    public BossNameText bossNameText; // Reference to the BossNameText script
+    public string bossName; 
+    public BossNameText bossNameText;
+
+    public AudioManager audioManager;
+    private bool mapAudioRun = false;
 
     public void Start()
     {
         boss = GameObject.FindGameObjectWithTag("Boss");
+        audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
     }
 
     public void Update()
@@ -26,6 +30,12 @@ public class IntoBossRoomNC : MonoBehaviour
             foreach (BossDoor door in doors)
             {
                 door.OpenDoor();
+            }
+
+            if (mapAudioRun == false)
+            {
+                audioManager.PlayAudio(audioManager.map4Audio);
+                mapAudioRun = true;
             }
         }
     }
@@ -48,6 +58,10 @@ public class IntoBossRoomNC : MonoBehaviour
                 // Start the coroutine to hide the boss name after 5 seconds
                 StartCoroutine(HideBossNameAfterDelay(5f));
             }
+
+            //Sound
+            audioManager.PlayAudio(audioManager.bossNM);
+            mapAudioRun = false;
 
             // Spawn boss at bossSpawnPoint
             GameObject spawnedBoss = Instantiate(bossPrefab, bossSpawnPoint.position, Quaternion.identity);
@@ -76,6 +90,7 @@ public class IntoBossRoomNC : MonoBehaviour
                 Destroy(boss);
                 bossNameText.Hide();
                 canTrigger = true;
+                audioManager.PlayAudio(audioManager.map4Audio);
             }
         }
     }
