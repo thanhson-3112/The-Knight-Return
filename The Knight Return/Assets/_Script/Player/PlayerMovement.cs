@@ -65,6 +65,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private AudioClip RunSoundEffect;
     public AudioClip JumpSoundEffect;
     public AudioClip DashSoundEffect;
+    public AudioClip touchLandEffect;
     private bool isRunSoundPlaying = false;
 
     void Start()
@@ -163,6 +164,7 @@ public class PlayerMovement : MonoBehaviour
         if (isGround && !wasGrounded)
         {
             groundDust.Play();
+            SoundFxManager.instance.PlaySoundFXClip(touchLandEffect, transform, 1f);
         }
 
         if (Input.GetButtonDown("Jump"))

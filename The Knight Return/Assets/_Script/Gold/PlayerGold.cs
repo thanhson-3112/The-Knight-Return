@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerGold : MonoBehaviour
 {
+    public static PlayerGold instance;
+
     [SerializeField] public int goldTotal;
     public int goldAdd;
 
@@ -13,10 +15,20 @@ public class PlayerGold : MonoBehaviour
     private Coroutine goldAddCoroutine;
     private float timeSinceLastGoldAdded = 0f;
 
+    private void Awake()
+    {
+        if (PlayerGold.instance != null) Debug.LogError("Only 1 ScoreManager allow");
+        PlayerGold.instance = this;
+    }
+
     private void Start()
     {
-        goldTotalText.text = "Gold: " + goldTotal.ToString();
         goldAddText.gameObject.SetActive(false);
+    }
+
+    private void Update()
+    {
+        goldTotalText.text = "Gold: " + goldTotal.ToString();
     }
 
     private void OnEnable()
@@ -71,6 +83,14 @@ public class PlayerGold : MonoBehaviour
         goldAdd = 0;
         goldTotalText.text = "Gold: " + goldTotal.ToString();
         goldAddText.gameObject.SetActive(false);
+    }
+
+    // save game
+    public virtual void FromJson(string jsonString)
+    {
+        GameData obj = JsonUtility.FromJson<GameData>(jsonString);
+        if (obj == null) return;
+        this.goldTotal = obj.goldTotal;
     }
 
 }

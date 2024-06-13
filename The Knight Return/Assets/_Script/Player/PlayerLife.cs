@@ -41,8 +41,9 @@ public class PlayerLife : MonoBehaviour
 
     [Header("Enemy controller")]
     public GameObject enemyParent;
-    public PlayerMovement playerMovement;
 
+    public PlayerMovement playerMovement;
+    public PlayerAttack playerAttack;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -52,6 +53,7 @@ public class PlayerLife : MonoBehaviour
         respawnPoint = startPoint.transform.position;
         playerGold = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerGold>();
         playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+        playerAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
     }
 
     public void Update()
@@ -125,6 +127,7 @@ public class PlayerLife : MonoBehaviour
             anim.SetTrigger("death");
 
             rb.bodyType = RigidbodyType2D.Static;
+            GetComponent<Collider2D>().enabled = false;
 
             if (health <= 0)
             {
@@ -141,6 +144,7 @@ public class PlayerLife : MonoBehaviour
     private void TrapRespawn()
     {
         rb.bodyType = RigidbodyType2D.Dynamic;
+        GetComponent<Collider2D>().enabled = true;
         transform.position = trapRespawnPoint;
         StartCoroutine(darkScene.DeactivateDarkScene());
     }
@@ -150,7 +154,7 @@ public class PlayerLife : MonoBehaviour
         SoundFxManager.instance.PlaySoundFXClip(DeathSoundEffect, transform, 1f);
 
         rb.bodyType = RigidbodyType2D.Static;
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), true);
+        GetComponent<Collider2D>().enabled = false;
         anim.SetTrigger("death");
 
         Instantiate(DropGold, transform.position, Quaternion.identity);
@@ -165,6 +169,7 @@ public class PlayerLife : MonoBehaviour
             dieTime += 1;
         }
 
+        playerAttack.enabled = false;
         StartCoroutine(darkScene.ActivateDarkScene());
 
         Invoke("Respawn", 2f);
@@ -184,10 +189,11 @@ public class PlayerLife : MonoBehaviour
     private void Respawn()
     {
         rb.bodyType = RigidbodyType2D.Dynamic;
+        GetComponent<Collider2D>().enabled = true;
         anim.SetTrigger("CheckPoint");
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), false);
         transform.position = respawnPoint;
         health = maxHealth;
+        playerAttack.enabled = true;
 
         StartCoroutine(darkScene.DeactivateDarkScene());
         ActivateAllEnemies(enemyParent);

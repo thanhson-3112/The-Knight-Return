@@ -12,6 +12,7 @@ public class GoldItem : MonoBehaviour
     public float autoMoveDistance = 2f;
 
     private Vector2 initialPosition;
+    public AudioClip goldCollect;
 
     private void Start()
     {
@@ -77,6 +78,7 @@ public class GoldItem : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             LootManager.Instance.AddGold(goldAmount);
+            SoundFxManager.instance.PlaySoundFXClip(goldCollect, transform, 1f);
             Debug.Log("So vang nhan duoc: " + goldAmount);
             Destroy(gameObject);
         }

@@ -6,6 +6,8 @@ public class AudioManager : MonoBehaviour
 {
     public AudioSource backgounAudio;
 
+    [Header("Map1")]
+    public AudioClip map1Audio;
 
     [Header("Map2")]
     public AudioClip map2Audio;

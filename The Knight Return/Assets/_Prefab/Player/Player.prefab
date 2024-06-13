@@ -438,6 +438,7 @@ MonoBehaviour:
   dieTime: 0
   enemyParent: {fileID: 0}
   playerMovement: {fileID: 0}
+  playerAttack: {fileID: 0}
 --- !u!114 &1126174347926588911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -480,6 +481,7 @@ MonoBehaviour:
   RunSoundEffect: {fileID: 8300000, guid: 979ec5b47c739344996ca368a2536d4d, type: 3}
   JumpSoundEffect: {fileID: 8300000, guid: a33bc8a1b2f7d20419c44cad189e82b2, type: 3}
   DashSoundEffect: {fileID: 8300000, guid: 674d2cb244726984e985fbe5fd9a0b1d, type: 3}
+  touchLandEffect: {fileID: 8300000, guid: 0d3eafaea5061e342b8f5fe903936f97, type: 3}
 --- !u!114 &1925679273310991000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -499,9 +501,12 @@ MonoBehaviour:
   AttackArea: {x: 4, y: 2.4}
   UpAttackArea: {x: 2, y: 2.7}
   DownAttackArea: {x: 2, y: 2.7}
-  attackablelayer:
+  enemyLayer:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 128
+  attackableLayer:
+    serializedVersion: 2
+    m_Bits: 64
   slashEffects:
   - {fileID: 822040360620348559, guid: fe81b904259582d43bd0108639a5a9d4, type: 3}
   - {fileID: 822040360620348559, guid: 665611b2502e56548b127293c828db3e, type: 3}
@@ -521,7 +526,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   AttackSoundEffect: {fileID: 8300000, guid: 6bee73cc9e6d4fd4cafafe2f83f988ab, type: 3}
-  HitSoundEffect: {fileID: 8300000, guid: ea0f93dacceec9045b3548275307bee7, type: 3}
+  hitEnemySoundEffect: {fileID: 8300000, guid: b346b4332c46ded468cefff87fed9969, type: 3}
+  hitAttackableSoundEffect: {fileID: 8300000, guid: ea0f93dacceec9045b3548275307bee7, type: 3}
 --- !u!114 &5186071947490286237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -591,6 +597,7 @@ MonoBehaviour:
   fireRate: 1
   soulManager: {fileID: 7923703251854798278}
   lockFireBall: 1
+  FireBallSound: {fileID: 8300000, guid: 7b0e940561c573d47895d400eb78afe5, type: 3}
 --- !u!96 &6997242008421827954
 TrailRenderer:
   serializedVersion: 3

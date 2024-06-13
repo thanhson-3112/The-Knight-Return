@@ -10,6 +10,8 @@ public class Org : MonoBehaviour, IDamageable
 
     private Vector3 originalPosition;
 
+    public AudioClip goldOrgSound;
+
     void Start()
     {
         originalPosition = transform.position;
@@ -26,6 +28,7 @@ public class Org : MonoBehaviour, IDamageable
 
         // Trigger shake effect
         StartCoroutine(Shake());
+        SoundFxManager.instance.PlaySoundFXClip(goldOrgSound, transform, 1f);
 
         GetComponent<GoldSpawner>().InstantiateLoot(transform.position);
 

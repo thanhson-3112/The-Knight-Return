@@ -46,7 +46,7 @@ public class EnemyBase : MonoBehaviour, IDamageableEnemy
     public virtual void TakePlayerDamage(float _damageDone, Vector2 _hitDirection, float _hitForce)
     {
         enemyHealth -= _damageDone;
-
+        GetComponent<SoulSpawner>().InstantiateLoot(transform.position);
         if (!isRecolling)
         {
             rb.AddForce(-_hitForce * recollFactor * _hitDirection);
@@ -67,9 +67,7 @@ public class EnemyBase : MonoBehaviour, IDamageableEnemy
             collider.enabled = false;
         }
 
-        // roi soul va gold
-        GetComponent<SoulSpawner>().InstantiateLoot(transform.position);
-
+        // roi gold
         for(int i = 0; i <= 4; i++)
         {
             GetComponent<GoldSpawner>().InstantiateLoot(transform.position);

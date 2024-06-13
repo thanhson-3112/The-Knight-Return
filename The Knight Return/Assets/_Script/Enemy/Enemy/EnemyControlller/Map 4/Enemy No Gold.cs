@@ -46,6 +46,9 @@ public class EnemyNoGold : MonoBehaviour, IDamageableEnemy
     {
         enemyHealth -= _damageDone;
 
+        // roi soul 
+        GetComponent<SoulSpawner>().InstantiateLoot(transform.position);
+
         if (!isRecolling)
         {
             rb.AddForce(-_hitForce * recollFactor * _hitDirection);
@@ -65,9 +68,6 @@ public class EnemyNoGold : MonoBehaviour, IDamageableEnemy
         {
             collider.enabled = false;
         }
-
-        // roi soul va gold
-        GetComponent<SoulSpawner>().InstantiateLoot(transform.position);
 
         ActivateEnemy();
         StartCoroutine(DeactivateAfterDelay(0f));

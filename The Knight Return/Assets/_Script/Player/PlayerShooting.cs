@@ -19,6 +19,10 @@ public class PlayerShooting : MonoBehaviour
     public SoulManager soulManager;
 
     [SerializeField] private bool lockFireBall = true;
+
+    [Header("Sound")]
+    public AudioClip FireBallSound;
+
     void Start()
     {
     }
@@ -33,6 +37,7 @@ public class PlayerShooting : MonoBehaviour
     {
         if ((Input.GetKeyDown(KeyCode.V) && fireTimer <= 0f) && currentSoul >= 2 && !lockFireBall)
         {
+            SoundFxManager.instance.PlaySoundFXClip(FireBallSound, transform, 1f);
             fireTimer = fireRate;
 
             Vector3 shootDirection = transform.right; 
