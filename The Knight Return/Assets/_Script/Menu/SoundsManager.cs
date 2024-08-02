@@ -10,7 +10,7 @@ public enum SoundType
     VFX
 }
 
-public class SoundsManager : MonoBehaviour
+public class SoundsVolume : MonoBehaviour
 {
     [SerializeField] private Slider volumeSlider;
     [SerializeField] private Slider VFXVolumeSlider;
@@ -32,10 +32,10 @@ public class SoundsManager : MonoBehaviour
 
     private void Load()
     {
-
-        volumeSlider.value = PlayerPrefs.GetFloat("musicVolume", Mathf.Log10(volumeSlider.value) * 20);
-        VFXVolumeSlider.value = PlayerPrefs.GetFloat("VFXVolume", Mathf.Log10(volumeSlider.value) * 20);
+        volumeSlider.value = PlayerPrefs.GetFloat("musicVolume", volumeSlider.value);
+        VFXVolumeSlider.value = PlayerPrefs.GetFloat("VFXVolume", VFXVolumeSlider.value);
     }
+
 
     private void Save()
     {
@@ -51,7 +51,7 @@ public class SoundsManager : MonoBehaviour
                 AudioListener.volume = volume;
                 break;
             case SoundType.VFX:
-
+                SoundFxManager.instance.SetVFXVolume(volume);
                 break;
             default:
                 break;

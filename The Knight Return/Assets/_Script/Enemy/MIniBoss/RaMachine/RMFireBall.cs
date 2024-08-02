@@ -15,6 +15,15 @@ public class RMFireBall : MonoBehaviour
     private Vector2 initialPosition;
     private bool isFalling = false;
 
+    [Header("FireBallExplosion")]
+    public Transform _isGround;
+    public LayerMask Ground;
+    private bool isGround;
+    public GameObject fireBallExplosion;
+
+    [Header("Sound")]
+    public AudioClip fireExplosion;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -27,6 +36,17 @@ public class RMFireBall : MonoBehaviour
         StartCoroutine(MoveUp());
 
         Destroy(gameObject, 6);
+    }
+
+    private void Update()
+    {
+        isGround = Physics2D.OverlapCircle(_isGround.position, 0.2f, Ground);
+        if (isGround)
+        {
+            Instantiate(fireBallExplosion, transform.position, Quaternion.identity);
+            SoundFxManager.instance.PlaySoundFXClip(fireExplosion, transform, 1);
+            Destroy(gameObject);
+        }
     }
 
     private IEnumerator MoveUp()
@@ -87,6 +107,8 @@ public class RMFireBall : MonoBehaviour
             {
                 player.KnockFromRight = false;
             }
+            Instantiate(fireBallExplosion, transform.position, Quaternion.identity);
+            Destroy(gameObject);
             playerLife.TakeDamage(damage);
         }
     }

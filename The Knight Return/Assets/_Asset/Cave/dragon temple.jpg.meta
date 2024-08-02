@@ -152,7 +152,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      dragon temple_0: -2912030438001494320
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

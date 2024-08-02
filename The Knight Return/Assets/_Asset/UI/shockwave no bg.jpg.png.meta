@@ -152,7 +152,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      shockwave no bg.jpg_0: 3552819953494398399
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

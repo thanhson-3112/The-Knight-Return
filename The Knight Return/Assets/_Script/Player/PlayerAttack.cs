@@ -12,9 +12,10 @@ public class PlayerAttack : MonoBehaviour
     private float timeBetweenAttack = 0.3f;
     private float timeSinceAttack;
     [SerializeField] private Transform AttackTransform, UpAttackTransform, DownAttackTransform;
-    [SerializeField] private Vector2 AttackArea = new Vector2(4f, 2.4f),
-        UpAttackArea = new Vector2(2f, 2.7f), DownAttackArea = new Vector2(2f, 2.7f);
-    [SerializeField] private LayerMask attackablelayer;
+    [SerializeField] private Vector2 AttackArea = new Vector2(4.76f, 2.4f),
+        UpAttackArea = new Vector2(2.5f, 2.9f), DownAttackArea = new Vector2(2.5f, 2.9f);
+    [SerializeField] private LayerMask enemyLayer;
+    [SerializeField] private LayerMask attackableLayer;
 
 
     [SerializeField] private List<GameObject> slashEffects;
@@ -23,7 +24,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private GameObject slashHitEffect;
     private bool isUpArrowPressed = false;
     private bool isDownArrowPressed = false;
-    public float knockbackForce = 10f;
+    public float knockbackForce = 15f;
 
     [Header("Ground,Wall Checking")]
     [SerializeField] public Transform _isGround;
@@ -35,7 +36,8 @@ public class PlayerAttack : MonoBehaviour
 
     [Header("Sound Settings")]
     public AudioClip AttackSoundEffect;
-    public AudioClip HitSoundEffect;
+    public AudioClip hitEnemySoundEffect;
+    public AudioClip hitAttackableSoundEffect;
 
     void Start()
     {
@@ -43,7 +45,6 @@ public class PlayerAttack : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         Attack();
@@ -111,7 +112,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void Hit(Transform _attackTransform, Vector2 _attackArea)
     {
-        Collider2D[] objectsToHit = Physics2D.OverlapBoxAll(_attackTransform.position, _attackArea, 0, attackablelayer);
+        Collider2D[] objectsToHit = Physics2D.OverlapBoxAll(_attackTransform.position, _attackArea, 0, enemyLayer | attackableLayer);
         
         foreach (Collider2D objCollider in objectsToHit)
         {
@@ -120,44 +121,42 @@ public class PlayerAttack : MonoBehaviour
 
         if (objectsToHit.Length > 0)
         {
-            SoundFxManager.instance.PlaySoundFXClip(HitSoundEffect, transform, 1f);
-            Debug.Log("Hit");
+            foreach (Collider2D objCollider in objectsToHit)
+            {
+                if ((enemyLayer.value & (1 << objCollider.gameObject.layer)) > 0)
+                {
+                    SoundFxManager.instance.PlaySoundFXClip(hitEnemySoundEffect, transform, 1f);
+                    Debug.Log("Hit Enemy");
+                }
+                else if ((attackableLayer.value & (1 << objCollider.gameObject.layer)) > 0)
+                {
+                    SoundFxManager.instance.PlaySoundFXClip(hitAttackableSoundEffect, transform, 1f);
+                    Debug.Log("Hit Attackable");
+                }
+            }
 
             // tan cong xuong se day len
             if (isDownArrowPressed && !isGround)
             {
                 Vector2 knockbackDirection = Vector2.up;
-                rb.velocity = Vector2.zero; // Reset the velocity before applying force
-                rb.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse); // Apply force with impulse for instant effect
+                rb.velocity = Vector2.zero; 
+                rb.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
             }
         }
 
         foreach (Collider2D objCollider in objectsToHit)
         {
-            EnemyBase enemy = objCollider.GetComponent<EnemyBase>();
-            BossLifeBase bossLifeBasess = objCollider.GetComponent<BossLifeBase>();
-            Lever lever = objCollider.GetComponent<Lever>();
+            IDamageable isCanTakeDamage = objCollider.GetComponent<IDamageable>();
+            IDamageableEnemy isCanTakeDamageEnemy = objCollider.GetComponent<IDamageableEnemy>();
 
-            Org org = objCollider.GetComponent<Org>();
-
-            if (enemy != null)
+            if (isCanTakeDamageEnemy != null)
             {
-                enemy.EnemyHit(damage, (transform.position - objCollider.transform.position).normalized, 100);
+                isCanTakeDamageEnemy.TakePlayerDamage(damage, (transform.position - objCollider.transform.position).normalized, 100);
             }
 
-            if (org != null)
+            if (isCanTakeDamage != null)
             {
-                org.OrgHit(damage);
-            }
-
-            if(lever != null)
-            {
-                lever.LeverDoor(damage);
-            }
-
-            else if (bossLifeBasess != null)
-            {
-                bossLifeBasess.EnemyHit(damage);
+                isCanTakeDamage.TakePlayerDamage(damage);
             }
         }
     }

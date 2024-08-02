@@ -320,7 +320,15 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Worm up down mp bg_0: -2156751723082223089
+      Worm up down mp bg_1: 1804632534762593602
+      Worm up down mp bg_2: 8679063118233349654
+      Worm up down mp bg_3: -3494187489934544304
+      Worm up down mp bg_4: 5620000287601204117
+      Worm up down mp bg_5: -3207487704316167436
+      Worm up down mp bg_6: 7242510024229085193
+      Worm up down mp bg_7: -5805749769317498922
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

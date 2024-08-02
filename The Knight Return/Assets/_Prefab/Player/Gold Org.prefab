@@ -176,6 +176,7 @@ MonoBehaviour:
   org: 4
   shakeDuration: 0.5
   shakeMagnitude: 0.1
+  goldOrgSound: {fileID: 8300000, guid: 3da429e1cd35abc4089775094de42569, type: 3}
 --- !u!114 &5350038743414708
 MonoBehaviour:
   m_ObjectHideFlags: 0

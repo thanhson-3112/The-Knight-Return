@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class BBALifeController : BossLifeBase
 {
-    [SerializeField] private float BBAHealth = 5f;
+    [SerializeField] private float BBAHealth = 10f;
     [SerializeField] private int enemyDamage = 1;
+
+    public ParticleSystem hitEffect;
+    public ParticleSystem hitEffect1;
+
+    [Header("Sound")]
+    public AudioClip deathSound;
 
     public override void Start()
     {
@@ -14,4 +20,20 @@ public class BBALifeController : BossLifeBase
 
         base.Start();
     }
+
+    public override void TakePlayerDamage(float _damageDone)
+    {
+        base.TakePlayerDamage(_damageDone);
+        hitEffect.Play();
+
+    }
+
+    public override void EnemyDie()
+    {
+        base.EnemyDie();
+        hitEffect1.Play();
+        SoundFxManager.instance.PlaySoundFXClip(deathSound, transform, 1f);
+
+    }
+
 }

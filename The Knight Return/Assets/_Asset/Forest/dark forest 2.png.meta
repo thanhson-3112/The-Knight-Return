@@ -152,7 +152,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      dark forest 2_0: 3820915709094543386
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

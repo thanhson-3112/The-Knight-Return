@@ -43,9 +43,6 @@ public class SoulSpawner : MonoBehaviour
             GameObject lootGameObject = Instantiate(droppedItemPrefab, spawnPosition, Quaternion.identity);
             //truyen hinh anh cho item
             lootGameObject.GetComponent<SpriteRenderer>().sprite = droppedItem.soulSprite;
-            // truyen gia tri cho item
-/*            lootGameObject.GetComponent<SoulItem>().soulAmount = droppedItem.soulAmount;
-*/            
 
             float dropForce = 10f;
             Vector2 dropDir = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));

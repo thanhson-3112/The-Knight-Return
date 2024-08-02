@@ -41,7 +41,7 @@ public class MHJumpState : BaseState
         {
             Vector3 targetPosition = SM.player.position + new Vector3(0, -1, 0);
             Vector3 directionToPlayer = (targetPosition - SM.transform.position).normalized;
-            Vector2 jumpVelocity = new Vector2(directionToPlayer.x * SM.jumpForce, 15f);
+            Vector2 jumpVelocity = new Vector2(directionToPlayer.x * SM.jumpForce, 20f);
             rb.velocity = jumpVelocity;
         }
         else
@@ -51,6 +51,7 @@ public class MHJumpState : BaseState
         yield return new WaitForSeconds(1.5f);
         anim.SetTrigger("MHAttack");
         SM.ShakeCam();
+        SoundFxManager.instance.PlaySoundFXClip(SM.wallTouch, SM.transform, 1f);
         yield return new WaitForSeconds(1f);
         SM.NextState();
     }

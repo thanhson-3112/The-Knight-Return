@@ -272,7 +272,13 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      headStone no bg_0: -3661557363844435665
+      headStone no bg_1: -679829848036074378
+      headStone no bg_2: 3031874457097069154
+      headStone no bg_3: -8308342272159895453
+      headStone no bg_4: -1033929924076574807
+      headStone no bg_5: 1571921696665375265
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

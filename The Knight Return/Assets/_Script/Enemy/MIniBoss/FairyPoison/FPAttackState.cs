@@ -58,6 +58,7 @@ public class FPAttackState : BaseState
             // Instantiate bullet
             GameObject spawnedEnemy = GameObject.Instantiate(SM.firePrefab, SM.firing.position, Quaternion.identity);
             spawnedEnemy.transform.right = bulletDirection;
+            SoundFxManager.instance.PlaySoundFXClip(SM.shootSound, SM.transform, 1f);
         }
     }
 

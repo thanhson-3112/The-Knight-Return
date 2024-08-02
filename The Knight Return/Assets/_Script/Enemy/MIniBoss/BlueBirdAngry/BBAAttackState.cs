@@ -31,11 +31,13 @@ public class BBAAttackState : BaseState
         {
             SM.ChangeDirection();
             SM.ShakeCam();
+            SoundFxManager.instance.PlaySoundFXClip(SM.wallTouch, SM.transform, 1f);
         }
         else if (SM.isTouchingDown && !SM.goingUp)
         {
             SM.ChangeDirection();
             SM.ShakeCam();
+            SoundFxManager.instance.PlaySoundFXClip(SM.wallTouch, SM.transform, 1f);
         }
 
         if (SM.isTouchingWall)

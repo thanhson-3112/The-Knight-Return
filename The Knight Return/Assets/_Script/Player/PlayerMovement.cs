@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public static PlayerMovement instance;
+
     private Rigidbody2D rb;
     private Animator anim;
     private SpriteRenderer sprite;
-    private TrailRenderer tr;
+
     private float move;
     [SerializeField] private float speed = 7f;
     private bool isFacingRight = true;
@@ -43,35 +45,43 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float wallJumpingDuration = 0.4f;
     public Vector2 wallJumpingPower = new Vector2(25f, 20f);
 
-
-    [SerializeField] private bool lockDash = true;
-    [SerializeField] private bool lockDoubleJump = true;
-    [SerializeField] private bool lockSlideWall = true;
+    [SerializeField] public bool lockDash = true;
+    [SerializeField] public bool lockDoubleJump = true;
+    [SerializeField] public bool lockSlideWall = true;
 
     //Animation
-    private enum MovementState { idle, running, jumping, falling }
+    private enum MovementState { idle, running, jumping, falling, doubleJumping }
     private MovementState state = MovementState.idle;
 
-
     [Header("KB")]
-    public float KBForce = 10;
-    public float KBCounter;
-    public float KBTotalTime = 0.2f;
-    public bool KnockFromRight;
+    [SerializeField] public float KBForce = 10;
+    [SerializeField] public float KBCounter;
+    [SerializeField] public float KBTotalTime = 0.2f;
+    [SerializeField] public bool KnockFromRight;
+
+    [Header("Dust")]
+    public ParticleSystem jumpDust;
+    public ParticleSystem groundDust;
 
     [Header("Sound")]
     [SerializeField] private AudioClip RunSoundEffect;
-    public AudioClip JumpSoundEffect;
-    public AudioClip DashSoundEffect;
+    [SerializeField] private AudioClip JumpSoundEffect;
+    [SerializeField] private AudioClip DashSoundEffect;
+    [SerializeField] private AudioClip touchLandEffect;
+    private bool isRunSoundPlaying = false;
+
+    private void Awake()
+    {
+        if (PlayerMovement.instance != null) Debug.LogError("Only 1 ScoreManager allow");
+        PlayerMovement.instance = this;
+    }
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
-        tr = GetComponent<TrailRenderer>();
     }
-
 
     void Update()
     {
@@ -93,7 +103,8 @@ public class PlayerMovement : MonoBehaviour
         if (!lockDash && Input.GetButtonDown("Dash") && !isDashing && canDash)
         {
             SoundFxManager.instance.PlaySoundFXClip(DashSoundEffect, transform, 1f);
-            SoundFxManager.instance.StopRunningSound();
+            SoundFxManager.instance.StopAudio(RunSoundEffect);
+            anim.SetTrigger("dash");
             StartCoroutine(Dash());
         }
     }
@@ -116,19 +127,16 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             rb.velocity = new Vector2(transform.localScale.x * dashSpeed, 0);
-
         }
 
-        tr.emitting = true;
-/*        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Default"), true);
-*/        yield return new WaitForSeconds(dashTime);
-/*        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Default"), false);
-*/        tr.emitting = false;
-        isDashing = false;
+        jumpDust.Play();
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), true);
+        yield return new WaitForSeconds(dashTime);
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), false);
 
+        isDashing = false;
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
-
     }
 
     protected virtual void Move()
@@ -137,28 +145,56 @@ public class PlayerMovement : MonoBehaviour
 
         if (isGround && move != 0f)
         {
-            SoundFxManager.instance.PlaySoundFXClip(RunSoundEffect, transform, 1f);
+            if (!isRunSoundPlaying)
+            {
+                SoundFxManager.instance.PlaySoundFXClip(RunSoundEffect, transform, 1f);
+                isRunSoundPlaying = true;
+            }
         }
         else
         {
-            SoundFxManager.instance.StopRunningSound();
+            if (isRunSoundPlaying)
+            {
+                SoundFxManager.instance.StopAudio(RunSoundEffect);
+                isRunSoundPlaying = false;
+            }
         }
+
         rb.velocity = new Vector2(move * speed, rb.velocity.y);
     }
 
     protected virtual void Jump()
     {
+        bool wasGrounded = isGround;
         isGround = Physics2D.OverlapCircle(_isGround.position, 0.2f, Ground);
+
+        if (isGround && !wasGrounded)
+        {
+            groundDust.Play();
+            SoundFxManager.instance.PlaySoundFXClip(touchLandEffect, transform, 1f);
+        }
 
         if (Input.GetButtonDown("Jump"))
         {
-            if (isGround || (!lockDoubleJump && canDoubleJump && canDash))
+            if (isGround)
             {
                 SoundFxManager.instance.PlaySoundFXClip(JumpSoundEffect, transform, 1f);
                 isJump = true;
                 jumpTimeCounter = jumpTime;
                 rb.velocity = Vector2.up * jumpForce;
-                canDoubleJump = !canDoubleJump;
+                canDoubleJump = true;
+                state = MovementState.jumping;
+                jumpDust.Play();
+            }
+            else if (!lockDoubleJump && canDoubleJump)
+            {
+                SoundFxManager.instance.PlaySoundFXClip(JumpSoundEffect, transform, 1f);
+                isJump = true;
+                jumpTimeCounter = jumpTime;
+                rb.velocity = Vector2.up * jumpForce;
+                canDoubleJump = false;
+                state = MovementState.doubleJumping;
+                jumpDust.Play();
             }
         }
 
@@ -186,10 +222,10 @@ public class PlayerMovement : MonoBehaviour
     {
         isWall = Physics2D.OverlapCircle(_isWall.position, 0.2f, wallLayer);
 
-        if(!lockSlideWall && isWall && !isGround)
+        if (!lockSlideWall && isWall && !isGround)
         {
             isWallSliding = true;
-            rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed,float.MaxValue));
+            rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed, float.MaxValue));
             anim.SetBool("Hanging", true);
         }
         else
@@ -214,16 +250,15 @@ public class PlayerMovement : MonoBehaviour
             wallJumpingCounter -= Time.deltaTime;
         }
 
-        if(Input.GetButtonDown("Jump") && wallJumpingCounter > 0f)
+        if (Input.GetButtonDown("Jump") && wallJumpingCounter > 0f)
         {
-
             SoundFxManager.instance.PlaySoundFXClip(JumpSoundEffect, transform, 1f);
             isWallJumping = true;
             anim.SetBool("Hanging", false);
             rb.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
             wallJumpingCounter = 0f;
 
-            if(transform.localScale.x != wallJumpingDirection)
+            if (transform.localScale.x != wallJumpingDirection)
             {
                 isFacingRight = !isFacingRight;
                 Vector3 localScale = transform.localScale;
@@ -238,7 +273,6 @@ public class PlayerMovement : MonoBehaviour
     {
         isWallJumping = false;
     }
-
 
     public virtual void KnockBackCouter()
     {
@@ -264,7 +298,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-
     protected virtual void UpdateAnimationState()
     {
         this.state = MovementState.idle;
@@ -272,7 +305,6 @@ public class PlayerMovement : MonoBehaviour
         if (move > 0f)
         {
             state = MovementState.running;
-        
         }
         else if (move < 0f)
         {
@@ -285,19 +317,22 @@ public class PlayerMovement : MonoBehaviour
 
         if (rb.velocity.y > .1f)
         {
-            state = MovementState.jumping;
+            if (state != MovementState.doubleJumping && !isGround)
+            {
+                state = canDoubleJump ? MovementState.jumping : MovementState.doubleJumping;
+            }
         }
         else if (rb.velocity.y < -.1f && !isWallSliding)
         {
             state = MovementState.falling;
-            
         }
+
         anim.SetInteger("state", (int)state);
     }
 
     private void Flip()
     {
-        if (isFacingRight && move < 0f || !isFacingRight && move > 0f )
+        if (isFacingRight && move < 0f || !isFacingRight && move > 0f)
         {
             isFacingRight = !isFacingRight;
             Vector3 localScale = transform.localScale;
@@ -320,4 +355,16 @@ public class PlayerMovement : MonoBehaviour
     {
         lockSlideWall = false;
     }
+
+    // save game
+    public virtual void FromJson(string jsonString)
+    {
+        GameData obj = JsonUtility.FromJson<GameData>(jsonString);
+        if (obj == null) return;
+        this.lockDash = obj.lockDash;
+        this.lockDoubleJump = obj.lockDoubleJump;
+        this.lockSlideWall = obj.lockSlideWall;
+
+    }
+
 }

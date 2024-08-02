@@ -4,7 +4,7 @@ using UnityEngine;
 public class StateMachine : MonoBehaviour
 {
     BaseState currentState;
-    public bool canUpdate = false; // Flag to control when the state machine can update
+    public bool canUpdate = false; 
 
     public void Start()
     {
@@ -13,8 +13,8 @@ public class StateMachine : MonoBehaviour
 
     private IEnumerator WaitBeforeStart()
     {
-        yield return new WaitForSeconds(3f); // Wait for 3 seconds
-        canUpdate = true; // Allow state machine updates
+        yield return new WaitForSeconds(3f); 
+        canUpdate = true; 
         currentState = GetInitialState();
         if (currentState != null)
             currentState.Enter();

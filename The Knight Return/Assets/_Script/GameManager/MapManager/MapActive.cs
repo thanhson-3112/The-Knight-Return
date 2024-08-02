@@ -9,8 +9,6 @@ public class MapActive : MonoBehaviour
 
     void Start()
     {
-        Map1.gameObject.SetActive(true);
-        Map2.gameObject.SetActive(false);
     }
 
     public void OnTriggerEnter2D(Collider2D collision)

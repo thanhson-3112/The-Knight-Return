@@ -12,7 +12,7 @@ public class CameraManager : MonoBehaviour
 
     public float shakeDuration = 0f;
     public float shakeAmount = 0.1f;
-    Vector3 originalPos;
+    private Vector3 originalPos;
 
     private float originalSize;
     private Coroutine shrinkCoroutine;
@@ -23,9 +23,6 @@ public class CameraManager : MonoBehaviour
     private bool isCamGround;
     private bool playerGround;
     public LayerMask Ground;
-
-    private bool bossRoom = false;
-    public GameObject BossRoomPos;
 
     private float upArrowHoldTime = 0f;
     private float downArrowHoldTime = 0f;
@@ -40,7 +37,6 @@ public class CameraManager : MonoBehaviour
         }
 
         player = GameObject.FindGameObjectWithTag("Player");
-        BossRoomPos = GameObject.FindGameObjectWithTag("MiniBoss");
     }
 
     void OnEnable()
@@ -51,87 +47,82 @@ public class CameraManager : MonoBehaviour
 
     private void Update()
     {
-        if (!bossRoom)
+        playerGround = Physics2D.OverlapCircle(_isGround.position, 0.2f, Ground);
+        isCamGround = Physics2D.OverlapCircle(_isCamGround.position, 5f, Ground);
+
+        Vector3 targetPosition = player.transform.position;
+        targetPosition.z = -10;
+        Vector3 currentPosition = transform.position;
+
+        // rung camera
+        Vector3 shakeOffset = Vector3.zero;
+        if (shakeDuration > 0)
         {
-            playerGround = Physics2D.OverlapCircle(_isGround.position, 0.2f, Ground);
-            isCamGround = Physics2D.OverlapCircle(_isCamGround.position, 5f, Ground);
+            shakeOffset = Random.insideUnitSphere * shakeAmount;
+            shakeDuration -= Time.deltaTime;
+        }
 
-            Vector3 targetPosition = player.transform.position;
-            targetPosition.z = -10;
-            Vector3 currentPosition = transform.position;
+        targetPosition += shakeOffset;
 
-            Vector3 newPosition;
-            if (!isCamGround && playerGround)
-            {
-                newPosition = new Vector3(targetPosition.x, targetPosition.y, currentPosition.z);
-            }
-            else
-            {
-                newPosition = new Vector3(targetPosition.x, targetPosition.y + 4f, currentPosition.z);
-            }
-
-            if (playerGround)
-            {
-                bool otherKeyPressed = false;
-                foreach (KeyCode keyCode in System.Enum.GetValues(typeof(KeyCode)))
-                {
-                    if (Input.GetKey(keyCode) && keyCode != KeyCode.UpArrow && keyCode != KeyCode.DownArrow)
-                    {
-                        otherKeyPressed = true;
-                        break;
-                    }
-                }
-
-                if (Input.GetKey(KeyCode.UpArrow) && !otherKeyPressed)
-                {
-                    upArrowHoldTime += Time.deltaTime;
-                    if (upArrowHoldTime >= holdThreshold)
-                    {
-                        newPosition = new Vector3(targetPosition.x, targetPosition.y + 10f, currentPosition.z);
-                    }
-                }
-                else
-                {
-                    upArrowHoldTime = 0f;
-                }
-
-                if (Input.GetKey(KeyCode.DownArrow) && !otherKeyPressed)
-                {
-                    downArrowHoldTime += Time.deltaTime;
-                    if (downArrowHoldTime >= holdThreshold)
-                    {
-                        newPosition = new Vector3(targetPosition.x, targetPosition.y - 7f, currentPosition.z);
-                    }
-                }
-                else
-                {
-                    downArrowHoldTime = 0f;
-                }
-            }
-
-            transform.position = Vector3.Lerp(currentPosition, newPosition, FollowSpeed * Time.deltaTime);
+        Vector3 newPosition;
+        if (!isCamGround && playerGround)
+        {
+            newPosition = new Vector3(targetPosition.x, targetPosition.y, currentPosition.z);
         }
         else
         {
-            transform.position = BossRoomPos.transform.position;
+            newPosition = new Vector3(targetPosition.x, targetPosition.y + 4f, currentPosition.z);
         }
 
-        if (shakeDuration > 0)
+        if (playerGround)
         {
-            camTransform.localPosition = originalPos + Random.insideUnitSphere * shakeAmount;
-            shakeDuration -= Time.deltaTime;
+            bool otherKeyPressed = false;
+            foreach (KeyCode keyCode in System.Enum.GetValues(typeof(KeyCode)))
+            {
+                if (Input.GetKey(keyCode) && keyCode != KeyCode.UpArrow && keyCode != KeyCode.DownArrow)
+                {
+                    otherKeyPressed = true;
+                    break;
+                }
+            }
+
+            if (Input.GetKey(KeyCode.UpArrow) && !otherKeyPressed)
+            {
+                upArrowHoldTime += Time.deltaTime;
+                if (upArrowHoldTime >= holdThreshold)
+                {
+                    newPosition = new Vector3(targetPosition.x, targetPosition.y + 10f, currentPosition.z);
+                }
+            }
+            else
+            {
+                upArrowHoldTime = 0f;
+            }
+
+            if (Input.GetKey(KeyCode.DownArrow) && !otherKeyPressed)
+            {
+                downArrowHoldTime += Time.deltaTime;
+                if (downArrowHoldTime >= holdThreshold)
+                {
+                    newPosition = new Vector3(targetPosition.x, targetPosition.y - 7f, currentPosition.z);
+                }
+            }
+            else
+            {
+                downArrowHoldTime = 0f;
+            }
         }
+
+        transform.position = Vector3.Lerp(currentPosition, newPosition, FollowSpeed * Time.deltaTime);
     }
 
-
-    // rung camera
     public void ShakeCamera()
     {
         originalPos = camTransform.localPosition;
         shakeDuration = 0.5f;
     }
 
-    // Thu nho camera
+    // thu nho camera
     public void StartShrinkCamera(float shrinkSize, float duration)
     {
         if (shrinkCoroutine != null)
@@ -155,25 +146,11 @@ public class CameraManager : MonoBehaviour
         cam.orthographicSize = shrinkSize;
     }
 
-    // Dung thu nho camera
     public void StopShrinkCamera()
     {
         if (shrinkCoroutine != null)
             StopCoroutine(shrinkCoroutine);
 
         cam.orthographicSize = originalSize;
-    }
-
-    public void CamBossRoom()
-    {
-        bossRoom = true;
-    }
-
-    public void BossDie()
-    {
-        if (bossRoom)
-        {
-            bossRoom = false;
-        }
     }
 }

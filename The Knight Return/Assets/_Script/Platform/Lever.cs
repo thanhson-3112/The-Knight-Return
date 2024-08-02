@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Lever : MonoBehaviour
+public class Lever : MonoBehaviour, IDamageable
 {
     public Animator anim;
     public List<Gate> gates;
@@ -13,7 +13,7 @@ public class Lever : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    public virtual void LeverDoor(float _damageDone)
+    public virtual void TakePlayerDamage(float _damageDone)
     {
         lever -= _damageDone;
 

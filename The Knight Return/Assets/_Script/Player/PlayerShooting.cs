@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerShooting : MonoBehaviour
 {
+    public static PlayerShooting instance;
+
     private Rigidbody2D rb;
     private Animator anim;
 
@@ -18,9 +20,15 @@ public class PlayerShooting : MonoBehaviour
     private float currentSoul;
     public SoulManager soulManager;
 
-    [SerializeField] private bool lockFireBall = true;
-    void Start()
+    [SerializeField] public bool lockFireBall = true;
+
+    [Header("Sound")]
+    public AudioClip FireBallSound;
+
+    private void Awake()
     {
+        if (PlayerShooting.instance != null) Debug.LogError("Only 1 ScoreManager allow");
+        PlayerShooting.instance = this;
     }
 
     void Update()
@@ -33,10 +41,11 @@ public class PlayerShooting : MonoBehaviour
     {
         if ((Input.GetKeyDown(KeyCode.V) && fireTimer <= 0f) && currentSoul >= 2 && !lockFireBall)
         {
+            SoundFxManager.instance.PlaySoundFXClip(FireBallSound, transform, 1f);
             fireTimer = fireRate;
 
-            Vector3 shootDirection = transform.right; 
-            if (transform.localScale.x < 0) 
+            Vector3 shootDirection = transform.right;
+            if (transform.localScale.x < 0)
             {
                 shootDirection = -transform.right;
             }
@@ -55,5 +64,14 @@ public class PlayerShooting : MonoBehaviour
     public void UnlockFireBall()
     {
         lockFireBall = false;
+    }
+
+    // save game
+    public virtual void FromJson(string jsonString)
+    {
+        GameData obj = JsonUtility.FromJson<GameData>(jsonString);
+        if (obj == null) return;
+        this.lockFireBall = obj.lockFireBall;
+
     }
 }

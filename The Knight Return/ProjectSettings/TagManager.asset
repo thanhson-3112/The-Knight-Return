@@ -6,14 +6,16 @@ TagManager:
   tags:
   - Ground
   - Trap
-  - Blood
   - CheckPoint
-  - Heart
   - Enemy
   - TrapCheckPoint
-  - MiniBoss
   - Boss
   - EnemyList
+  - FireBall
+  - AudioManager
+  - ShopManager
+  - ShopNPC
+  - UpArrow
   layers:
   - Default
   - TransparentFX

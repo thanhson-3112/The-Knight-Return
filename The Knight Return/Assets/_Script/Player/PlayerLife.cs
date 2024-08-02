@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -8,53 +7,72 @@ using UnityEngine.UI;
 
 public class PlayerLife : MonoBehaviour
 {
+    public static PlayerLife instance;
+
     private Rigidbody2D rb;
     private Animator anim;
 
-    [SerializeField] public int maxHealth = 5;
-    [SerializeField] public int health;
+    [SerializeField] public int maxHealth = 4;
+    [SerializeField] public int health = 4;
 
-    public HealthUI healthUI;
-    public GameObject takeDamageEffect;
+    [Header("Other")]
+    [SerializeField] private TextMeshProUGUI healthText;
+    [SerializeField] private HealthUI healthUI;
+    [SerializeField] private DarkScene darkScene;
+    [SerializeField] private GameObject takeDamageEffect;
 
     [Header("CheckPoint")]
     [SerializeField] private TMP_Text checkPointText;
     private bool canActivateCheckpoint = false;
-    private Vector2 respawnPoint;
+    public Vector2 respawnPoint = new Vector2(-283.04f, 114.50f);
     private Vector2 trapRespawnPoint;
-    public GameObject startPoint;
 
     [Header("Sound")]
-    public AudioClip DamageSoundEffect;
-    public AudioClip DeathSoundEffect;
-    public AudioClip CheckpointSoundEffect;
+    [SerializeField] private AudioClip DamageSoundEffect;
+    [SerializeField] private AudioClip DeathSoundEffect;
+    [SerializeField] private AudioClip CheckpointSoundEffect;
 
     private bool invincible = false;
-    public CameraManager cameraManager;
+    [SerializeField] private CameraManager cameraManager;
 
     [Header("Player Gold")]
-    public GameObject DropGold;
-    public PlayerGold playerGold;
-    public int dieTime;
+    [SerializeField] private GameObject DropGold;
+    [SerializeField] private PlayerGold playerGold;
+    [SerializeField] public int dieTime;
 
     [Header("Enemy controller")]
-    public GameObject enemyParent;
-    public PlayerMovement playerMovement;
+    [SerializeField] private GameObject enemyParent;
+
+    [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private PlayerAttack playerAttack;
+
+    private void Awake()
+    {
+        if (PlayerLife.instance != null) Debug.LogError("Only 1 ScoreManager allow");
+        PlayerLife.instance = this;
+    }
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        health = maxHealth;
-        healthUI.SetMaxHealth(maxHealth);
-        respawnPoint = startPoint.transform.position;
         playerGold = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerGold>();
         playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+        playerAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
+
+        StartCoroutine(PosPlayer());
+    }
+
+    public IEnumerator PosPlayer()
+    {
+        yield return new WaitForSeconds(0.1f);
+        transform.position = respawnPoint;
     }
 
     public void Update()
     {
         enemyParent = GameObject.FindGameObjectWithTag("EnemyList");
+        healthUI.SetMaxHealth(maxHealth);
         healthUI.SetHealth(health);
 
         if (canActivateCheckpoint && Input.GetKeyDown(KeyCode.UpArrow))
@@ -66,7 +84,18 @@ public class PlayerLife : MonoBehaviour
             respawnPoint = transform.position;
             health = maxHealth;
             Debug.Log("Checkpoint" + respawnPoint);
+
+            // save game
+            SaveManager.instance.SaveGame();
+            SaveSystem.SaveToDisk();
         }
+
+        UpdateHealthText();
+    }
+
+    private void UpdateHealthText()
+    {
+        healthText.text = $"{health} / {maxHealth}";
     }
 
     IEnumerator LockPlayerMove()
@@ -74,7 +103,6 @@ public class PlayerLife : MonoBehaviour
         playerMovement.enabled = false;
         yield return new WaitForSeconds(1.5f);
         playerMovement.enabled = true;
-
     }
 
     public void TakeDamage(int damage)
@@ -94,7 +122,7 @@ public class PlayerLife : MonoBehaviour
             }
             else
             {
-                StartCoroutine(MakeInvincible(1.5f));
+                StartCoroutine(MakeInvincible(1f));
             }
         }
     }
@@ -117,20 +145,26 @@ public class PlayerLife : MonoBehaviour
             anim.SetTrigger("death");
 
             rb.bodyType = RigidbodyType2D.Static;
+            GetComponent<Collider2D>().enabled = false;
 
             if (health <= 0)
             {
                 Die();
             }
-
-            Invoke("TrapRespawn", 1f);
+            else
+            {
+                StartCoroutine(darkScene.ActivateDarkScene());
+                Invoke("TrapRespawn", 2f);
+            }
         }
     }
 
     private void TrapRespawn()
     {
         rb.bodyType = RigidbodyType2D.Dynamic;
+        GetComponent<Collider2D>().enabled = true;
         transform.position = trapRespawnPoint;
+        StartCoroutine(darkScene.DeactivateDarkScene());
     }
 
     private void Die()
@@ -138,10 +172,9 @@ public class PlayerLife : MonoBehaviour
         SoundFxManager.instance.PlaySoundFXClip(DeathSoundEffect, transform, 1f);
 
         rb.bodyType = RigidbodyType2D.Static;
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), true);
+        GetComponent<Collider2D>().enabled = false;
         anim.SetTrigger("death");
 
-        // Spawn gold khi nguoi choi chet
         Instantiate(DropGold, transform.position, Quaternion.identity);
         StartCoroutine(ClearGold());
 
@@ -154,10 +187,12 @@ public class PlayerLife : MonoBehaviour
             dieTime += 1;
         }
 
-        Invoke("Respawn", 1.7f);
+        playerAttack.enabled = false;
+        StartCoroutine(darkScene.ActivateDarkScene());
+
+        Invoke("Respawn", 2f);
     }
 
-    // Khi nguoi choi chet se mat sach gold
     IEnumerator ClearGold()
     {
         yield return new WaitForSeconds(2f);
@@ -172,11 +207,13 @@ public class PlayerLife : MonoBehaviour
     private void Respawn()
     {
         rb.bodyType = RigidbodyType2D.Dynamic;
+        GetComponent<Collider2D>().enabled = true;
         anim.SetTrigger("CheckPoint");
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), false);
         transform.position = respawnPoint;
         health = maxHealth;
+        playerAttack.enabled = true;
 
+        StartCoroutine(darkScene.DeactivateDarkScene());
         ActivateAllEnemies(enemyParent);
     }
 
@@ -228,5 +265,17 @@ public class PlayerLife : MonoBehaviour
     public void PlayerPray()
     {
         anim.SetTrigger("CheckPoint");
+    }
+
+
+    // save game
+    public virtual void FromJson(string jsonString)
+    {
+        GameData obj = JsonUtility.FromJson<GameData>(jsonString);
+        if (obj == null) return;
+        this.maxHealth = obj.maxHealth;
+        this.health = obj.health;
+        this.respawnPoint = obj.respawnPoint;
+        Debug.Log("" + respawnPoint);
     }
 }

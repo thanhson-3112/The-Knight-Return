@@ -11,7 +11,7 @@ public class MomButterfly : MonoBehaviour
 
     [SerializeField] private float enemySpeed = 5f;
 
-    public float distanceToStop = 20f; // Updated to 20f
+    public float distanceToStop = 20f;
     public bool isChasing;
     public float chaseDistance = 30f;
     private Vector2 initialPosition;

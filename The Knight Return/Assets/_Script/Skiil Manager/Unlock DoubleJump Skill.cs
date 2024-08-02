@@ -6,9 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class UnlockDoubleJumpSkill : MonoBehaviour
 {
+    public GameObject skillGuide;
     public TMP_Text skillText;
 
     private bool isPlayerInside = false;
+    private bool isSkillGuideActive = false;
 
     public PlayerMovement playerSkill;
     public PlayerLife playerPray;
@@ -20,6 +22,7 @@ public class UnlockDoubleJumpSkill : MonoBehaviour
         playerSkill = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         playerPray = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerLife>();
         playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+        skillGuide.SetActive(false);
     }
 
     private void Update()
@@ -30,6 +33,19 @@ public class UnlockDoubleJumpSkill : MonoBehaviour
             StartCoroutine(LockPlayerMove());
             playerPray.PlayerPray();
             playerSkill.UnlockDoubleJump();
+            skillGuide.SetActive(true);
+            isSkillGuideActive = true;
+        }
+
+        // Check for any key press to hide the skill guide
+        if (isSkillGuideActive && Input.anyKeyDown)
+        {
+            // Ignore the Up Arrow key press to avoid immediate hiding
+            if (!Input.GetKey(KeyCode.UpArrow))
+            {
+                skillGuide.SetActive(false);
+                isSkillGuideActive = false;
+            }
         }
     }
 

@@ -6,8 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class UnlockDashSkill : MonoBehaviour
 {
+    public GameObject skillGuide;
     public TMP_Text skillText;
     private bool isPlayerInside = false;
+    private bool isSkillGuideActive = false;
 
     public PlayerMovement playerSkill;
     public PlayerLife playerPray;
@@ -19,6 +21,7 @@ public class UnlockDashSkill : MonoBehaviour
         playerSkill = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         playerPray = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerLife>();
         playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+        skillGuide.SetActive(false);
     }
 
     private void Update()
@@ -29,6 +32,19 @@ public class UnlockDashSkill : MonoBehaviour
             StartCoroutine(LockPlayerMove());
             playerPray.PlayerPray();
             playerSkill.UnlockDash();
+            skillGuide.SetActive(true);
+            isSkillGuideActive = true;
+        }
+
+        // Check for any key press to hide the skill guide
+        if (isSkillGuideActive && Input.anyKeyDown)
+        {
+            // Ignore the Up Arrow key press to avoid immediate hiding
+            if (!Input.GetKey(KeyCode.UpArrow))
+            {
+                skillGuide.SetActive(false);
+                isSkillGuideActive = false;
+            }
         }
     }
 
@@ -37,7 +53,6 @@ public class UnlockDashSkill : MonoBehaviour
         playerMovement.enabled = false;
         yield return new WaitForSeconds(1.5f);
         playerMovement.enabled = true;
-
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

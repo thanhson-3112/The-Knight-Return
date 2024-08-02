@@ -4,18 +4,22 @@ using UnityEngine;
 
 public class SoulManager : MonoBehaviour
 {
+    public static SoulManager instance;
+
     //Soul
     [SerializeField] public float maxSoul = 6;
     [SerializeField] public float currentSoul;
 
-    /*public int MaxSoul { get { return maxSoul; } set { maxSoul = value; } }
-    public int CurrentSoul { get { return currentSoul; } set { currentSoul = value; } }*/
-
     public SoulUI soulUI;
+
+    private void Awake()
+    {
+        if (SoulManager.instance != null) Debug.LogError("Only 1 ScoreManager allow");
+        SoulManager.instance = this;
+    }
 
     public void Start()
     {
-        currentSoul = maxSoul;
     }
 
     public void Update()
@@ -52,5 +56,14 @@ public class SoulManager : MonoBehaviour
     public void AddCurrentSoul()
     {
         currentSoul = maxSoul;
+    }
+
+    // save game
+    public virtual void FromJson(string jsonString1)
+    {
+        GameData obj = JsonUtility.FromJson<GameData>(jsonString1);
+        if (obj == null) return;
+        this.currentSoul = obj.currentSoul;
+        this.maxSoul = obj.maxSoul;
     }
 }

@@ -31,24 +31,22 @@ public class TuskSpikes : MonoBehaviour
 
     private IEnumerator MoveUp()
     {
-        // Ch?n m?t h??ng di chuy?n ng?u nhiên
+        // chon huong bay ngau nhien
         Vector3 moveDirection = new Vector3(Random.Range(-1f, 1f), 1f, 0f).normalized;
 
-        // Bay theo h??ng ng?u nhiên ???c ch?n
         while (true)
         {
             transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
 
-            // Ki?m tra n?u ??i t??ng ?ã di chuy?n ?? xa
             if (Vector3.Distance(transform.position, initialPosition) >= 2f)
             {
-                break; // Thoát vòng l?p n?u ??i t??ng ?ã di chuy?n ?? xa
+                break; 
             }
 
             yield return null;
         }
 
-        isFalling = true; // B?t ??u r?i xu?ng
+        isFalling = true; 
         yield return MoveDown();
     }
 
@@ -56,22 +54,20 @@ public class TuskSpikes : MonoBehaviour
     {
         Vector3 targetPosition = target.transform.position;
 
-        // Tính toán h??ng và l?c ?? ??i t??ng r?i theo ???ng parabol
+        // Tinh toan huong roi xuong theo chieu parabol
         Vector2 direction = (targetPosition - transform.position).normalized;
         float distance = Vector2.Distance(transform.position, targetPosition);
         float gravity = Physics2D.gravity.magnitude;
-        float angle = 45f * Mathf.Deg2Rad; // Góc b?n 45 ??
+        float angle = 45f * Mathf.Deg2Rad;
 
         // Tính toán v?n t?c ban ??u
         float velocity = Mathf.Sqrt(distance * gravity / Mathf.Sin(2 * angle));
 
-        // Tính toán các thành ph?n v?n t?c theo tr?c x và y
         float vx = velocity * Mathf.Cos(angle);
         float vy = velocity * Mathf.Sin(angle);
 
         rb.velocity = new Vector2(vx * direction.x, vy);
 
-        // Ch? cho ??n khi ??i t??ng ch?m ??t ho?c ??t ??n m?c tiêu
         while (rb.velocity.y <= 0 && !isFalling)
         {
             yield return null;

@@ -5,7 +5,6 @@ using UnityEngine;
 using Inventory.UI;
 using Inventory.Model;
 
-
 namespace Inventory
 {
     public class InventoryController : MonoBehaviour
@@ -14,7 +13,6 @@ namespace Inventory
         [SerializeField] private InventorySO inventoryData;
 
         public List<InventoryItem> initialItems = new List<InventoryItem>();
-
 
         private void Start()
         {
@@ -44,8 +42,6 @@ namespace Inventory
             }
         }
 
-
-
         private void PrepareUI()
         {
             inventoryUI.InitializeInventoryUI(inventoryData.Size);
@@ -57,9 +53,22 @@ namespace Inventory
 
         private void HandleItemActionRequest(int itemIndex)
         {
-            throw new NotImplementedException();
-        }
+            InventoryItem inventoryItem = inventoryData.GetItemAt(itemIndex);
+            if (inventoryItem.IsEmpty)
+                return;
 
+            IItemAction itemAction = inventoryItem.item as IItemAction;
+            if (itemAction != null)
+            {
+                itemAction.PerformAction(gameObject);
+            }
+
+            IDestroyableItem destroyableItem = inventoryItem.item as IDestroyableItem;
+            if (destroyableItem != null)
+            {
+                inventoryData.RemoveItem(itemIndex, 1);
+            }
+        }
 
         private void HandleDragging(int itemIndex)
         {
@@ -85,7 +94,6 @@ namespace Inventory
                 return;
             }
             ItemSO item = inventoryItem.item;
-            /*string description = PrepareDescription(inventoryItem);*/
             inventoryUI.UpdateDescription(itemIndex, item.ItemImage,
                 item.name, item.Description);
         }
@@ -111,5 +119,6 @@ namespace Inventory
 
             }
         }
+
     }
 }

@@ -27,8 +27,8 @@ public class PlayerHealing : MonoBehaviour
     public CameraManager cameraManager;
 
     [Header("Sound")]
-    [SerializeField] private AudioSource focusHeallingSound;
-    [SerializeField] private AudioSource healingSound;
+    public AudioClip focusHeallingSound;
+    public AudioClip healingSound;
 
 
     public  void Start()
@@ -50,9 +50,9 @@ public class PlayerHealing : MonoBehaviour
         currentSoul = soulManager.currentSoul;
 
         // Nguoi choi an nut A hoi mau 
-        if (Input.GetKeyDown(KeyCode.A) && isGround && currentSoul > 0 && health < maxHealth)
+        if (Input.GetKeyDown(KeyCode.A) && isGround && currentSoul >=2 && health < maxHealth)
         {
-            focusHeallingSound.Play();
+            SoundFxManager.instance.PlaySoundFXClip(focusHeallingSound, transform, 1f);
             anim.SetBool("healing", true);
             canHeal = true;
             cameraManager.StartShrinkCamera(0.1f, 30f);
@@ -61,7 +61,7 @@ public class PlayerHealing : MonoBehaviour
         // Nguoi choi tha nut A khong hoi mau nua
         if (Input.GetKeyUp(KeyCode.A) || !isGround) 
         {
-            focusHeallingSound.Stop();
+            SoundFxManager.instance.StopAudio(focusHeallingSound);
             anim.SetBool("healing", false);
             canHeal = false; 
             holdATimer = 0f; // reset thoi gian hoi mau
@@ -74,8 +74,7 @@ public class PlayerHealing : MonoBehaviour
             holdATimer += Time.deltaTime;
             if (holdATimer >= 2f && !isMoving) 
             {
-                healingSound.Play();
-
+                SoundFxManager.instance.PlaySoundFXClip(healingSound, transform, 1f);
                 soulManager.MinusCurrentSoul();
                 playerLife.PlayerHealing();
                 holdATimer = 0f;
@@ -86,7 +85,7 @@ public class PlayerHealing : MonoBehaviour
         // xet dk ko dc hoi mau
         if(health >= maxHealth || currentSoul < 2 || isMoving)
         {
-            focusHeallingSound.Stop();
+            SoundFxManager.instance.StopAudio(focusHeallingSound);
             anim.SetBool("healing", false);
             canHeal = false;
             cameraManager.StopShrinkCamera();

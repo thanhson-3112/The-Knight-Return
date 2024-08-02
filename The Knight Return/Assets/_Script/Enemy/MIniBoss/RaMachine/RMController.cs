@@ -10,20 +10,38 @@ public class RMController : MonoBehaviour
     private bool nearAttacking = false;
     public GameObject player;
 
-    public bool canUpdate = false; 
+    public bool canUpdate = false;
 
+    public GameObject soundWave;
+    public Transform soundWavePos;
+    private bool stopSoundWave = false;
+
+    [Header("Sound")]
+    public AudioClip shootSound;
+    public AudioClip headAttackSound;
 
     void Start()
     {
-        anim = GetComponent<Animator>(); 
+        anim = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player");
         StartCoroutine(WaitBeforeStart());
     }
 
     private IEnumerator WaitBeforeStart()
     {
-        yield return new WaitForSeconds(3f); 
-        canUpdate = true; 
+        StartCoroutine(SoundWaveLoop()); // Start the sound wave loop
+        yield return new WaitForSeconds(3f);
+        canUpdate = true;
+        stopSoundWave = true; // Stop the sound wave loop
+    }
+
+    private IEnumerator SoundWaveLoop()
+    {
+        while (!stopSoundWave)
+        {
+            Instantiate(soundWave, soundWavePos.position, Quaternion.identity);
+            yield return new WaitForSeconds(0.5f); // Adjust the interval as needed
+        }
     }
 
     private void Update()
@@ -57,29 +75,30 @@ public class RMController : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         anim.SetTrigger("attack");
+        SoundFxManager.instance.PlaySoundFXClip(headAttackSound, transform, 1f);
         yield return new WaitForSeconds(3f);
         nearAttacking = false;
     }
-
 
     IEnumerator ShootAttack()
     {
         FireBallShoot();
         anim.SetBool("isMoving", true);
         yield return new WaitForSeconds(4f);
-        isAttacking = false; 
+        isAttacking = false;
     }
 
     private void FireBallShoot()
     {
         for (int i = 0; i < 3; i++)
         {
-            float offsetAngle = (i - 1) * 30f;
+            float offsetAngle = (i - 1) * 60f;
             Vector2 bulletDirection = new Vector2(Mathf.Cos(offsetAngle * Mathf.Deg2Rad), Mathf.Sin(offsetAngle * Mathf.Deg2Rad));
 
             // Instantiate bullet
             GameObject spawnedEnemy = Instantiate(RaFireball, transform.position, Quaternion.identity);
             spawnedEnemy.transform.right = bulletDirection;
+            SoundFxManager.instance.PlaySoundFXClip(shootSound, transform, 1f);
         }
     }
 }

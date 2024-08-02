@@ -40,6 +40,12 @@ public class BBAStateMachine : StateMachine
     public bool isTouchingWall;
 
     public CameraManager cam;
+    public GameObject soundWave;
+    public Transform soundWavePos;
+    private bool stopSoundWave = false;
+
+    [Header("Sound")]
+    public AudioClip wallTouch;
 
     private void Awake()
     {
@@ -49,23 +55,37 @@ public class BBAStateMachine : StateMachine
         movingState = new BBAMovingState(this, anim, rb);
         dashState = new BBADashState(this, anim, rb);
         attackState = new BBAAttackState(this, anim, rb);
-
-        randomStates = new List<BaseState>() { movingState, dashState, attackState };
     }
 
     new void Start()
     {
         base.Start();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraManager>(); 
+        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraManager>();
+        StartCoroutine(SoundWaveLoop());
     }
 
     new public void Update()
     {
         base.Update();
+        if (!canUpdate) return; // Ensure no action is taken until allowed
+
         isTouchingUp = Physics2D.OverlapCircle(goundCheckUp.position, 0.2f, groundLayer);
         isTouchingDown = Physics2D.OverlapCircle(goundCheckDown.position, 0.2f, groundLayer);
         isTouchingWall = Physics2D.OverlapCircle(goundCheckWall.position, 0.2f, groundLayer);
+
+        randomStates = new List<BaseState>() { movingState, dashState, attackState };
+        stopSoundWave = true;
+
+    }
+
+    IEnumerator SoundWaveLoop()
+    {
+        while (!stopSoundWave)
+        {
+            Instantiate(soundWave, soundWavePos.position, Quaternion.identity);
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 
     public void NextState()
@@ -88,7 +108,7 @@ public class BBAStateMachine : StateMachine
     protected override BaseState GetInitialState()
     {
         LastState = movingState;
-        LastTwoState = movingState; 
+        LastTwoState = movingState;
         return movingState;
     }
 

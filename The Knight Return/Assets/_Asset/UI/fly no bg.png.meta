@@ -320,7 +320,15 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      fly no bg_0: -7986673291615253363
+      fly no bg_1: 3408684561863682821
+      fly no bg_2: 2336066822230256599
+      fly no bg_3: -1739396536270679398
+      fly no bg_4: 2712770792214782351
+      fly no bg_5: -6455790102693297066
+      fly no bg_6: 3538860417120676636
+      fly no bg_7: -8703326026559736200
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -20,6 +20,7 @@ public class TuskJumpUpState : BaseState
         base.Enter();
         Debug.Log("jumpUp");
         SM.StartCoroutine(Jump());
+        SM.StartCoroutine(MoveTowardsPlayerForDuration(7f)); 
     }
 
     public override void UpdateLogic()
@@ -47,40 +48,42 @@ public class TuskJumpUpState : BaseState
         {
             rb.velocity = Vector2.zero;
         }
+
         yield return new WaitForSeconds(0.7f);
         rb.simulated = false;
 
+        yield return new WaitForSeconds(0.2f);
         SM.StartCoroutine(WaveAttackRoutine());
-
-        yield return new WaitForSeconds(7f);
-        SM.NextState();
     }
 
     IEnumerator WaveAttackRoutine()
     {
-        for (int waveIndex = 0; waveIndex < 3; waveIndex++)
+        for (int waveIndex = 0; waveIndex < 8; waveIndex++)
         {
-            Attack();
+            GameObject.Instantiate(SM.firePrefab1, SM.firing.position, Quaternion.identity);
             anim.SetTrigger("attack");
-            yield return new WaitForSeconds(1f);
+            SoundFxManager.instance.PlaySoundFXClip(SM.shootSound, SM.transform, 1f);
+            yield return new WaitForSeconds(0.5f);
         }
-        Attack();
+        
     }
 
-    private void Attack()
+    private IEnumerator MoveTowardsPlayerForDuration(float duration)
     {
-        for (int i = 0; i < 3; i++)
+        float timer = 0f;
+        while (timer < duration)
         {
-            float offsetAngle = (i - 1) * 90f;
-            Vector2 bulletDirection = new Vector2(Mathf.Cos(offsetAngle * Mathf.Deg2Rad), Mathf.Sin(offsetAngle * Mathf.Deg2Rad));
-
-            // Instantiate bullet
-            GameObject spawnedEnemy = GameObject.Instantiate(SM.firePrefab, SM.firing.position, Quaternion.identity);
-            spawnedEnemy.transform.right = bulletDirection;
+            if (SM.player != null)
+            {
+                Vector3 targetPosition = SM.player.position + new Vector3(0, 20, 0);
+                Vector3 directionToPlayerMove = (targetPosition - SM.transform.position).normalized;
+                SM.transform.position += directionToPlayerMove * SM.idleMovementSpeed * Time.deltaTime;
+            }
+            timer += Time.deltaTime;
+            yield return null;
         }
+        SM.NextState();
     }
-
-
 
     public override void Exit()
     {

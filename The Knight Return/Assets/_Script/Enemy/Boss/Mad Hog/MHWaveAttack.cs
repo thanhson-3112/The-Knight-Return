@@ -73,6 +73,7 @@ public class MHWaveAttack : BaseState
 
         anim.SetTrigger("MHAttack");
         SM.ShakeCam();
+        SoundFxManager.instance.PlaySoundFXClip(SM.wallTouch, SM.transform, 1f);
 
         yield return new WaitForSeconds(1f);
         SM.NextState();

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossLifeBase : MonoBehaviour
+public class BossLifeBase : MonoBehaviour, IDamageable
 {
     protected Rigidbody2D rb;
     protected Animator anim;
@@ -13,6 +13,11 @@ public class BossLifeBase : MonoBehaviour
     public PlayerLife playerLife;
     public PlayerMovement player;
 
+    private Vector3 originalPosition;
+
+    private float shakeMagnitude = 0.5f;
+    private bool isDying = false; 
+
     public virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -20,13 +25,15 @@ public class BossLifeBase : MonoBehaviour
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         player = playerObject.GetComponent<PlayerMovement>();
         playerLife = playerObject.GetComponent<PlayerLife>();
+
+        originalPosition = transform.position;
     }
 
     public virtual void Update()
     {
     }
 
-    public virtual void EnemyHit(float _damageDone)
+    public virtual void TakePlayerDamage(float _damageDone)
     {
         bossHealth -= _damageDone;
         GetComponent<SoulSpawner>().InstantiateLoot(transform.position);
@@ -45,40 +52,34 @@ public class BossLifeBase : MonoBehaviour
             enemyRigidbody.isKinematic = true;
         }
 
-        StartCoroutine(RotateOverTime(transform, Vector3.forward * 180, 1.0f));
+        // Trigger shake effect
+        isDying = true; // ?ánh d?u b?t ??u quá trình ch?t
+        StartCoroutine(Shake());
         Collider2D collider = GetComponent<Collider2D>();
         if (collider != null)
         {
             collider.enabled = false;
         }
 
-        Destroy(gameObject, 1.25f);
+        Destroy(gameObject, 2f);
 
-
-        // roi gold
+        // Roi gold
         for (int i = 0; i <= 30; i++)
         {
             GetComponent<GoldSpawner>().InstantiateLoot(transform.position);
         }
-
     }
 
-    IEnumerator RotateOverTime(Transform objectToRotate, Vector3 rotationAmount, float duration)
+    private IEnumerator Shake()
     {
-        Quaternion startRotation = objectToRotate.rotation;
-        Quaternion endRotation = objectToRotate.rotation * Quaternion.Euler(rotationAmount);
-        float timeElapsed = 0;
-
-        while (timeElapsed < duration)
+        while (isDying)
         {
-            objectToRotate.rotation = Quaternion.Lerp(startRotation, endRotation, timeElapsed / duration);
-            timeElapsed += Time.deltaTime;
+            Vector3 newPos = originalPosition + Random.insideUnitSphere * shakeMagnitude;
+            transform.position = newPos;
             yield return null;
         }
-
-        objectToRotate.rotation = endRotation;
+        transform.position = originalPosition;
     }
-
 
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
@@ -96,5 +97,4 @@ public class BossLifeBase : MonoBehaviour
             playerLife.TakeDamage(damage);
         }
     }
-
 }

@@ -7,6 +7,12 @@ public class TuskLifeController : BossLifeBase
     [SerializeField] private float TuskHealth = 5f;
     [SerializeField] private int enemyDamage = 1;
 
+    public ParticleSystem hitEffect;
+    public ParticleSystem hitEffect1;
+
+    [Header("Sound")]
+    public AudioClip deathSound;
+
     public override void Start()
     {
         bossHealth = TuskHealth;
@@ -14,4 +20,20 @@ public class TuskLifeController : BossLifeBase
 
         base.Start();
     }
+
+    public override void TakePlayerDamage(float _damageDone)
+    {
+        base.TakePlayerDamage(_damageDone);
+        hitEffect.Play();
+
+    }
+
+    public override void EnemyDie()
+    {
+        base.EnemyDie();
+        hitEffect1.Play();
+        SoundFxManager.instance.PlaySoundFXClip(deathSound, transform, 1f);
+
+    }
 }
+

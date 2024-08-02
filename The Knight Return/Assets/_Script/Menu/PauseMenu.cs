@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenu;
     public GameObject pauseMusicVolume;
+    public GameObject resumeButton; 
     public static bool isPaused;
     public static bool isSetting;
 
@@ -15,7 +17,6 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(false);
         pauseMusicVolume.SetActive(false);
         Time.timeScale = 1f;
-
     }
 
     private void Update()
@@ -39,7 +40,6 @@ public class PauseMenu : MonoBehaviour
                 }
             }
         }
-
     }
 
     private void PauseGame()
@@ -47,6 +47,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
+        EventSystem.current.SetSelectedGameObject(resumeButton); 
     }
 
     public void ResumeGame()
@@ -54,12 +55,6 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
-    }
-
-    public void RestartGame()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        ResumeGame();
     }
 
     public void SettingGame()
@@ -70,6 +65,8 @@ public class PauseMenu : MonoBehaviour
 
     public void BackToMenu()
     {
+        SaveManager.instance.SaveGame();
+        SaveSystem.SaveToDisk();
         SceneManager.LoadScene(0);
     }
 }
