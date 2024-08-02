@@ -1,0 +1,48 @@
+using System.Collections;
+using UnityEngine;
+
+public class StateMachine : MonoBehaviour
+{
+    BaseState currentState;
+    public bool canUpdate = false; // Flag to control when the state machine can update
+
+    public void Start()
+    {
+        StartCoroutine(WaitBeforeStart());
+    }
+
+    private IEnumerator WaitBeforeStart()
+    {
+        yield return new WaitForSeconds(3f); // Wait for 3 seconds
+        canUpdate = true; // Allow state machine updates
+        currentState = GetInitialState();
+        if (currentState != null)
+            currentState.Enter();
+    }
+
+    public void Update()
+    {
+        if (canUpdate && currentState != null)
+            currentState.UpdateLogic();
+    }
+
+    void LateUpdate()
+    {
+        if (canUpdate && currentState != null)
+            currentState.UpdatePhysics();
+    }
+
+    public void ChangeState(BaseState newState)
+    {
+        if (currentState != null)
+            currentState.Exit();
+
+        currentState = newState;
+        currentState.Enter();
+    }
+
+    protected virtual BaseState GetInitialState()
+    {
+        return null;
+    }
+}
