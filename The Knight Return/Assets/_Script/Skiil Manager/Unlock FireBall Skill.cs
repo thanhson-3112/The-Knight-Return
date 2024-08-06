@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,7 +13,7 @@ public class UnlockFireBallSkill : MonoBehaviour
     private bool isPlayerInside = false;
     private bool isSkillGuideActive = false;
 
-    public PlayerShooting playerSkill;
+    public PlayerShooting playerFireBall;
     public PlayerLife playerPray;
     public PlayerMovement playerMovement;
 
@@ -21,30 +22,37 @@ public class UnlockFireBallSkill : MonoBehaviour
 
     public void Start()
     {
-        playerSkill = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerShooting>();
-        playerPray = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerLife>();
-        playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+        skillGuide = DontDestroy.instance.fireballGuide;
+        skillText = DontDestroy.instance.skillText;
+        playerFireBall = DontDestroy.instance.playerFireBall;
+        playerPray = DontDestroy.instance.playerPray;
+        playerMovement = DontDestroy.instance.playerMovement;
         skillText.gameObject.SetActive(false);
         skillGuide.SetActive(false);
+
     }
 
     private void Update()
     {
+        skillGuide = DontDestroy.instance.fireballGuide;
+        skillText = DontDestroy.instance.skillText;
+        playerFireBall = DontDestroy.instance.playerFireBall;
+        playerPray = DontDestroy.instance.playerPray;
+        playerMovement = DontDestroy.instance.playerMovement;
+
         if (isPlayerInside && Input.GetKeyDown(KeyCode.UpArrow))
         {
             Debug.Log("Da an F");
             StartCoroutine(LockPlayerMove());
             playerPray.PlayerPray();
-            playerSkill.UnlockFireBall();
+            playerFireBall.UnlockFireBall();
             skillGuide.SetActive(true);
             isSkillGuideActive = true;
             SoundFxManager.instance.PlaySoundFXClip(dragonRoar, transform, 1);
         }
 
-        // Check for any key press to hide the skill guide
         if (isSkillGuideActive && Input.anyKeyDown)
         {
-            // Ignore the Up Arrow key press to avoid immediate hiding
             if (!Input.GetKey(KeyCode.UpArrow))
             {
                 skillGuide.SetActive(false);

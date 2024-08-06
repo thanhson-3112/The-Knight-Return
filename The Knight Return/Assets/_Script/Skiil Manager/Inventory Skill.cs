@@ -16,14 +16,21 @@ public class InventorySkill : MonoBehaviour
 
     public void Start()
     {
+        skillGuide = DontDestroy.instance.inventorylGuide;
+        skillText = DontDestroy.instance.skillText;
+        playerPray = DontDestroy.instance.playerPray;
+        playerMovement = DontDestroy.instance.playerMovement;
         skillText.gameObject.SetActive(false);
-        playerPray = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerLife>();
-        playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         skillGuide.SetActive(false);
     }
 
     private void Update()
     {
+        skillGuide = DontDestroy.instance.inventorylGuide;
+        skillText = DontDestroy.instance.skillText;
+        playerPray = DontDestroy.instance.playerPray;
+        playerMovement = DontDestroy.instance.playerMovement;
+
         if (isPlayerInside && Input.GetKeyDown(KeyCode.UpArrow))
         {
             Debug.Log("Da an F");
@@ -33,10 +40,8 @@ public class InventorySkill : MonoBehaviour
             isSkillGuideActive = true;
         }
 
-        // Check for any key press to hide the skill guide
         if (isSkillGuideActive && Input.anyKeyDown)
         {
-            // Ignore the Up Arrow key press to avoid immediate hiding
             if (!Input.GetKey(KeyCode.UpArrow))
             {
                 skillGuide.SetActive(false);

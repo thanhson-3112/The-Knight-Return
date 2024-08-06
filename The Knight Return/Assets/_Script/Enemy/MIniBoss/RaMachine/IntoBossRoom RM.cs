@@ -83,7 +83,7 @@ public class IntoBossRoomRM : MonoBehaviour
             canTrigger = false;
 
             isBossDefeatedRM = true;
-            BossSave.instance.UpdateBossRM();
+            BossSave.instance.UpdateBossRM(true);
         }
     }
 
@@ -112,7 +112,7 @@ public class IntoBossRoomRM : MonoBehaviour
                 canTrigger = true;
                 audioManager.PlayAudio(audioManager.map4Audio);
                 isBossDefeatedRM = false;
-                BossSave.instance.UpdateBossRM();
+                BossSave.instance.UpdateBossRM(false);
 
             }
         }

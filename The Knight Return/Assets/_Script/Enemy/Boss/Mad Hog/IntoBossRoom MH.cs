@@ -69,7 +69,7 @@ public class IntoBossRoomMH : MonoBehaviour
             canTrigger = false;
 
             isBossDefeatedMH = true;
-            BossSave.instance.UpdateBossMH();
+            BossSave.instance.UpdateBossMH(true);
         }
     }
 
@@ -94,7 +94,7 @@ public class IntoBossRoomMH : MonoBehaviour
                 canTrigger = true;
                 audioManager.PlayAudio(audioManager.map2Audio);
                 isBossDefeatedMH = false;
-                BossSave.instance.UpdateBossMH();
+                BossSave.instance.UpdateBossMH(false);
             }
         }
 

@@ -5,15 +5,24 @@ using UnityEngine;
 public class ParallaxBackground : MonoBehaviour
 {
     public ParallaxCamera parallaxCamera;
-    List<ParallaxLayer> parallaxLayers = new List<ParallaxLayer>();
+    private List<ParallaxLayer> parallaxLayers = new List<ParallaxLayer>();
 
     void Start()
     {
+        if (DontDestroy.instance != null)
+        {
+            parallaxCamera = DontDestroy.instance.mainCamera.GetComponent<ParallaxCamera>();
+        }
+
         if (parallaxCamera == null)
-            parallaxCamera = Camera.main.GetComponent<ParallaxCamera>();
+        {
+            parallaxCamera = Camera.main?.GetComponent<ParallaxCamera>();
+        }
 
         if (parallaxCamera != null)
+        {
             parallaxCamera.onCameraTranslate += Move;
+        }
 
         SetLayers();
     }

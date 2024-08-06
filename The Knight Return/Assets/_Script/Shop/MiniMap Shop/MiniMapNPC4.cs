@@ -18,6 +18,7 @@ public class MiniMapNPC4 : MonoBehaviour
 
     void Start()
     {
+        miniMapShop4 = DontDestroy.instance.miniMapShop4;
         miniMapShop4.SetActive(false);
         miniMapShop4Script = miniMapShop4.GetComponent<MiniMapShop4>();
     }

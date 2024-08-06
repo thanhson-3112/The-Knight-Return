@@ -19,6 +19,7 @@ public class ShopNPC : MonoBehaviour
 
     private void Start()
     {
+        text = DontDestroy.instance.skillText;
         text.gameObject.SetActive(false);
         shopManager = GameObject.FindGameObjectWithTag("ShopManager").GetComponent<ShopManager>();
     }

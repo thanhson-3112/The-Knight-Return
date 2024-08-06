@@ -18,6 +18,8 @@ public class MiniMapNPC1 : MonoBehaviour
 
     void Start()
     {
+        miniMapShop1 = DontDestroy.instance.miniMapShop1;
+        skillText = DontDestroy.instance.skillText;
         miniMapShop1.SetActive(false);
         miniMapShop1Script = miniMapShop1.GetComponent<MiniMapShop1>();
     }

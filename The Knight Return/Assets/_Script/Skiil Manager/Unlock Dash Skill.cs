@@ -17,15 +17,23 @@ public class UnlockDashSkill : MonoBehaviour
 
     public void Start()
     {
+        skillGuide = DontDestroy.instance.dashGuide;
+        skillText = DontDestroy.instance.skillText;
+        playerPray = DontDestroy.instance.playerPray;
+        playerMovement = DontDestroy.instance.playerMovement;
+        playerSkill = DontDestroy.instance.playerSkill;
         skillText.gameObject.SetActive(false);
-        playerSkill = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
-        playerPray = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerLife>();
-        playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         skillGuide.SetActive(false);
     }
 
     private void Update()
     {
+        skillGuide = DontDestroy.instance.dashGuide;
+        skillText = DontDestroy.instance.skillText;
+        playerPray = DontDestroy.instance.playerPray;
+        playerMovement = DontDestroy.instance.playerMovement;
+        playerSkill = DontDestroy.instance.playerSkill;
+
         if (isPlayerInside && Input.GetKeyDown(KeyCode.UpArrow))
         {
             Debug.Log("Da an F");
@@ -36,10 +44,8 @@ public class UnlockDashSkill : MonoBehaviour
             isSkillGuideActive = true;
         }
 
-        // Check for any key press to hide the skill guide
         if (isSkillGuideActive && Input.anyKeyDown)
         {
-            // Ignore the Up Arrow key press to avoid immediate hiding
             if (!Input.GetKey(KeyCode.UpArrow))
             {
                 skillGuide.SetActive(false);

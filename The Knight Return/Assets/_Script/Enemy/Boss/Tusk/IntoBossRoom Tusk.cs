@@ -68,7 +68,7 @@ public class IntoBossRoomTusk : MonoBehaviour
             canTrigger = false;
 
             isBossDefeatedTusk = true;
-            BossSave.instance.UpdateBossTusk();
+            BossSave.instance.UpdateBossTusk(true);
         }
     }
 
@@ -93,7 +93,7 @@ public class IntoBossRoomTusk : MonoBehaviour
                 canTrigger = true;
                 audioManager.PlayAudio(audioManager.map3Audio);
                 isBossDefeatedTusk = false;
-                BossSave.instance.UpdateBossTusk();
+                BossSave.instance.UpdateBossTusk(false);
             }
         }
     }

@@ -86,7 +86,7 @@ public class IntoBossRoomFP : MonoBehaviour
             canTrigger = false;
 
             isBossDefeatedFP = true;
-            BossSave.instance.UpdateBossFP();
+            BossSave.instance.UpdateBossFP(true);
         }
     }
 
@@ -114,7 +114,7 @@ public class IntoBossRoomFP : MonoBehaviour
                 canTrigger = true;
                 audioManager.PlayAudio(audioManager.map3Audio);
                 isBossDefeatedFP = false;
-                BossSave.instance.UpdateBossFP();
+                BossSave.instance.UpdateBossFP(false);
             }
         }
     }

@@ -5,95 +5,83 @@ using UnityEngine;
 public class BossSave : MonoBehaviour
 {
     public static BossSave instance;
-    public IntoBossRoomBBA bossBBA;
-    public IntoBossRoomMH bossMH;
-
-    public IntoBossRoomFP bossFP;
-    public IntoBossRoomTusk bossTusk;
-
-    public IntoBossRoomRM bossRM;
-    public IntoBossRoomNM bossNM;
-
-    public IntoBossRoomPM bossPM;
-    public IntoBossRoomBoD bossBoD;
 
     [Header("Boss check")]
     public bool bossSaveBBA;
     public bool bossSaveMH;
-
     public bool bossSaveFP;
     public bool bossSaveTusk;
-
     public bool bossSaveRM;
     public bool bossSaveNM;
-
     public bool bossSavePM;
     public bool bossSaveBoD;
 
-
     private void Awake()
     {
-        if (BossSave.instance != null) Debug.LogError("Only 1 ScoreManager allow");
-        BossSave.instance = this;
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
     }
 
-
-    public void UpdateBossMH()
+    public void UpdateBossMH(bool defeated)
     {
-        bossSaveMH = bossMH.isBossDefeatedMH;
-
+        bossSaveMH = defeated;
     }
-    public void UpdateBossBBA()
+
+    public void UpdateBossBBA(bool defeated)
     {
-        bossSaveBBA = bossBBA.isBossDefeatedBBA;
+        bossSaveBBA = defeated;
     }
 
-    public void UpdateBossFP()
+    public void UpdateBossFP(bool defeated)
     {
-        bossSaveFP = bossFP.isBossDefeatedFP;
+        bossSaveFP = defeated;
     }
 
-    public void UpdateBossTusk()
+    public void UpdateBossTusk(bool defeated)
     {
-        bossSaveTusk = bossTusk.isBossDefeatedTusk;
+        bossSaveTusk = defeated;
     }
 
-    public void UpdateBossRM()
+    public void UpdateBossRM(bool defeated)
     {
-        bossSaveRM = bossRM.isBossDefeatedRM;
+        bossSaveRM = defeated;
     }
 
-    public void UpdateBossNM()
+    public void UpdateBossNM(bool defeated)
     {
-        bossSaveNM = bossNM.isBossDefeatedNM;
+        bossSaveNM = defeated;
     }
 
-    public void UpdateBossPM()
+    public void UpdateBossPM(bool defeated)
     {
-        bossSavePM = bossPM.isBossDefeatedPM;
+        bossSavePM = defeated;
     }
 
-    public void UpdateBossBoD()
+    public void UpdateBossBoD(bool defeated)
     {
-        bossSaveBoD = bossBoD.isBossDefeatedBoD;
+        bossSaveBoD = defeated;
     }
 
-    // save game
-    public virtual void FromJson(string jsonString)
+    // Save game state
+    public void FromJson(string jsonString)
     {
         GameData obj = JsonUtility.FromJson<GameData>(jsonString);
         if (obj == null) return;
-        this.bossSaveMH = obj.bossSaveMH;
-        this.bossSaveBBA = obj.bossSaveBBA;
-
-        this.bossSaveFP = obj.bossSaveFP;
-        this.bossSaveTusk = obj.bossSaveTusk;
-
-        this.bossSaveRM = obj.bossSaveRM;
-        this.bossSaveNM = obj.bossSaveNM;
-
-        this.bossSavePM = obj.bossSavePM;
-        this.bossSaveBoD = obj.bossSaveBoD;
-
+        bossSaveMH = obj.bossSaveMH;
+        bossSaveBBA = obj.bossSaveBBA;
+        bossSaveFP = obj.bossSaveFP;
+        bossSaveTusk = obj.bossSaveTusk;
+        bossSaveRM = obj.bossSaveRM;
+        bossSaveNM = obj.bossSaveNM;
+        bossSavePM = obj.bossSavePM;
+        bossSaveBoD = obj.bossSaveBoD;
     }
 }
+

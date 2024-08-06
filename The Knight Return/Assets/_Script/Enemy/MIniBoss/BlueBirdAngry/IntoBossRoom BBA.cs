@@ -69,7 +69,7 @@ public class IntoBossRoomBBA : MonoBehaviour
             canTrigger = false;
 
             isBossDefeatedBBA = true;
-            BossSave.instance.UpdateBossBBA();
+            BossSave.instance.UpdateBossBBA(true);
         }
     }
 
@@ -94,7 +94,7 @@ public class IntoBossRoomBBA : MonoBehaviour
                 canTrigger = true;
                 audioManager.PlayAudio(audioManager.map2Audio);
                 isBossDefeatedBBA = false;
-                BossSave.instance.UpdateBossBBA();
+                BossSave.instance.UpdateBossBBA(false);
             }
         }
     }

@@ -11,7 +11,7 @@ public class IntoBossRoomBoD : MonoBehaviour
 
     private bool canTrigger = true;
 
-    public string bossName; 
+    public string bossName;
     public BossNameText bossNameText;
 
 
@@ -71,7 +71,7 @@ public class IntoBossRoomBoD : MonoBehaviour
             canTrigger = false;
 
             isBossDefeatedBoD = true;
-            BossSave.instance.UpdateBossBoD();
+            BossSave.instance.UpdateBossBoD(true);
         }
     }
 
@@ -96,7 +96,7 @@ public class IntoBossRoomBoD : MonoBehaviour
                 canTrigger = true;
                 audioManager.PlayAudio(audioManager.map5Audio);
                 isBossDefeatedBoD = false;
-                BossSave.instance.UpdateBossBoD();
+                BossSave.instance.UpdateBossBoD(false);
             }
         }
     }

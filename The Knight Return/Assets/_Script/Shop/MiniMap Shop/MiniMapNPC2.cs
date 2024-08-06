@@ -18,6 +18,7 @@ public class MiniMapNPC2 : MonoBehaviour
 
     void Start()
     {
+        miniMapShop2 = DontDestroy.instance.miniMapShop2;
         miniMapShop2.SetActive(false);
         miniMapShop2Script = miniMapShop2.GetComponent<MiniMapShop2>();
     }
