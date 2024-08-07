@@ -11,6 +11,11 @@ public class MiniMapManager : MonoBehaviour
     public GameObject miniMap4;
     public GameObject miniMap5;
 
+    public GameObject miniMapOfMap2;
+    public GameObject miniMapOfMap3;
+    public GameObject miniMapOfMap4;
+    public GameObject miniMapOfMap5;
+
     private float holdTimer;
     private bool isMinimapActive = false;
 
@@ -18,6 +23,7 @@ public class MiniMapManager : MonoBehaviour
     public bool lockMiniMap3 = true;
     public bool lockMiniMap4 = true;
     public bool lockMiniMap5 = true;
+
 
     private void Awake()
     {
@@ -71,6 +77,52 @@ public class MiniMapManager : MonoBehaviour
             miniMap5.SetActive(false);
             isMinimapActive = false; 
         }
+
+        /*if(MapManager.instance.map2Active == true)
+        {
+            miniMapOfMap2.SetActive(true);
+        }
+        else
+        {
+            miniMapOfMap2.SetActive(false);
+        }
+
+        if (MapManager.instance.map3Active == true)
+        {
+            miniMapOfMap3.SetActive(true);
+        }
+        else
+        {
+            miniMapOfMap3.SetActive(false);
+        }
+
+        if (MapManager.instance.map4Active == true)
+        {
+            miniMapOfMap4.SetActive(true);
+        }
+        else
+        {
+            miniMapOfMap4.SetActive(false);
+        }
+
+        if (MapManager.instance.map5Active == true)
+        {
+            miniMapOfMap5.SetActive(true);
+        }
+        else
+        {
+            miniMapOfMap5.SetActive(false);
+        }*/
+
+        GameObject[] miniMaps = { miniMapOfMap2, miniMapOfMap3, miniMapOfMap4, miniMapOfMap5 };
+        bool[] mapActiveStates = { MapManager.instance.map2Active, MapManager.instance.map3Active, 
+            MapManager.instance.map4Active, MapManager.instance.map5Active };
+
+        for (int i = 0; i < miniMaps.Length; i++)
+        {
+            miniMaps[i].SetActive(mapActiveStates[i]);
+        }
+
     }
 
     public void UnLockMiniMap2()

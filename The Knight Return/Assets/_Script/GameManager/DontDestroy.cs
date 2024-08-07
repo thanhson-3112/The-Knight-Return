@@ -34,7 +34,7 @@ public class DontDestroy : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
-            SceneManager.sceneLoaded += OnSceneLoaded; // ??ng ký s? ki?n khi scene ???c t?i
+            SceneManager.sceneLoaded += OnSceneLoaded; 
         }
         else
         {
@@ -47,26 +47,30 @@ public class DontDestroy : MonoBehaviour
         InitializeReferences();
     }
 
-    // Ph??ng th?c này s? ???c g?i m?i khi m?t scene m?i ???c t?i
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         InitializeReferences();
     }
 
-    // Ph??ng th?c ?? gán các tham chi?u
     private void InitializeReferences()
     {
         mainCamera = Camera.main; // Gán mainCamera t?i ?ây
-        skillText = GameObject.FindGameObjectWithTag("UpArrow")?.GetComponent<TMP_Text>();
-        playerFireBall = GameObject.FindGameObjectWithTag("Player")?.GetComponent<PlayerShooting>();
-        playerSkill = GameObject.FindGameObjectWithTag("Player")?.GetComponent<PlayerMovement>();
-        playerPray = GameObject.FindGameObjectWithTag("Player")?.GetComponent<PlayerLife>();
-        playerMovement = GameObject.FindGameObjectWithTag("Player")?.GetComponent<PlayerMovement>();
+        skillText = GameObject.FindGameObjectWithTag("UpArrow").GetComponent<TMP_Text>();
+        playerFireBall = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerShooting>();
+        playerSkill = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+        playerPray = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerLife>();
+        playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
 
-        // Gán các object minimap n?u c?n thi?t
-        miniMapShop1 = GameObject.Find("Shop MIniMap Manager 1");
-        miniMapShop2 = GameObject.Find("Shop MIniMap Manager 2");
-        miniMapShop3 = GameObject.Find("Shop MIniMap Manager 3");
-        miniMapShop4 = GameObject.Find("Shop MIniMap Manager 4");
+        miniMapShop1 = Resources.Load<GameObject>("MiniMap/Shop MiniMap Manager 1");
+        miniMapShop2 = Resources.Load<GameObject>("MiniMap/Shop MiniMap Manager 2");
+        miniMapShop3 = Resources.Load<GameObject>("MiniMap/Shop MiniMap Manager 3");
+        miniMapShop4 = Resources.Load<GameObject>("MiniMap/Shop MiniMap Manager 4");
+
+        healingGuide = Resources.Load<GameObject>("Skill/Healing Guide");
+        inventorylGuide = Resources.Load<GameObject>("Skill/Inventory Guide"); 
+        fireballGuide = Resources.Load<GameObject>("Skill/FireBall Guide");
+        dashGuide = Resources.Load<GameObject>("Skill/Dash Guide");
+        doubleJumpGuide = Resources.Load<GameObject>("Skill/DoubleJump Guide");
+        slideWallGuide = Resources.Load<GameObject>("Skill/SlideWall Guide");
     }
 }
