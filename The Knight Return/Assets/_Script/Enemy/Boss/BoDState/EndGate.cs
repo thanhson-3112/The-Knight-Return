@@ -21,7 +21,7 @@ public class EndGate : MonoBehaviour
         if (isPlayerInside && Input.GetKeyDown(KeyCode.UpArrow))
         {
             Debug.Log("Da an up arrow");
-            SceneManager.LoadScene(3);
+            SceneManager.LoadScene(8);
         }
     }
 
