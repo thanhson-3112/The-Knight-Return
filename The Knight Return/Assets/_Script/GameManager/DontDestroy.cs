@@ -8,14 +8,6 @@ public class DontDestroy : MonoBehaviour
 
     public Camera mainCamera;
 
-    [Header("Skill Guide")]
-    public GameObject healingGuide;
-    public GameObject inventorylGuide;
-    public GameObject fireballGuide;
-    public GameObject dashGuide;
-    public GameObject doubleJumpGuide;
-    public GameObject slideWallGuide;
-
     public TMP_Text skillText;
     public PlayerShooting playerFireBall;
     public PlayerMovement playerSkill;
@@ -65,12 +57,10 @@ public class DontDestroy : MonoBehaviour
         miniMapShop2 = Resources.Load<GameObject>("MiniMap/Shop MiniMap Manager 2");
         miniMapShop3 = Resources.Load<GameObject>("MiniMap/Shop MiniMap Manager 3");
         miniMapShop4 = Resources.Load<GameObject>("MiniMap/Shop MiniMap Manager 4");
+    }
 
-        healingGuide = Resources.Load<GameObject>("Skill/Healing Guide");
-        inventorylGuide = Resources.Load<GameObject>("Skill/Inventory Guide"); 
-        fireballGuide = Resources.Load<GameObject>("Skill/FireBall Guide");
-        dashGuide = Resources.Load<GameObject>("Skill/Dash Guide");
-        doubleJumpGuide = Resources.Load<GameObject>("Skill/DoubleJump Guide");
-        slideWallGuide = Resources.Load<GameObject>("Skill/SlideWall Guide");
+    public Camera GetMainCamera()
+    {
+        return mainCamera;
     }
 }

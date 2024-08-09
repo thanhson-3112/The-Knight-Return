@@ -17,7 +17,6 @@ public class UnlockDashSkill : MonoBehaviour
 
     public void Start()
     {
-        skillGuide = DontDestroy.instance.dashGuide;
         skillText = DontDestroy.instance.skillText;
         playerPray = DontDestroy.instance.playerPray;
         playerMovement = DontDestroy.instance.playerMovement;
@@ -28,7 +27,6 @@ public class UnlockDashSkill : MonoBehaviour
 
     private void Update()
     {
-        skillGuide = DontDestroy.instance.dashGuide;
         skillText = DontDestroy.instance.skillText;
         playerPray = DontDestroy.instance.playerPray;
         playerMovement = DontDestroy.instance.playerMovement;

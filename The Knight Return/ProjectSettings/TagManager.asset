@@ -20,6 +20,8 @@ TagManager:
   - DashGuide
   - DoubleGuide
   - SlideWallGuide
+  - InventoryGuide
+  - HealingGuide
   layers:
   - Default
   - TransparentFX

@@ -59,6 +59,7 @@ public class PlayerLife : MonoBehaviour
         playerGold = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerGold>();
         playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         playerAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
+        checkPointText = DontDestroy.instance.skillText;
 
         StartCoroutine(PosPlayer());
     }

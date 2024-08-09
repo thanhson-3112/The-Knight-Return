@@ -16,7 +16,6 @@ public class InventorySkill : MonoBehaviour
 
     public void Start()
     {
-        skillGuide = DontDestroy.instance.inventorylGuide;
         skillText = DontDestroy.instance.skillText;
         playerPray = DontDestroy.instance.playerPray;
         playerMovement = DontDestroy.instance.playerMovement;
@@ -26,7 +25,6 @@ public class InventorySkill : MonoBehaviour
 
     private void Update()
     {
-        skillGuide = DontDestroy.instance.inventorylGuide;
         skillText = DontDestroy.instance.skillText;
         playerPray = DontDestroy.instance.playerPray;
         playerMovement = DontDestroy.instance.playerMovement;

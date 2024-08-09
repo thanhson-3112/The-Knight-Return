@@ -24,12 +24,10 @@ public class UnlockWallJumpSkill : MonoBehaviour
         playerSkill = DontDestroy.instance.playerSkill;
         skillText.gameObject.SetActive(false);
         skillGuide.SetActive(false);
-        skillGuide = DontDestroy.instance.slideWallGuide;
     }
 
     private void Update()
     {
-        skillGuide = DontDestroy.instance.slideWallGuide;
         skillText = DontDestroy.instance.skillText;
         playerPray = DontDestroy.instance.playerPray;
         playerMovement = DontDestroy.instance.playerMovement;

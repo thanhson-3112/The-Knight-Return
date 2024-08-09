@@ -16,7 +16,6 @@ public class HealingSkill : MonoBehaviour
 
     public void Start()
     {
-        skillGuide = DontDestroy.instance.healingGuide;
         skillText = DontDestroy.instance.skillText;
         playerPray = DontDestroy.instance.playerPray;
         playerMovement = DontDestroy.instance.playerMovement;
@@ -26,7 +25,6 @@ public class HealingSkill : MonoBehaviour
 
     private void Update()
     {
-        skillGuide = DontDestroy.instance.healingGuide;
         skillText = DontDestroy.instance.skillText;
         playerPray = DontDestroy.instance.playerPray;
         playerMovement = DontDestroy.instance.playerMovement;

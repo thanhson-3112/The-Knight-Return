@@ -18,7 +18,6 @@ public class UnlockDoubleJumpSkill : MonoBehaviour
 
     public void Start()
     {
-        skillGuide = DontDestroy.instance.doubleJumpGuide;
         skillText = DontDestroy.instance.skillText;
         playerPray = DontDestroy.instance.playerPray;
         playerMovement = DontDestroy.instance.playerMovement;
@@ -29,7 +28,6 @@ public class UnlockDoubleJumpSkill : MonoBehaviour
 
     private void Update()
     {
-        skillGuide = DontDestroy.instance.doubleJumpGuide;
         skillText = DontDestroy.instance.skillText;
         playerPray = DontDestroy.instance.playerPray;
         playerMovement = DontDestroy.instance.playerMovement;

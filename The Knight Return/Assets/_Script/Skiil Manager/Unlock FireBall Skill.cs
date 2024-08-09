@@ -22,7 +22,6 @@ public class UnlockFireBallSkill : MonoBehaviour
 
     public void Start()
     {
-        skillGuide = DontDestroy.instance.fireballGuide;
         skillText = DontDestroy.instance.skillText;
         playerFireBall = DontDestroy.instance.playerFireBall;
         playerPray = DontDestroy.instance.playerPray;
@@ -34,7 +33,6 @@ public class UnlockFireBallSkill : MonoBehaviour
 
     private void Update()
     {
-        skillGuide = DontDestroy.instance.fireballGuide;
         skillText = DontDestroy.instance.skillText;
         playerFireBall = DontDestroy.instance.playerFireBall;
         playerPray = DontDestroy.instance.playerPray;

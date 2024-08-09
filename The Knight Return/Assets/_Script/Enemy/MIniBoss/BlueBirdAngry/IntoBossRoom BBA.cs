@@ -22,7 +22,6 @@ public class IntoBossRoomBBA : MonoBehaviour
 
     public void Start()
     {
-        boss = GameObject.FindGameObjectWithTag("MiniBoss");
         audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
     }
 
