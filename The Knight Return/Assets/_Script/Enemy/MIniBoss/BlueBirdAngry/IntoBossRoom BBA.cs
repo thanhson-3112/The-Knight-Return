@@ -22,7 +22,9 @@ public class IntoBossRoomBBA : MonoBehaviour
 
     public void Start()
     {
+        boss = GameObject.FindGameObjectWithTag("Boss");
         audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
+        bossNameText = DontDestroy.instance.bossName.GetComponent<BossNameText>();
     }
 
     public void Update()

@@ -19,7 +19,7 @@ public class MiniMapShop1 : MonoBehaviour
     {
         miniMapShop1.SetActive(false);
         playerGold = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerGold>();
-        /*playerGold = DontDestroy.instance.playerGold;*/
+        
     }
 
     public void Update()

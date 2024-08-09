@@ -16,7 +16,6 @@ public class InventorySkill : MonoBehaviour
 
     public void Start()
     {
-        skillText = DontDestroy.instance.skillText;
         playerPray = DontDestroy.instance.playerPray;
         playerMovement = DontDestroy.instance.playerMovement;
         skillText.gameObject.SetActive(false);
@@ -25,7 +24,6 @@ public class InventorySkill : MonoBehaviour
 
     private void Update()
     {
-        skillText = DontDestroy.instance.skillText;
         playerPray = DontDestroy.instance.playerPray;
         playerMovement = DontDestroy.instance.playerMovement;
 

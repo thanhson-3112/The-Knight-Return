@@ -20,6 +20,8 @@ public class DontDestroy : MonoBehaviour
     public GameObject miniMapShop3;
     public GameObject miniMapShop4;
 
+    public GameObject bossName;
+
     private void Awake()
     {
         if (instance == null)
@@ -53,14 +55,12 @@ public class DontDestroy : MonoBehaviour
         playerPray = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerLife>();
         playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
 
-        miniMapShop1 = Resources.Load<GameObject>("MiniMap/Shop MiniMap Manager 1");
-        miniMapShop2 = Resources.Load<GameObject>("MiniMap/Shop MiniMap Manager 2");
-        miniMapShop3 = Resources.Load<GameObject>("MiniMap/Shop MiniMap Manager 3");
-        miniMapShop4 = Resources.Load<GameObject>("MiniMap/Shop MiniMap Manager 4");
+        miniMapShop1 = GameObject.FindGameObjectWithTag("MiniMapManager1");
+        miniMapShop2 = GameObject.FindGameObjectWithTag("MiniMapManager2");
+        miniMapShop3 = GameObject.FindGameObjectWithTag("MiniMapManager3");
+        miniMapShop4 = GameObject.FindGameObjectWithTag("MiniMapManager4");
+
+        bossName = GameObject.FindGameObjectWithTag("BossName");
     }
 
-    public Camera GetMainCamera()
-    {
-        return mainCamera;
-    }
 }

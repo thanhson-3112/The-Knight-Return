@@ -24,6 +24,7 @@ public class IntoBossRoomBoD : MonoBehaviour
     {
         boss = GameObject.FindGameObjectWithTag("Boss");
         audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
+        bossNameText = DontDestroy.instance.bossName.GetComponent<BossNameText>();
 
     }
 

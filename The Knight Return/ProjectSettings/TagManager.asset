@@ -16,12 +16,12 @@ TagManager:
   - ShopManager
   - ShopNPC
   - UpArrow
-  - FireBallGuide
-  - DashGuide
-  - DoubleGuide
-  - SlideWallGuide
-  - InventoryGuide
-  - HealingGuide
+  - Item
+  - MiniMapManager1
+  - MiniMapManager2
+  - MiniMapManager3
+  - MiniMapManager4
+  - BossName
   layers:
   - Default
   - TransparentFX
