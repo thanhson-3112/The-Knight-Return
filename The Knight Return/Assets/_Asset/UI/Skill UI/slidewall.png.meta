@@ -152,7 +152,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      slidewall_0: 1889758182388434065
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

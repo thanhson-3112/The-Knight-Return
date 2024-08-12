@@ -7,7 +7,7 @@ public class MiniMapNPC4 : MonoBehaviour
 {
     public GameObject miniMapShop4;
 
-    public TMP_Text skillText;
+    public GameObject skillText;
     private bool isPlayerInside = false;
     private bool isShopOpen = false;
 
@@ -19,12 +19,16 @@ public class MiniMapNPC4 : MonoBehaviour
     void Start()
     {
         miniMapShop4 = DontDestroy.instance.miniMapShop4;
+        skillText = DontDestroy.instance.skillText;
         miniMapShop4.SetActive(false);
         miniMapShop4Script = miniMapShop4.GetComponent<MiniMapShop4>();
     }
 
     private void Update()
     {
+        miniMapShop4 = DontDestroy.instance.miniMapShop4;
+        skillText = DontDestroy.instance.skillText;
+
         if (isPlayerInside && Input.GetKeyDown(KeyCode.UpArrow) && !isShopOpen)
         {
             if (!miniMapShop4Script.IsMiniMapBought()) // Kiem tra da mua hang

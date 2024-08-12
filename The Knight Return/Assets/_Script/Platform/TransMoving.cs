@@ -14,7 +14,7 @@ public class TransMoving : MonoBehaviour
     private Rigidbody2D playerRb;
 
     public DarkScene darkScene;
-    public TMP_Text text;
+    public GameObject text;
 
     private void Update()
     {

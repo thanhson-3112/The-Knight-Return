@@ -22,7 +22,7 @@ public class PlayerLife : MonoBehaviour
     [SerializeField] private GameObject takeDamageEffect;
 
     [Header("CheckPoint")]
-    [SerializeField] private TMP_Text checkPointText;
+    [SerializeField] private GameObject checkPointText;
     private bool canActivateCheckpoint = false;
     public Vector2 respawnPoint = new Vector2(-283.04f, 114.50f);
     private Vector2 trapRespawnPoint;
@@ -62,6 +62,7 @@ public class PlayerLife : MonoBehaviour
         checkPointText = DontDestroy.instance.skillText;
 
         StartCoroutine(PosPlayer());
+        StartCoroutine(LockPlayerMove());
     }
 
     public IEnumerator PosPlayer()

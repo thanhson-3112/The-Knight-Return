@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class UnlockWallJumpSkill : MonoBehaviour
 {
     public GameObject skillGuide;
-    public TMP_Text skillText;
+    public GameObject skillText;
 
     private bool isPlayerInside = false;
     private bool isSkillGuideActive = false;

@@ -6,7 +6,7 @@ using UnityEngine;
 public class InventorySkill : MonoBehaviour
 {
     public GameObject skillGuide;
-    public TMP_Text skillText;
+    public GameObject skillText;
 
     private bool isPlayerInside = false;
     private bool isSkillGuideActive = false;
@@ -18,12 +18,14 @@ public class InventorySkill : MonoBehaviour
     {
         playerPray = DontDestroy.instance.playerPray;
         playerMovement = DontDestroy.instance.playerMovement;
+        skillText = DontDestroy.instance.skillText;
         skillText.gameObject.SetActive(false);
         skillGuide.SetActive(false);
     }
 
     private void Update()
     {
+        skillText = DontDestroy.instance.skillText;
         playerPray = DontDestroy.instance.playerPray;
         playerMovement = DontDestroy.instance.playerMovement;
 

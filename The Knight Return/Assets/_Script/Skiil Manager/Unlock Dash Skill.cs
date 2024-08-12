@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class UnlockDashSkill : MonoBehaviour
 {
     public GameObject skillGuide;
-    public TMP_Text skillText;
+    public GameObject skillText;
     private bool isPlayerInside = false;
     private bool isSkillGuideActive = false;
 

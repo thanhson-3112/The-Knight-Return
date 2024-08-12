@@ -152,7 +152,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      forest-fog-morning-dark-path-autumn-forest-mist-landscape-3840x2160-8010_0: 960023959636766005
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

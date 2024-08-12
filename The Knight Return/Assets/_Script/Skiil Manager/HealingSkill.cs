@@ -6,7 +6,7 @@ using UnityEngine;
 public class HealingSkill : MonoBehaviour
 {
     public GameObject skillGuide;
-    public TMP_Text skillText;
+    public GameObject skillText;
 
     private bool isPlayerInside = false;
     private bool isSkillGuideActive = false;
@@ -18,6 +18,7 @@ public class HealingSkill : MonoBehaviour
     {
         playerPray = DontDestroy.instance.playerPray;
         playerMovement = DontDestroy.instance.playerMovement;
+        skillText = DontDestroy.instance.skillText;
         skillText.gameObject.SetActive(false);
         skillGuide.SetActive(false);
     }

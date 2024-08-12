@@ -7,7 +7,7 @@ public class ShopNPC : MonoBehaviour
 {
     [SerializeField] ShopManager shopManager;
 
-    public TMP_Text text;
+    public GameObject text;
     private bool isPlayerInside = false;
     private bool isShopOpen = false;
 
