@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class EndGate : MonoBehaviour
 {
-    public TMP_Text displayText;
+    public GameObject displayText;
 
     private bool isPlayerInside = false;
 
@@ -17,7 +17,7 @@ public class EndGate : MonoBehaviour
 
     private void Update()
     {
-        displayText = GameObject.FindGameObjectWithTag("UpArrow").GetComponent<TMP_Text>();
+        displayText = DontDestroy.instance.skillText;
         if (isPlayerInside && Input.GetKeyDown(KeyCode.UpArrow))
         {
             Debug.Log("Da an up arrow");
